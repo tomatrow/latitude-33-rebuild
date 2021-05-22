@@ -18,7 +18,7 @@
     style="height: {height}"
 >
     <a href="/">
-        <img class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
+        <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
     </a>
     <nav class="flex">
         {#each links as { href, title }}
