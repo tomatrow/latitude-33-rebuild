@@ -1,0 +1,19 @@
+.line-decoration {
+    &::after {
+        content: " ";
+        display: block;
+        transform: scaleX(0);
+        transform-origin: var(--line-origin, 0% 50%);
+        transition: transform;
+        transition-duration: var(--line-duration, 0.5s);
+        height: var(--line-height, 0.125rem);
+        width: 100%;
+        max-width: var(--line-max-width, none);
+        background-color: var(--line-color, black);
+    }
+
+    &.active-line::after,
+    &:hover::after {
+        transform: scaleX(var(--line-scale, 1));
+    }
+}
