@@ -7,6 +7,7 @@ export interface LineConfig {
     force: boolean
     scale: number
     color: string
+    trackColor: string
 }
 
 export type LineActionConfig = boolean | Partial<LineConfig>
@@ -23,8 +24,9 @@ export function line(node: HTMLElement, config: LineActionConfig) {
         const _config: Partial<LineConfig> = typeof config === "object" ? config : {}
         node.classList.add(name)
         node.classList[_config?.force ? "add" : "remove"]("active-line")
+        node.classList[_config?.trackColor ? "add" : "remove"]("track-line")
         Object.entries(_config)
-            .filter(([key]) => key !== "force")
+            .filter(([key]) => !["force"].includes(key))
             .forEach(([key, value]) => {
                 node.style.setProperty(`--line-${_.kebabCase(key)}`, String(value))
             })

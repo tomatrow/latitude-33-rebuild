@@ -1,19 +1,46 @@
-<h1>Welcome to SvelteKit</h1>
-<p style="height: 125vh">
-    Visit <a class="text-red-600 underline" href="https://kit.svelte.dev">kit.svelte.dev</a> to read
-    the documentation
-</p>
+<script lang="ts">
+    import Link from "$lib/components/Link.svelte"
+    import Button from "$lib/components/Button.svelte"
+    import YouTubeModal from "$lib/components/YouTubeModal.svelte"
+    import { openModal } from "$lib/components/ModalProvider.svelte"
+    const brandName = "Latitude 33 Aviation"
+    const heroTitleHtml = "Private Charter Flights, Jet<br />Purchasing & Aircraft <br />Management"
+    const heroLink = { href: "#", title: "Book Your Trip" }
+</script>
 
-<!-- 
-    The Youtube link 
-    https://www.youtube.com/channel/UC8-H2tz_KZV6dEUj0B4BflQ 
--->
+<section class="hero flex items-center justify-center">
+    <div
+        class="font-display max-w-screen-xl flex items-center justify-center px-8 w-full text-white"
+    >
+        <div class="flex items-start flex-col my-auto md:w-1/2">
+            <h2 class="uppercase" style="letter-spacing: 2px;font-size: 1.75rem">{brandName}</h2>
+            <h1
+                class="font-extrabold"
+                style="letter-spacing: 0.6px; font-size: 2.375rem; line-height: 2.75rem "
+            >
+                {@html heroTitleHtml}
+            </h1>
+            <Link
+                style="letter-spacing: 0.6px"
+                line={{ color: "white", trackColor: "#bababa" }}
+                href={heroLink.href}>{heroLink.title}</Link
+            >
+        </div>
+        <Button
+            class="hidden md:block w-1/2"
+            on:click={() => openModal(YouTubeModal, { videoId: "ZCVeb_EtDfc" })}
+        >
+            <img class="w-14 h-14 mx-auto p-2" alt="play button" src="/icons/play.png" />
+        </Button>
+    </div>
+</section>
+
 <style>
     .hero {
         min-height: 80vh;
         width: 100vw;
         background-image: linear-gradient(180deg, rgba(16, 16, 16, 0.44), rgba(16, 16, 16, 0.44)),
-            url("https://assets.website-files.com/6041a319742f69f4e391edce/605b801e15d161453dba309d_Bombarder-Challenger-300-Type-2.jpeg");
+            url("/images/Bombarder-Challenger-300-Type-2.jpeg");
         background-position: 0px 0px, 50% 50%;
         background-size: auto, cover;
         background-repeat: repeat, no-repeat;
