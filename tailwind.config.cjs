@@ -24,7 +24,9 @@ module.exports = {
 		extend: {
             colors: {
                 "a-taste-of-blueberries": "#24369A",
-                "either-gray-blue": "#537FA9"
+                "either-gray-blue": "#537FA9",
+                "scorpion-tan": "#D6CCBB",
+                "pre-coffee-sky-blue": "#9CBADC"
             },
             boxShadow: { 
                 "inner-10xl": "inset 0 200px 200px 200px rgba(0, 0, 0, 0.1)"
