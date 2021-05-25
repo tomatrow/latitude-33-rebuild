@@ -14,7 +14,7 @@
 </script>
 
 <header
-    class="bg-a-taste-of-blueberries fixed top-0 right-0 left-0 flex items-center justify-center"
+    class="bg-a-taste-of-blueberries fixed top-0 right-0 left-0 z-40 flex items-center justify-center"
     style="height: {height}"
 >
     <a href="/">
