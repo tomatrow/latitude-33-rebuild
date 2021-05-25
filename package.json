@@ -2,6 +2,7 @@
   "name": "~TODO~",
   "version": "0.0.1",
   "scripts": {
+    "prebuild": "test \"$CI\" = true && npx pnpm install -r --store=node_modules/.pnpm-store || echo skiping pnpm install",
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
     "preview": "svelte-kit preview"
