@@ -21,9 +21,9 @@
     ]
 </script>
 
-<section class="grid grid-cols-3 gap-6 max-w-7xl mx-auto px-12 pb-24">
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto px-12 pb-24">
     {#each blurbs as { logoUrl, title, content }}
-        <div class="">
+        <div>
             <img class="pb-2 w-32 h-32" alt="plane in the sunset" src={logoUrl} />
             <h6 class="text-either-gray-blue font-display py-2 text-xl">{title}</h6>
             <p class="tracking-wide font-light">{content}</p>
