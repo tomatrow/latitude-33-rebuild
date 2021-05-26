@@ -9,7 +9,7 @@
         { title: "Sales", href: "#" },
         { title: "About", href: "#" },
         { title: "Resources", href: "#" },
-        { title: "Contact", href: "#" }
+        { title: "Contact", href: "/contact" }
     ]
 </script>
 

@@ -2,11 +2,12 @@
     import { cssVars } from "../actions/styles"
     import Link from "$lib/components/Link.svelte"
     import ApplicationDesignGridLayout from "$lib/svgs/ApplicationDesignGridLayout.svelte"
-    import EnvelopeSmall from "$lib/svgs/EnvelopeSmall.svelte"
-    import PhoneSmall from "$lib/svgs/PhoneSmall.svelte"
+    import Envelope from "$lib/svgs/Envelope.svelte"
+    import Phone from "$lib/svgs/Phone.svelte"
     import IconChevronRight from "$lib/svgs/IconChevronRight.svelte"
     import UsersFemaleMale from "$lib/svgs/UsersFemaleMale.svelte"
     import BackpackSchool from "$lib/svgs/BackpackSchool.svelte"
+    import { social } from "$lib/data/social"
 
     const footerBackgroundImageUrl =
         "/images/Cessna-Citation-Sovereign-Super-Midsize-Aircraft-For-Charter.jpeg"
@@ -27,7 +28,7 @@
         { href: "#", title: "Management" },
         { href: "#", title: "Blog" },
         { href: "#", title: "About" },
-        { href: "#", title: "Contact" },
+        { href: "/contact", title: "Contact" },
         { href: "#", title: "Team" },
         { href: "#", title: "Careers" },
         { href: "#", title: "Testimonials" }
@@ -64,10 +65,10 @@
             <Link
                 class="space-x-2 flex items-center font-extrabold"
                 href="mailto:{contactInfo.email}"
-                ><EnvelopeSmall class="mr-4 w-6 h-6" /> {contactInfo.email}</Link
+                ><Envelope class="mr-4 w-6 h-6" /> {contactInfo.email}</Link
             >
             <Link class="space-x-2 flex items-center font-extrabold" href="tel:{contactInfo.phone}">
-                <PhoneSmall class="mr-4 w-6 h-6" />{contactInfo.phone}</Link
+                <Phone class="mr-4 w-6 h-6" />{contactInfo.phone}</Link
             >
             <h6 class="font-semibold">{@html contactInfo.streetAddressHtml}</h6>
         </div>
@@ -93,10 +94,29 @@
             {/each}
         </div>
     </nav>
-    <nav class="space-x-5 flex justify-center lg:justify-start mt-32 px-5">
-        {#each smallLinks as { title, href }}
-            <Link {href} class="text-sm">{title}</Link>
-        {/each}
+    <nav
+        class="space-y-8 md:space-y-0 flex items-center flex-col md:flex-row md:justify-between mt-32 px-5"
+    >
+        <div class="space-x-5 flex">
+            {#each smallLinks as { title, href }}
+                <Link {href} class="text-sm">{title}</Link>
+            {/each}
+        </div>
+        <div class="space-x-5 flex">
+            {#each social as { href, icon }}
+                <Link
+                    {href}
+                    target="_blank"
+                    class="transition-opacity duration-200 opacity-50 hover:opacity-100"
+                    ><svelte:component
+                        this={icon}
+                        class="w-5 h-5 text-white"
+                        strokeWidth="0"
+                        fill="white"
+                    /></Link
+                >
+            {/each}
+        </div>
     </nav>
 </footer>
 

@@ -26,7 +26,9 @@ module.exports = {
                 "a-taste-of-blueberries": "#24369A",
                 "either-gray-blue": "#537FA9",
                 "scorpion-tan": "#D6CCBB",
-                "pre-coffee-sky-blue": "#9CBADC"
+                "pre-coffee-sky-blue": "#9CBADC",
+                "calm-summer-horizon":"#89D4E5",
+                "dark-charcoal": "#333333"
             },
             boxShadow: { 
                 "inner-10xl": "inset 0 200px 200px 200px rgba(0, 0, 0, 0.1)"

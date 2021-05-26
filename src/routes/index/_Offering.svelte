@@ -21,11 +21,13 @@
     <h4 class="font-display mt-2 mb-6 md:pr-20 font-black text-2xl md:text-5xl">
         {heading}
     </h4>
-    <div class="injected-content space-y-10 mb-4 tracking-wider font-light md:text-xl">
+    <div class="injected-content space-y-10 airy-copy mb-4 md:text-xl">
         {@html contentHtml}
     </div>
     <Link
-        class="action-link transition duration-200 font-display bg-pre-coffee-sky-blue inline-block py-4 px-6 rounded text-white font-black text-sm"
+        shadow
+        pill
+        class="bg-pre-coffee-sky-blue inline-block py-4 px-6 font-black text-sm"
         {href}>{linkTitle}</Link
     >
 </div>
@@ -34,10 +36,6 @@
     .offering {
         .injected-content a {
             @apply text-either-gray-blue font-semibold;
-        }
-
-        a.action-link:hover {
-            box-shadow: inset 0 200px 200px 200px rgba(0, 0, 0, 0.1);
         }
     }
 
