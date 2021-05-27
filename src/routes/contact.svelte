@@ -104,7 +104,7 @@
                 {sidebar.socialMediaHeading}
             </h4>
             <div class="space-x-2 flex">
-                {#each social as { href, name, icon }}
+                {#each social as { href, icon }}
                     <Link
                         shadow
                         pill
