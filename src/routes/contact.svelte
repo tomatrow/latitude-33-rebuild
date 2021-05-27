@@ -46,6 +46,7 @@
         <h1 class="font-display max-w-xl text-white font-black text-5xl">{heading}</h1>
     </div>
 </div>
+
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-6 my-12 px-6">
     <form
         use:form

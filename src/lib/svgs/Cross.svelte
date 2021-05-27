@@ -1,6 +1,7 @@
 <script>
     export let size = "100%"
     export let strokeWidth = 1
+    export let fill = "none"
     export { clazz as class }
     let clazz = ""
     if (size !== "100%") {
@@ -10,17 +11,15 @@
 </script>
 
 <svg
+    xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    stroke="black"
+    viewBox="0 0 24 24"
+    {fill}
+    stroke="currentColor"
     stroke-width={strokeWidth}
-    class={clazz}
-    fill="currentColor"
-    stroke-miterlimit="10"
-    viewBox="-4 0 18 17"
-    ><g transform="rotate(45)"
-        ><path d="m0 0h7v-7h5v7h7v5h-7v7h-5v-7h-7z" /><path
-            d="m1 1h7v-7h3v7h7v3h-7v7h-3v-7h-7z"
-        /></g
-    ></svg
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="{clazz} feather feather-x"
+    ><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg
 >

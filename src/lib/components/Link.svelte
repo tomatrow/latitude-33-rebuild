@@ -45,6 +45,7 @@
     class:shadow-inner-full={shadow}
     class="{clazz} {classes}"
     use:lineAction={line}
+    on:click
     {...$$restProps}
 >
     <slot />

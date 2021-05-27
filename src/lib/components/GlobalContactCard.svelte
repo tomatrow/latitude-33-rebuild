@@ -1,0 +1,163 @@
+<script lang="ts">
+    import Button from "$lib/components/Button.svelte"
+    import Field, { fieldDefaults } from "$lib/components/Field.svelte"
+    import { createForm } from "felte"
+    import { createValidator } from "@felte/validator-superstruct"
+    import { object, string, size } from "superstruct"
+    import reporter from "@felte/reporter-cvapi"
+    import IconArrowRight from "$lib/svgs/IconArrowRight.svelte"
+    import Link from "$lib/components/Link.svelte"
+    import Envelope from "$lib/svgs/Envelope.svelte"
+    import Phone from "$lib/svgs/Phone.svelte"
+    import Cross from "$lib/svgs/Cross.svelte"
+    import lottie from "lottie-web"
+    import { browser } from "$app/env"
+    import type { AnimationEventName } from "lottie-web"
+    import { fly } from "svelte/transition"
+    import PaperPlaneToy from "$lib/svgs/PaperPlaneToy.svelte"
+
+    export let showing: boolean
+
+    const { form } = createForm({
+        extend: [createValidator(() => "Enter a value"), reporter],
+        validateStruct: object({
+            name: size(string(), 1, Infinity),
+            email: size(string(), 1, Infinity),
+            phone: size(string(), 1, Infinity),
+            service_requested: size(string(), 1, Infinity)
+        }),
+        onSubmit() {}
+    })
+
+    const sidebar = {
+        title: "Get in touch",
+        blurb: "Experience the finest in air travel with Latitude 33 Aviation, Southern California’s premier company for private jet charter, aircraft management, and aircraft sales.",
+        bookingLink: {
+            title: "Book Your Trip",
+            href: "#"
+        },
+        addressTitle: "Contact Infomation",
+        addressHtml: "2100 Palomar Airport Road<br />Suite 211<br />Carlsbad, CA 92011",
+        emails: ["charter@L33jets.com", "contact@L33jets.com"],
+        phone: "844.670.0310",
+        socialMediaHeading: "Social Media"
+    }
+
+    const text = {
+        class: "mt-1 text-black  border border-either-gray-blue text-sm py-2 px-3",
+        rootProps: {
+            class: "flex flex-col text-base   font-bold font-display"
+        }
+    }
+    const select = {
+        class: "h-9 border border-either-gray-blue text-either-gray-blue font-bold",
+        rootProps: {
+            class: "flex flex-col text-base   font-bold font-display"
+        }
+    }
+    let lottieContainer: HTMLDivElement
+    $: if (browser && lottieContainer) {
+        lottie.setQuality("low")
+        const animation = lottie.loadAnimation({
+            path: "/bg-dna-lottie.json",
+            container: lottieContainer,
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            rendererSettings: {
+                // preserveAspectRatio: "xMidYMid meet",
+                clearCanvas: true,
+                progressiveLoad: true,
+                hideOnTransparent: true
+            }
+        })
+        animation.setSpeed(0.33)
+    }
+</script>
+
+<Button
+    on:click={() => (showing = true)}
+    shadow
+    class="bg-calm-summer-horizon mb-28 fixed right-0 bottom-0 z-40 mr-6 p-2 border-2 border-white rounded-full text-white"
+>
+    <PaperPlaneToy class="h-9 w-9" />
+</Button>
+
+{#if showing}
+    <section
+        transition:fly={{
+            delay: 0,
+            duration: 500,
+            x: 600,
+            y: 0
+        }}
+        id="yes"
+        class="space-y-2 bg-either-gray-blue fixed top-0 right-0 z-50 overflow-y-scroll py-10 px-5 h-screen max-w-lg max-h-screen text-white"
+    >
+        <Button shadow on:click={() => (showing = false)}>
+            <Cross
+                class="absolute top-0 right-0 m-4 w-10 h-10 text-white fill-current"
+                fill="currentColor"
+                strokeWidth={1}
+            />
+        </Button>
+        <div
+            bind:this={lottieContainer}
+            class="absolute inset-0 w-full h-full opacity-10"
+            style="z-index: -1;margin-top: 0"
+        />
+
+        <form use:form id="contact_page_form" class="space-y-2" on:submit|preventDefault>
+            <Field {...text} name="name">Name</Field>
+            <Field {...text} type="email" name="email">Email Address</Field>
+            <Field {...text} type="tel" name="phone">Phone Number</Field>
+            <Field {...select} type="select" name="service_requested">
+                How Can We Help You?
+                <svelte:fragment slot="options">
+                    <option>Select One</option>
+                    <option value="service_01">Service 01</option>
+                    <option value="service_02">Service 02</option>
+                    <option value="service_03">Service 03</option>
+                </svelte:fragment>
+            </Field>
+            <Button class="py-2 px-4 border border-white" type="submit">Submit</Button>
+        </form>
+
+        <h4 class="font-display my-4 font-bold text-lg">{sidebar.title}</h4>
+        <p class="airy-copy text-sm">
+            {sidebar.blurb}
+        </p>
+
+        <Link
+            href={sidebar.bookingLink.href}
+            class="arrow-link font-display flex items-center my-2 font-bold text-lg"
+        >
+            {sidebar.bookingLink.title}
+            <IconArrowRight class="arrow-right transition duration-200 w-4 h-4" />
+        </Link>
+
+        <h4 class="font-display font-bold text-lg" style="margin-top: 2rem">
+            {sidebar.addressTitle}
+        </h4>
+        <div class="airy-copy text-sm">
+            {@html sidebar.addressHtml}
+        </div>
+
+        {#each sidebar.emails as email}
+            <Link class="flex items-center font-black text-lg" href="mailto:{email}"
+                ><Envelope class="mr-4 w-6 h-6" />{email}</Link
+            >
+        {/each}
+        <Link
+            class="flex items-center font-black text-lg"
+            href="tel:{sidebar.phone.match(/\d/g).join('')}"
+            ><Phone class="mr-4 w-6 h-6" />{sidebar.phone}</Link
+        >
+    </section>
+{/if}
+
+<style>
+    :global(.arrow-link:hover .arrow-right) {
+        transform: translateX(6px);
+    }
+</style>

@@ -20,6 +20,7 @@
 
 <button
     {type}
+    on:click
     class:shadow-inner-full={shadow}
     class="{clazz} {classes}"
     use:lineAction={line}
