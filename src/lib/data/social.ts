@@ -1,8 +1,8 @@
-import Linkedin from "$lib/svgs/Linkedin.svelte"
-import Facebook from "$lib/svgs/Facebook.svelte"
-import Twitter from "$lib/svgs/Twitter.svelte"
-import Instagram from "$lib/svgs/Instagram.svelte"
-import Youtube from "$lib/svgs/Youtube.svelte"
+import Linkedin from "../svgs/Linkedin.svelte"
+import Facebook from "../svgs/Facebook.svelte"
+import Twitter from "../svgs/Twitter.svelte"
+import Instagram from "../svgs/Instagram.svelte"
+import Youtube from "../svgs/Youtube.svelte"
 
 export const social = [
     {
