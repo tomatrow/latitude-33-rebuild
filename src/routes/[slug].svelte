@@ -2,16 +2,15 @@
     import { query } from "$lib/scripts/apollo"
     import { GetPageQuery } from "$lib/queries/pages"
 
-    /**
-     * @type {import('@sveltejs/kit').Load}
-     */
-    export async function load({ page, fetch, session, context }) {
+    export const load: import("@sveltejs/kit").Load = async ({ page, session }) => {
         const slug = page.path.slice(1)
-        const { id, templateName } = session.pages.find(page => page.slug === slug)
-        if (!id)
+        const pageInfo = session.pages.find(page => page.slug === slug)
+        if (!pageInfo)
             return {
                 status: 404
             }
+
+        const { id, templateName } = pageInfo
         const response = await query(GetPageQuery, { id })
 
         return {

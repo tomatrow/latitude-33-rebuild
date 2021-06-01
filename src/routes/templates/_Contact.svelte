@@ -28,6 +28,11 @@
     export let template: object
 
     const { contactPageFields } = template
+
+    function stripPhone(phone: string) {
+        console.log({ phone })
+        return phone.match(/\d/g)?.join("") ?? ""
+    }
 </script>
 
 <div class="banner mb-12 py-32">
@@ -89,7 +94,7 @@
             {/each}
             <Link
                 class="flex items-center font-black text-lg"
-                href="tel:{contactPageFields.sidebar.phone.match(/\d/g).join('')}"
+                href="tel:{stripPhone(contactPageFields.sidebar.phone)}"
                 ><Phone class="mr-4 w-6 h-6" />{contactPageFields.sidebar.phone}</Link
             >
 
