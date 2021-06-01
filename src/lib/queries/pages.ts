@@ -3,7 +3,6 @@ import { graphql } from "$lib/scripts/apollo"
 export const ContactFragment = graphql`
     fragment ContactFragment on Template_Contact {
         contactPageFields {
-            heading
             subHeading
             sidebar {
                 blurb
@@ -42,19 +41,15 @@ export const AllPagesFragment = graphql`
 `
 
 export const GetPageQuery = graphql`
-query GetPage($id: ID!) {
-  page(id: $id) {
-    id
-    slug
-    title
-    template {
-       ...ContactFragment
+    query GetPage($id: ID!) {
+        page(id: $id) {
+            id
+            slug
+            title
+            template {
+                ...ContactFragment
+            }
+        }
     }
-  }
-  
-  ${ContactFragment}
-}
-
-
-
+    ${ContactFragment}
 `
