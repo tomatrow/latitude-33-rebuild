@@ -8,6 +8,7 @@
     "preview": "svelte-kit preview"
   },
   "devDependencies": {
+    "@apollo/client": "^3.3.19",
     "@felte/reporter-cvapi": "^0.1.13",
     "@felte/validator-superstruct": "^0.2.5",
     "@sveltejs/adapter-netlify": "^1.0.0-next.14",
@@ -16,9 +17,12 @@
     "@tomatrow/zen-format": "^1.0.2",
     "@types/lodash": "^4.14.170",
     "autoprefixer": "^10.2.6",
+    "axios": "^0.21.1",
     "bueno": "^0.1.5",
+    "cross-fetch": "^3.1.4",
     "cssnano": "^5.0.4",
     "felte": "^0.7.1",
+    "graphql": "^15.5.0",
     "lodash": "^4.17.21",
     "lottie-web": "^5.7.8",
     "postcss": "^8.3.0",

@@ -4,6 +4,14 @@ import Twitter from "../svgs/Twitter.svelte"
 import Instagram from "../svgs/Instagram.svelte"
 import Youtube from "../svgs/Youtube.svelte"
 
+export const icons = {
+    facebook: Facebook,
+    linkedin: Linkedin,
+    instagram: Instagram,
+    twitter: Twitter,
+    youtube: Youtube
+}
+
 export const social = [
     {
         href: "https://www.facebook.com/l33jets",

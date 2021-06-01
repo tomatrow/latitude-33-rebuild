@@ -1,16 +1,7 @@
 <script lang="ts">
     export let height = "6.25rem"
     import Link from "$lib/components/Link.svelte"
-
-    const links = [
-        { title: "Charter", href: "#" },
-        { title: "Fleet", href: "#" },
-        { title: "Managment", href: "#" },
-        { title: "Sales", href: "#" },
-        { title: "About", href: "#" },
-        { title: "Resources", href: "#" },
-        { title: "Contact", href: "/contact" }
-    ]
+    import { session } from "$app/stores"
 </script>
 
 <header
@@ -21,9 +12,9 @@
         <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
     </a>
     <nav class="flex">
-        {#each links as { href, title }}
-            <Link class="font-display text-white text-lg" line={{ color: "white" }} {href}
-                ><span class="p-2">{title}</span></Link
+        {#each $session.menus.primary.menuItems as { label, url }}
+            <Link class="font-display text-white text-lg" line={{ color: "white" }} href={url}
+                ><span class="p-2">{label}</span></Link
             >
         {/each}
     </nav>
