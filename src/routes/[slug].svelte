@@ -1,3 +1,21 @@
+<script lang="ts" context="module">
+    import { query } from "$lib/scripts/apollo"
+
+    /**
+     * @type {import('@sveltejs/kit').Load}
+     */
+    export async function load({ page, fetch, session, context }) {
+        console.log({ page, session, context })
+        const slug = page.path.slice(1)
+        console.log({ slug })
+        
+        
+        return {
+            status: 200
+        }
+    }
+</script>
+
 <script lang="ts">
     import Button from "$lib/components/Button.svelte"
     import Field, { fieldDefaults } from "$lib/components/Field.svelte"
