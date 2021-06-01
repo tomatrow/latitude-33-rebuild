@@ -35,6 +35,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>{title}</title>
+</svelte:head>
+
 <div class="banner mb-12 py-32">
     <div class="space-y-6 max-w-screen-2xl mx-auto px-6">
         <h5 class="font-display text-white font-extrabold text-sm">
