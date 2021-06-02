@@ -1,22 +1,35 @@
 <script lang="ts">
     import Button from "$lib/components/Button.svelte"
+    import Link from "$lib/components/Link.svelte"
     import Field, { fieldDefaults } from "$lib/components/Field.svelte"
     import { createForm } from "felte"
     import { createValidator } from "@felte/validator-superstruct"
     import { object, string, size } from "superstruct"
     import reporter from "@felte/reporter-cvapi"
-    import IconArrowRight from "$lib/svgs/IconArrowRight.svelte"
-    import Link from "$lib/components/Link.svelte"
-    import Envelope from "$lib/svgs/Envelope.svelte"
-    import Phone from "$lib/svgs/Phone.svelte"
-    import Cross from "$lib/svgs/Cross.svelte"
+    import { IconArrowRight, Envelope, Phone, Cross, PaperPlaneToy } from "$lib/svgs"
+
     import lottie from "lottie-web"
     import { browser } from "$app/env"
     import type { AnimationEventName } from "lottie-web"
     import { fly } from "svelte/transition"
-    import PaperPlaneToy from "$lib/svgs/PaperPlaneToy.svelte"
+
+    import { query } from "$lib/scripts/apollo"
+    import { FloatingContactFormQuery } from "$lib/queries/contactForms"
+    import { stripPhone, splitChoices } from "$lib/scripts/utility"
+    import { session } from "$app/stores"
+    import { icons } from "$lib/data/social"
 
     export let showing: boolean
+
+    let fields: any
+    query(FloatingContactFormQuery)
+        .then(
+            (response: any) =>
+                (fields =
+                    response?.data.themeGeneralSettings.themeSettingsFields.floatingContactForm
+                        .contactFormFields)
+        )
+        .catch(error => console.error(error))
 
     const { form } = createForm({
         extend: [createValidator(() => "Enter a value"), reporter],
@@ -28,20 +41,6 @@
         }),
         onSubmit() {}
     })
-
-    const sidebar = {
-        title: "Get in touch",
-        blurb: "Experience the finest in air travel with Latitude 33 Aviation, Southern California’s premier company for private jet charter, aircraft management, and aircraft sales.",
-        bookingLink: {
-            title: "Book Your Trip",
-            href: "#"
-        },
-        addressTitle: "Contact Infomation",
-        addressHtml: "2100 Palomar Airport Road<br />Suite 211<br />Carlsbad, CA 92011",
-        emails: ["charter@L33jets.com", "contact@L33jets.com"],
-        phone: "844.670.0310",
-        socialMediaHeading: "Social Media"
-    }
 
     const text = {
         class: "mt-1 text-black  border border-either-gray-blue text-sm py-2 px-3",
@@ -83,7 +82,7 @@
     <PaperPlaneToy class="h-9 w-9" />
 </Button>
 
-{#if showing}
+{#if fields && showing}
     <section
         transition:fly={{
             delay: 0,
@@ -108,51 +107,74 @@
         />
 
         <form use:form id="contact_page_form" class="space-y-2" on:submit|preventDefault>
-            <Field {...text} name="name">Name</Field>
-            <Field {...text} type="email" name="email">Email Address</Field>
-            <Field {...text} type="tel" name="phone">Phone Number</Field>
+            <Field {...text} name="name">{fields.form.nameLabel}</Field>
+            <Field {...text} type="email" name="email">{fields.form.emailLabel}</Field>
+            <Field {...text} type="tel" name="phone">{fields.form.phoneLabel}</Field>
             <Field {...select} type="select" name="service_requested">
-                How Can We Help You?
+                {fields.form.servicesLabel}
                 <svelte:fragment slot="options">
                     <option>Select One</option>
-                    <option value="service_01">Service 01</option>
-                    <option value="service_02">Service 02</option>
-                    <option value="service_03">Service 03</option>
+                    {#each splitChoices(fields.form.serviceChoices) as value}
+                        <option {value}>{value}</option>
+                    {/each}
                 </svelte:fragment>
             </Field>
             <Button class="py-2 px-4 border border-white" type="submit">Submit</Button>
         </form>
 
-        <h4 class="font-display my-4 font-bold text-lg">{sidebar.title}</h4>
+        <h4 class="font-display my-4 font-bold text-lg">{fields.sidebar.title}</h4>
         <p class="airy-copy text-sm">
-            {sidebar.blurb}
+            {fields.sidebar.blurb}
         </p>
 
         <Link
-            href={sidebar.bookingLink.href}
+            href={fields.sidebar.bookingLink.url}
             class="arrow-link font-display flex items-center my-2 font-bold text-lg"
         >
-            {sidebar.bookingLink.title}
+            {fields.sidebar.bookingLink.title}
             <IconArrowRight class="arrow-right transition duration-200 w-4 h-4" />
         </Link>
 
         <h4 class="font-display font-bold text-lg" style="margin-top: 2rem">
-            {sidebar.addressTitle}
+            {fields.sidebar.address.title}
         </h4>
-        <div class="airy-copy text-sm">
-            {@html sidebar.addressHtml}
+        <div class="airy-copy whitespace-pre-line text-sm">
+            {fields.sidebar.address.content}
         </div>
 
-        {#each sidebar.emails as email}
+        {#each [fields.sidebar.email1, fields.sidebar.email2] as email}
             <Link class="flex items-center font-black text-lg" href="mailto:{email}"
                 ><Envelope class="mr-4 w-6 h-6" />{email}</Link
             >
         {/each}
         <Link
             class="flex items-center font-black text-lg"
-            href="tel:{sidebar.phone.match(/\d/g).join('')}"
-            ><Phone class="mr-4 w-6 h-6" />{sidebar.phone}</Link
+            href="tel:{stripPhone(fields.sidebar.phone)}"
+            ><Phone class="mr-4 w-6 h-6" />{fields.sidebar.phone}</Link
         >
+
+        {#if fields.sidebar.socialMedia.visibility === "show"}
+            <h4 class="font-display font-bold text-lg" style="margin-top: 3rem">
+                {fields.sidebar.socialMedia.heading}
+            </h4>
+            <div class="space-x-2 flex">
+                {#each $session.menus.social.menuItems as { url, fields }}
+                    <Link
+                        shadow
+                        pill
+                        target="_blank"
+                        class="bg-pre-coffee-sky-blue border-pre-coffee-sky-blue flex items-center justify-center w-10 h-10 border-2"
+                        href={url}
+                        ><svelte:component
+                            this={icons[fields.icon]}
+                            class="w-4 h-4 text-white"
+                            fill="white"
+                            strokeWidth="0"
+                        /></Link
+                    >
+                {/each}
+            </div>
+        {/if}
     </section>
 {/if}
 

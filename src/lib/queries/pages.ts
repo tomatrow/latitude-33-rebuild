@@ -1,24 +1,13 @@
 import { graphql } from "$lib/scripts/apollo"
+import { AcfLinkFragment } from "./utility"
+import { ContactFormFragment } from "./contactForms"
 
 export const ContactFragment = graphql`
     fragment ContactFragment on Template_Contact {
         contactPageFields {
             subHeading
-            sidebar {
-                blurb
-                email1
-                email2
-                phone
-                socialMediaHeading
-                title
-                bookingLink {
-                    url
-                    title
-                }
-                address {
-                    title
-                    content
-                }
+            form {
+                ...ContactFormFragment
             }
         }
     }
@@ -36,4 +25,6 @@ export const GetPageQuery = graphql`
         }
     }
     ${ContactFragment}
+    ${ContactFormFragment}
+    ${AcfLinkFragment}
 `

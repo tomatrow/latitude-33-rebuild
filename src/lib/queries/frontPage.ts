@@ -1,12 +1,5 @@
 import { graphql } from "$lib/scripts/apollo"
-
-export const AcfLinkFragment = graphql`
-    fragment AcfLinkFragment on AcfLink {
-        url
-        title
-        target
-    }
-`
+import { AcfLinkFragment } from "./utility"
 
 export const FrontPageQuery = graphql`
     query FrontPageQuery($id: ID!) {

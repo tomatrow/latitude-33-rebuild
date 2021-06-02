@@ -5,11 +5,16 @@
     import { createValidator } from "@felte/validator-superstruct"
     import { object, string, size } from "superstruct"
     import reporter from "@felte/reporter-cvapi"
-    import IconArrowRight from "$lib/svgs/IconArrowRight.svelte"
+
+    import { Envelope, Phone, IconArrowRight } from "$lib/svgs"
+
     import Link from "$lib/components/Link.svelte"
-    import { social } from "$lib/data/social"
-    import Envelope from "$lib/svgs/Envelope.svelte"
-    import Phone from "$lib/svgs/Phone.svelte"
+
+    import { icons } from "$lib/data/social"
+    import { stripPhone, splitChoices } from "$lib/scripts/utility"
+    import { session } from "$app/stores"
+
+    console.log({ props: $$props })
 
     const { form } = createForm({
         extend: [createValidator(() => "Enter a value"), reporter],
@@ -25,13 +30,9 @@
     export let id: string
     export let slug: string
     export let title: string
-    export let template: object
+    export let template: any
 
-    const { contactPageFields } = template
-
-    function stripPhone(phone: string) {
-        return phone.match(/\d/g)?.join("") ?? ""
-    }
+    const fields = template.contactPageFields.form.contactFormFields
 </script>
 
 <svelte:head>
@@ -41,7 +42,7 @@
 <div class="banner mb-12 py-32">
     <div class="space-y-6 max-w-screen-2xl mx-auto px-6">
         <h5 class="font-display text-white font-extrabold text-sm">
-            {contactPageFields.subHeading}
+            {template.contactPageFields.subHeading}
         </h5>
         <h1 class="font-display max-w-xl text-white font-black text-5xl">{title}</h1>
     </div>
@@ -54,73 +55,75 @@
         class="space-y-3 mx-auto w-full max-w-lg"
         on:submit|preventDefault
     >
-        <Field {...fieldDefaults.text} name="name">Name</Field>
-        <Field {...fieldDefaults.text} type="email" name="email">Email Address</Field>
-        <Field {...fieldDefaults.text} type="tel" name="phone">Phone Number</Field>
+        <Field {...fieldDefaults.text} name="name">{fields.form.nameLabel}</Field>
+        <Field {...fieldDefaults.text} type="email" name="email">{fields.form.emailLabel}</Field>
+        <Field {...fieldDefaults.text} type="tel" name="phone">{fields.form.phoneLabel}</Field>
         <Field {...fieldDefaults.select} type="select" name="service_requested">
-            How Can We Help You?
+            {fields.form.servicesLabel}
             <svelte:fragment slot="options">
                 <option>Select One</option>
-                <option value="service_01">Service 01</option>
-                <option value="service_02">Service 02</option>
-                <option value="service_03">Service 03</option>
+                {#each splitChoices(fields.form.serviceChoices) as value}
+                    <option {value}>{value}</option>
+                {/each}
             </svelte:fragment>
         </Field>
         <Button blob shadow class="bg-either-gray-blue py-2 px-4" type="submit">Submit</Button>
     </form>
     <div class="flex items-center justify-center">
         <section class="bg-either-gray-blue w-96 rounded-md space-y-2 flex flex-col p-2 text-white">
-            <h4 class="font-display font-bold text-lg">{contactPageFields.sidebar.title}</h4>
+            <h4 class="font-display font-bold text-lg">{fields.sidebar.title}</h4>
             <p class="airy-copy">
-                {contactPageFields.sidebar.blurb}
+                {fields.sidebar.blurb}
             </p>
 
             <Link
-                href={contactPageFields.sidebar.bookingLink.url}
+                href={fields.sidebar.bookingLink.url}
                 class="arrow-link font-display flex items-center font-bold text-lg"
             >
-                {contactPageFields.sidebar.bookingLink.title}
+                {fields.sidebar.bookingLink.title}
                 <IconArrowRight class="arrow-right transition duration-200 w-4 h-4" />
             </Link>
 
             <h4 class="font-display font-bold text-lg" style="margin-top: 3rem">
-                {contactPageFields.sidebar.address.title}
+                {fields.sidebar.address.title}
             </h4>
             <div class="airy-copy whitespace-pre-line">
-                {contactPageFields.sidebar.address.content}
+                {fields.sidebar.address.content}
             </div>
 
-            {#each [contactPageFields.sidebar.email1, contactPageFields.sidebar.email2] as email}
+            {#each [fields.sidebar.email1, fields.sidebar.email2] as email}
                 <Link class="flex items-center font-black text-lg" href="mailto:{email}"
                     ><Envelope class="mr-4 w-6 h-6" />{email}</Link
                 >
             {/each}
             <Link
                 class="flex items-center font-black text-lg"
-                href="tel:{stripPhone(contactPageFields.sidebar.phone)}"
-                ><Phone class="mr-4 w-6 h-6" />{contactPageFields.sidebar.phone}</Link
+                href="tel:{stripPhone(fields.sidebar.phone)}"
+                ><Phone class="mr-4 w-6 h-6" />{fields.sidebar.phone}</Link
             >
 
-            <h4 class="font-display font-bold text-lg" style="margin-top: 3rem">
-                {contactPageFields.sidebar.socialMediaHeading}
-            </h4>
-            <div class="space-x-2 flex">
-                {#each social as { href, icon }}
-                    <Link
-                        shadow
-                        pill
-                        target="_blank"
-                        class="bg-pre-coffee-sky-blue border-pre-coffee-sky-blue flex items-center justify-center w-10 h-10 border-2"
-                        {href}
-                        ><svelte:component
-                            this={icon}
-                            class="w-4 h-4 text-white"
-                            fill="white"
-                            strokeWidth="0"
-                        /></Link
-                    >
-                {/each}
-            </div>
+            {#if fields.sidebar.socialMedia.visibility === "show"}
+                <h4 class="font-display font-bold text-lg" style="margin-top: 3rem">
+                    {fields.sidebar.socialMedia.heading}
+                </h4>
+                <div class="space-x-2 flex">
+                    {#each $session.menus.social.menuItems as { url, fields }}
+                        <Link
+                            shadow
+                            pill
+                            target="_blank"
+                            class="bg-pre-coffee-sky-blue border-pre-coffee-sky-blue flex items-center justify-center w-10 h-10 border-2"
+                            href={url}
+                            ><svelte:component
+                                this={icons[fields.icon]}
+                                class="w-4 h-4 text-white"
+                                fill="white"
+                                strokeWidth="0"
+                            /></Link
+                        >
+                    {/each}
+                </div>
+            {/if}
         </section>
     </div>
 </div>
