@@ -3,9 +3,8 @@
 
     export let subheading: string
     export let heading: string
-    export let contentHtml: string
-    export let linkTitle: string
-    export let href: string
+    export let contenthtml: string
+    export let link: any
     export let imageUrl: string
     export let imageAlt: string
 </script>
@@ -22,13 +21,14 @@
         {heading}
     </h4>
     <div class="injected-content space-y-10 airy-copy mb-4 md:text-xl">
-        {@html contentHtml}
+        {@html contenthtml}
     </div>
     <Link
         shadow
         pill
         class="bg-pre-coffee-sky-blue inline-block py-4 px-6 font-black text-sm"
-        {href}>{linkTitle}</Link
+        href={link.url}
+        target={link.target}>{link.title}</Link
     >
 </div>
 

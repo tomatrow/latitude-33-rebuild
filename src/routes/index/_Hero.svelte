@@ -4,12 +4,12 @@
     import YouTubeModal from "$lib/components/YouTubeModal.svelte"
     import { openModal } from "$lib/components/ModalProvider.svelte"
 
-    const brandName = "Latitude 33 Aviation"
-    const heroSettings = {
-        titleHtml: "Private Charter Flights, Jet<br />Purchasing & Aircraft <br />Management",
-        link: { href: "#", title: "Book Your Trip" },
-        videoId: "ZCVeb_EtDfc"
-    }
+    export let brandName: string
+    export let title: string
+    export let pageLink: any
+    export let youtubeId: string
+
+    console.log({ pageLink })
 </script>
 
 <section class="hero flex items-center justify-center">
@@ -19,20 +19,21 @@
         <div class="flex items-start flex-col my-auto md:w-1/2">
             <h2 class="uppercase" style="letter-spacing: 2px;font-size: 1.75rem">{brandName}</h2>
             <h1
-                class="font-extrabold"
+                class="whitespace-pre-line font-extrabold"
                 style="letter-spacing: 0.6px; font-size: 2.375rem; line-height: 2.75rem "
             >
-                {@html heroSettings.titleHtml}
+                {title}
             </h1>
             <Link
                 style="letter-spacing: 0.6px"
                 line={{ color: "white", trackColor: "#bababa" }}
-                href={heroSettings.link.href}>{heroSettings.link.title}</Link
+                target={pageLink.target}
+                href={pageLink.url}>{pageLink.title}</Link
             >
         </div>
         <Button
             class="hidden md:block w-1/2"
-            on:click={() => openModal(YouTubeModal, { videoId: heroSettings.videoId })}
+            on:click={() => openModal(YouTubeModal, { videoId: youtubeId })}
         >
             <img class="w-14 h-14 mx-auto p-2" alt="play button" src="/icons/play.png" />
         </Button>

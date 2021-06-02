@@ -10,13 +10,13 @@
                 status: 404
             }
 
-        const { id, templateName } = pageInfo
+        const { id, template } = pageInfo
         const response = await query(GetPageQuery, { id })
 
         return {
             status: 200,
             props: {
-                templateName,
+                templateName: template.templateName,
                 page: response.data.page
             }
         }

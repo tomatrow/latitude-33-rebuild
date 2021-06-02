@@ -12,6 +12,7 @@ export const getSession: import("@sveltejs/kit").GetSession = async () => {
                         node {
                             id
                             slug
+                            isFrontPage
                             template {
                                 templateName
                             }
@@ -99,13 +100,7 @@ export const getSession: import("@sveltejs/kit").GetSession = async () => {
         }
 
         function formatPages(pages) {
-            return pages.edges
-                .map(edge => edge.node)
-                .map(({ slug, id, ...rest }) => ({
-                    id,
-                    slug,
-                    templateName: rest.template.templateName
-                }))
+            return pages.edges.map(edge => edge.node)
         }
 
         return {

@@ -24,22 +24,6 @@ export const ContactFragment = graphql`
     }
 `
 
-export const AllPagesFragment = graphql`
-    fragment AllPagesFragment on RootQuery {
-        pages(first: 100, where: { status: PUBLISH, hasPassword: false }) {
-            edges {
-                node {
-                    id
-                    slug
-                    template {
-                        templateName
-                    }
-                }
-            }
-        }
-    }
-`
-
 export const GetPageQuery = graphql`
     query GetPage($id: ID!) {
         page(id: $id) {
