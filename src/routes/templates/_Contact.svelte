@@ -30,7 +30,6 @@
     const { contactPageFields } = template
 
     function stripPhone(phone: string) {
-        console.log({ phone })
         return phone.match(/\d/g)?.join("") ?? ""
     }
 </script>

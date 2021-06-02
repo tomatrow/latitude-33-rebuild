@@ -8,8 +8,6 @@
     export let title: string
     export let pageLink: any
     export let youtubeId: string
-
-    console.log({ pageLink })
 </script>
 
 <section class="hero flex items-center justify-center">
