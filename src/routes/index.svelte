@@ -16,7 +16,7 @@
         return {
             status: 200,
             props: {
-                page: response.data.page.contentType.node.contentNodes.edges[0].node
+                page: response.data.page
             }
         }
     }

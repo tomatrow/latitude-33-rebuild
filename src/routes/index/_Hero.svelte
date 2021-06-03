@@ -1,7 +1,7 @@
 <script lang="ts">
     import Link from "$lib/components/Link.svelte"
     import Button from "$lib/components/Button.svelte"
-    import YouTubeModal from "$lib/components/YouTubeModal.svelte"
+    import EmbeddedVideoModal from "$lib/components/EmbeddedVideoModal.svelte"
     import { openModal } from "$lib/components/ModalProvider.svelte"
 
     export let brandName: string
@@ -31,7 +31,11 @@
         </div>
         <Button
             class="hidden md:block w-1/2"
-            on:click={() => openModal(YouTubeModal, { videoId: youtubeId })}
+            on:click={() =>
+                openModal(EmbeddedVideoModal, {
+                    title: "youtube",
+                    src: `https://www.youtube.com/embed/${youtubeId}?autoplay=1`
+                })}
         >
             <img class="w-14 h-14 mx-auto p-2" alt="play button" src="/icons/play.png" />
         </Button>

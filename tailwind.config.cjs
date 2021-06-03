@@ -28,7 +28,9 @@ module.exports = {
                 "scorpion-tan": "#D6CCBB",
                 "pre-coffee-sky-blue": "#9CBADC",
                 "calm-summer-horizon":"#89D4E5",
-                "dark-charcoal": "#333333"
+                "dark-charcoal": "#333333",
+                "disappointment-blue": "#658396",
+                "tinted-rear-window": "#2C2D36"
             },
             boxShadow: { 
                 "inner-10xl": "inset 0 200px 200px 200px rgba(0, 0, 0, 0.1)"

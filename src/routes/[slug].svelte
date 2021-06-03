@@ -25,10 +25,13 @@
 
 <script lang="ts">
     import Contact from "./templates/_Contact.svelte"
+    import About from "./templates/_About.svelte"
     export let templateName: string
     export let page: any
 </script>
 
 {#if templateName === "Contact"}
     <Contact {...page} />
+{:else if templateName === "About"}
+    <About {...page} />
 {/if}
