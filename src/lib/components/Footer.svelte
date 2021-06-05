@@ -1,12 +1,14 @@
 <script lang="ts">
     import { cssVars } from "../actions/styles"
     import Link from "$lib/components/Link.svelte"
-    import ApplicationDesignGridLayout from "$lib/svgs/ApplicationDesignGridLayout.svelte"
-    import Envelope from "$lib/svgs/Envelope.svelte"
-    import Phone from "$lib/svgs/Phone.svelte"
-    import IconChevronRight from "$lib/svgs/IconChevronRight.svelte"
-    import UsersFemaleMale from "$lib/svgs/UsersFemaleMale.svelte"
-    import BackpackSchool from "$lib/svgs/BackpackSchool.svelte"
+    import {
+        IconChevronRight,
+        ApplicationDesignGridLayout,
+        Envelope,
+        Phone,
+        UsersFemaleMale,
+        BackpackSchool
+    } from "$lib/svgs"
     import { icons } from "$lib/data/social"
     import { session } from "$app/stores"
 
@@ -36,7 +38,7 @@
         class="flex flex-col sm:flex-row justify-between p-5 border-b border-white"
         style="margin-bottom: 4.5rem"
     >
-        <a href="/">
+        <a href="/" sveltekit:prefetch>
             <img alt="latitude 33 logo" class="w-40" src="/icons/latitude33-logo-white.png" />
         </a>
         <Link
@@ -61,7 +63,9 @@
 
         <div class="grid grid-rows-6 grid-cols-2 grid-flow-col">
             {#each $session.menus.secondary.menuItems as { label, url }}
-                <Link href={url} class="font-display font-extrabold text-xl">{label}</Link>
+                <Link sveltekit:prefetch href={url} class="font-display font-extrabold text-xl"
+                    >{label}</Link
+                >
             {/each}
         </div>
 
@@ -71,6 +75,7 @@
             {#each $session.menus.secondaryLarge.menuItems as { label, url, fields }}
                 <Link
                     href={url}
+                    sveltekit:prefetch
                     class="large-link hover:opacity-60 transition duration-200 font-display flex items-center py-4 px-6 w-full font-extrabold text-xl"
                 >
                     <svelte:component this={menuIcons[fields.icon]} class="h-9 mr-4 w-9" />
@@ -85,7 +90,7 @@
     >
         <div class="space-x-5 flex">
             {#each $session.menus.secondarySmall.menuItems as { label, url }}
-                <Link href={url} class="text-sm">{label}</Link>
+                <Link sveltekit:prefetch href={url} class="text-sm">{label}</Link>
             {/each}
         </div>
         <div class="space-x-5 flex">

@@ -1,3 +1,26 @@
+<script lang="ts" context="module">
+    import { graphql } from "$lib/scripts/apollo"
+    import { ContactFormFragment } from "$lib/queries/contactForms"
+    import { PageFragment, ContactPageFragment } from "$lib/queries/pages"
+    import { AcfLinkFragment } from "$lib/queries/utility"
+
+    export const name = "Contact"
+    export const Query = graphql`
+        query AboutPageQuery($id: ID!) {
+            page(id: $id) {
+                ...PageFragment
+                template {
+                    ...ContactPageFragment
+                }
+            }
+        }
+        ${PageFragment}
+        ${ContactFormFragment}
+        ${ContactPageFragment}
+        ${AcfLinkFragment}
+    `
+</script>
+
 <script lang="ts">
     import Button from "$lib/components/Button.svelte"
     import Field, { fieldDefaults } from "$lib/components/Field.svelte"

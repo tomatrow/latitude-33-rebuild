@@ -1,3 +1,24 @@
+<script lang="ts" context="module">
+    import { graphql } from "$lib/scripts/apollo"
+    import { PageFragment, AboutPageFragment } from "$lib/queries/pages"
+    import { AcfLinkFragment } from "$lib/queries/utility"
+
+    export const name = "About"
+    export const Query = graphql`
+        query AboutPageQuery($id: ID!) {
+            page(id: $id) {
+                ...PageFragment
+                template {
+                    ...AboutPageFragment
+                }
+            }
+        }
+        ${PageFragment}
+        ${AboutPageFragment}
+        ${AcfLinkFragment}
+    `
+</script>
+
 <script lang="ts">
     import { cssVars } from "$lib/actions/styles"
     import { Link, Button, EmbeddedVideoModal } from "$lib/components"

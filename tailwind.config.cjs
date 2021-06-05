@@ -30,11 +30,22 @@ module.exports = {
                 "calm-summer-horizon":"#89D4E5",
                 "dark-charcoal": "#333333",
                 "disappointment-blue": "#658396",
-                "tinted-rear-window": "#2C2D36"
+                "tinted-rear-window": "#2C2D36",
+                "shark": "#ABABAB",
+                "the-girl-is-looking-at-the-sky": "#B7DFF6"
             },
             boxShadow: { 
                 "inner-10xl": "inset 0 200px 200px 200px rgba(0, 0, 0, 0.1)"
-            }
+            },
+            fontSize: {
+                "3.5xl": "2rem"
+            },
+            letterSpacing: {
+                "px": "0.0625"
+            },
+            spacing: {
+                "18": "4.5rem"
+            }  
         },
 	},
 	variants: {

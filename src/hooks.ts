@@ -7,6 +7,14 @@ export const getSession: import("@sveltejs/kit").GetSession = async () => {
     try {
         const q = graphql`
             query SessionQuery {
+                fleet(first: 100, where: { status: PUBLISH, hasPassword: false }) {
+                    edges {
+                        node {
+                            id
+                            slug
+                        }
+                    }
+                }
                 pages(first: 100, where: { status: PUBLISH, hasPassword: false }) {
                     edges {
                         node {
@@ -88,23 +96,23 @@ export const getSession: import("@sveltejs/kit").GetSession = async () => {
 
         const result = await query(q)
 
-        const { primary, secondary, secondaryLarge, secondarySmall, social, pages } = result.data
+        const { primary, secondary, secondaryLarge, secondarySmall, social, pages, fleet } =
+            result.data
 
-        function formatMenu(menu) {
-            return menu.edges
-                .map(edge => edge.node)
-                .map(({ menuItems, fields }) => ({
-                    menuItems: menuItems.edges.map(edge => edge.node),
-                    fields
-                }))[0]
+        function smoothEdges(resource) {
+            return resource.edges.map(edge => edge.node)
         }
 
-        function formatPages(pages) {
-            return pages.edges.map(edge => edge.node)
+        function formatMenu(menu) {
+            return smoothEdges(menu).map(({ menuItems, fields }) => ({
+                menuItems: menuItems.edges.map(edge => edge.node),
+                fields
+            }))[0]
         }
 
         return {
-            pages: formatPages(pages),
+            pages: smoothEdges(pages),
+            fleet: smoothEdges(fleet),
             menus: {
                 primary: formatMenu(primary),
                 secondary: formatMenu(secondary),

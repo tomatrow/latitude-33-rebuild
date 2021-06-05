@@ -26,7 +26,7 @@
     <Link
         shadow
         pill
-        class="bg-pre-coffee-sky-blue inline-block py-4 px-6 font-black text-sm"
+        class="bg-pre-coffee-sky-blue inline-block py-4 px-6 text-white font-black text-sm"
         href={link.url}
         target={link.target}>{link.title}</Link
     >

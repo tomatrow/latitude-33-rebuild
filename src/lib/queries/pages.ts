@@ -10,6 +10,10 @@ export const PageFragment = graphql`
     }
 `
 
+export const FleetPageFragment = graphql`
+    fragment FleetPageFragment on 
+`
+
 export const AboutPageFragment = graphql`
     fragment AboutPageFragment on Template_About {
         aboutPageFields {
@@ -32,8 +36,8 @@ export const AboutPageFragment = graphql`
     }
 `
 
-export const ContactFragment = graphql`
-    fragment ContactFragment on Template_Contact {
+export const ContactPageFragment = graphql`
+    fragment ContactPageFragment on Template_Contact {
         contactPageFields {
             subHeading
             form {
@@ -41,21 +45,4 @@ export const ContactFragment = graphql`
             }
         }
     }
-`
-
-export const GetPageQuery = graphql`
-    query GetPage($id: ID!) {
-        page(id: $id) {
-            ...PageFragment
-            template {
-                ...ContactFragment
-                ...AboutPageFragment
-            }
-        }
-    }
-    ${PageFragment}
-    ${ContactFragment}
-    ${ContactFormFragment}
-    ${AboutPageFragment}
-    ${AcfLinkFragment}
 `
