@@ -70,7 +70,7 @@
 </svelte:head>
 
 <div
-    class="stats bg-shark space-y-6 sm:space-y-0 sm:pb-44 sm:pt-8 pb-6 sm:pl-5 sm:bg-cover sm:bg-no-repeat"
+    class="stats bg-shark space-y-6 sm:space-y-0 sm:pb-44 sm:pt-8 pb-6 sm:pl-5 sm:bg-center sm:bg-cover sm:bg-no-repeat"
     use:cssVars={{ bg: `url(${aircraft.featuredImage.node.sourceUrl})` }}
 >
     {#if aircraft.featuredImage}
@@ -123,17 +123,22 @@
 {#each features as { title, icon, description, image }, index}
     <section
         class="{index % 2 === 1
-            ? 'bg-either-gray-blue text-white'
-            : ''} pb-24 sm:px-5  sm:py-44 sm:relative space-y-6 sm:space-y-0"
+            ? 'bg-either-gray-blue text-white lg:grid-flow-col-dense'
+            : ''} pb-24 sm:px-5  sm:py-44 lg:py-0   lg:px-0 sm:relative space-y-6 sm:space-y-0 lg:static lg:grid lg:grid-cols-2"
         id={idify(title)}
     >
         <img
-            class="sm:transform sm:rounded-3xl sm:-translate-y-1/2 sm:max-h-64 sm:absolute top-0 left-0 sm:ml-5 sm:max-w-sm"
+            class="sm:transform sm:rounded-3xl sm:-translate-y-1/2 sm:max-h-64 lg:transform-none lg:max-w-none sm:absolute lg:static top-0 left-0 sm:ml-5 lg:ml-0 sm:max-w-sm lg:max-h-full lg:w-full lg:h-full lg:rounded-none lg:object-cover"
             src={image.sourceUrl}
             alt={image.altText}
         />
-        <div class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-5 s mx-5 sm:mx-auto sm:max-w-lg">
-            <h3 class="sm:col-span-full font-display text-3.5xl sm:text-center font-black">
+        <div
+            class:lg:col-start-1={index % 2 === 1}
+            class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-5 s mx-5 sm:mx-auto lg:p-4 sm:max-w-lg"
+        >
+            <h3
+                class="sm:col-span-full font-display text-3.5xl lg:mt-auto sm:text-center font-black"
+            >
                 {title}
             </h3>
             <img
@@ -171,7 +176,7 @@
         </div>
     </div>
 
-    <div class="max-w-lg">
+    <div class="lg:justify-self-start max-w-lg">
         <h4 class="font-display leading-9 text-3.5xl font-black">{testimonialProof.title}</h4>
         <p>{testimonialProof.blurb}</p>
         <div
