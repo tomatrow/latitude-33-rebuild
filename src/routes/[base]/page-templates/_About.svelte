@@ -75,8 +75,9 @@
     >
         <span class="airy-copy text-center md:text-left">{footer.blurb}</span>
         <Link
-            class="bg-pre-coffee-sky-blue flex-shrink-0 py-4 px-6"
+            class="bg-pre-coffee-sky-blue border-pre-coffee-sky-blue flex-shrink-0 py-4 px-6 border-2"
             blob
+            shadow
             href={footer.link.url}
             target={footer.link.target}>{footer.link.title}</Link
         >
