@@ -1,15 +1,22 @@
 import { MenuItemFragment, MenuFragment } from "$lib/queries/menus"
 import { query, graphql } from "$lib/scripts/apollo"
-import type { Handle, GetSession } from "@sveltejs/kit"
+import type { Handle, GetSession, ServerRequest, ServerResponse } from "@sveltejs/kit"
+import UrlPattern from "url-pattern"
 
-async function coreQuery(isHtml: boolean) {
+async function coreQueryMiddleware(request: ServerRequest) {
     const q = graphql`
-        query SessionQuery($isHtml: Boolean!) {
-            themeGeneralSettings @include(if: $isHtml) {
+        query SessionQuery {
+            themeGeneralSettings {
                 themeSettingsFields {
                     injection {
                         head
                         footer
+                    }
+                    redirections {
+                        origin
+                        status
+                        target
+                        matchType
                     }
                 }
             }
@@ -101,34 +108,58 @@ async function coreQuery(isHtml: boolean) {
         ${MenuFragment}
     `
 
-    const result = await query(q, { isHtml })
+    const result = await query(q)
 
-    return result.data
+    request.locals.coreGraph = result.data
+}
+
+function redirectionMiddleware(request: ServerRequest) {
+    const { coreGraph } = request.locals
+    if (!coreGraph) return
+    const redirection = coreGraph.themeGeneralSettings.themeSettingsFields.redirections.find(
+        ({ origin, matchType }) => {
+            try {
+                let pattern: UrlPattern
+                if (matchType === "pattern") pattern = new UrlPattern(origin)
+                else if (matchType === "regex") pattern = new UrlPattern(new RegExp(origin))
+                else throw new Error("Unknown redirection match type")
+                return pattern.match(request.path)
+            } catch (error) {
+                console.error(error)
+                return false
+            }
+        }
+    )
+    if (redirection)
+        return {
+            status: redirection.status,
+            headers: {
+                Location: redirection.target // todo replacement
+            }
+        }
+}
+
+function injectionMiddleware(request: ServerRequest, response: ServerResponse) {
+    if (!(response.headers["content-type"] === "text/html" && typeof response.body === "string"))
+        return
+    const { head, footer } =
+        request.locals.coreGraph.themeGeneralSettings.themeSettingsFields.injection
+    response.body = (response.body as string)
+        .replace("%wordpress.head%", head ?? "")
+        .replace("%wordpress.footer%", footer ?? "")
 }
 
 export const handle: Handle = async ({ request, resolve }) => {
-    const isPage = true // we don't have any endpoints yet
+    await coreQueryMiddleware(request)
 
-    if (isPage) {
-        const coreGraph = await coreQuery(true)
-        request.locals.coreGraph = coreGraph
-    }
+    const redirection = redirectionMiddleware(request)
+    if (redirection) return redirection
 
-    let { status, headers, body } = await resolve(request)
+    let response = await resolve(request)
 
-    if (headers["content-type"] === "text/html" && typeof body === "string") {
-        const { head, footer } =
-            request.locals.coreGraph.themeGeneralSettings.themeSettingsFields.injection
-        body = (body as string)
-            .replace("%wordpress.head%", head ?? "")
-            .replace("%wordpress.footer%", footer ?? "")
-    }
+    injectionMiddleware(request, response)
 
-    return {
-        status,
-        headers,
-        body
-    }
+    return response
 }
 
 export const getSession: GetSession = async ({ locals }) => {
