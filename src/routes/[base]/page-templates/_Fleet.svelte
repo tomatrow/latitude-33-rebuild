@@ -26,8 +26,6 @@
 
     export let page: any
     export let fleet: any
-
-    console.log({ props: $$props })
 </script>
 
 <svelte:head>

@@ -1,3 +1,7 @@
 export { default as Button } from "./Button.svelte"
 export { default as Link } from "./Link.svelte"
 export { default as EmbeddedVideoModal } from "./EmbeddedVideoModal.svelte"
+export { default as Navbar } from "./Navbar.svelte"
+export { default as Footer } from "./Footer.svelte"
+export { default as ModalProvider } from "./ModalProvider.svelte"
+export { default as GlobalContactCard } from "./GlobalContactCard.svelte"

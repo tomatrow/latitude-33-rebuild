@@ -37,8 +37,6 @@
     import { stripPhone, splitChoices } from "$lib/scripts/utility"
     import { session } from "$app/stores"
 
-    console.log({ props: $$props })
-
     const { form } = createForm({
         extend: [createValidator(() => "Enter a value"), reporter],
         validateStruct: object({

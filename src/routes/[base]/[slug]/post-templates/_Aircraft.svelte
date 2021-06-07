@@ -31,7 +31,6 @@
 
     const { testimonialProof, socialProofSummary } = acfOptionsDrillDown.fleetPostTypeFields
     const { proof } = testimonialProof
-    console.log({ testimonialProof, socialProofSummary })
 
     const features = [
         {
