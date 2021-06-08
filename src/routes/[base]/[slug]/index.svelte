@@ -17,7 +17,6 @@
     }
 
     function findPost({ page, session }) {
-        console.log({ page, session })
         const result = session[page.params.base]?.find(post => post.slug === page.params.slug)
         if (!result) return null
         return {
