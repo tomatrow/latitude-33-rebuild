@@ -3,10 +3,10 @@
     import { FleetTypeOptionsFragment, AircraftFragment } from "$lib/queries/aircraft"
     import { AcfLinkFragment, MediaItemFragment } from "$lib/queries/utility"
 
-    export const base = "fleet"
+    export const name = "fleet"
     export const Query = graphql`
-        query AircraftPostQuery($id: ID!) {
-            aircraft(id: $id) {
+        query AircraftPostQuery($id: ID!, $isPreview: Boolean!) {
+            aircraft(id: $id, asPreview: $isPreview) {
                 ...AircraftFragment
             }
             acfOptionsDrillDown {

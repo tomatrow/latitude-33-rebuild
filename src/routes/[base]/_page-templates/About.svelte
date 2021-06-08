@@ -5,8 +5,8 @@
 
     export const name = "About"
     export const Query = graphql`
-        query AboutPageQuery($id: ID!) {
-            page(id: $id) {
+        query AboutPageQuery($id: ID!, $isPreview: Boolean!) {
+            page(id: $id, asPreview: $isPreview) {
                 ...PageFragment
                 template {
                     ...AboutPageFragment
@@ -23,11 +23,10 @@
     import { cssVars } from "$lib/actions/styles"
     import { Link, Button, EmbeddedVideoModal } from "$lib/components"
     import { openModal } from "$lib/components/ModalProvider.svelte"
+    import { onMount } from "svelte"
 
-    export let id: string
-    export let slug: string
-    export let title: string
-    export let template: any
+    export let page
+    const { id, slug, title, template } = page
 
     const { contentHtml, footer, vimeo } = template.aboutPageFields
 </script>

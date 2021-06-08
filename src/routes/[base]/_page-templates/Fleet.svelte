@@ -4,8 +4,8 @@
 
     export const name = "Fleet"
     export const Query = graphql`
-        query FleetPageQuery($id: ID!) {
-            page(id: $id) {
+        query FleetPageQuery($id: ID!, $isPreview: Boolean!) {
+            page(id: $id, asPreview: $isPreview) {
                 ...PageFragment
             }
             fleet(first: 100) {

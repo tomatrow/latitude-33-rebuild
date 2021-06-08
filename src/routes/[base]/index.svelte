@@ -1,23 +1,14 @@
 <script lang="ts" context="module">
     import { query } from "$lib/scripts/apollo"
-    import * as AboutInfo from "./page-templates/_About.svelte"
-    import * as ContactInfo from "./page-templates/_Contact.svelte"
-    import * as FleetInfo from "./page-templates/_Fleet.svelte"
+    import * as AboutInfo from "./_page-templates/About.svelte"
+    import * as ContactInfo from "./_page-templates/Contact.svelte"
+    import * as FleetInfo from "./_page-templates/Fleet.svelte"
+    import * as HomeInfo from "./_page-templates/Home/index.svelte"
+    import { createLoad } from "$lib/scripts/utility"
 
-    export const load: import("@sveltejs/kit").Load = async ({ page, session }) => {
-        const { base } = page.params
-        const pageInfo = session.pages.find(page => page.slug === base)
-
-        if (!pageInfo)
-            return {
-                status: 404
-            }
-
-        const { id } = pageInfo
-        const { templateName } = pageInfo.template
-
+    export async function fetchPage({ template }, variables) {
         let templateQuery: string
-        switch (templateName) {
+        switch (template.templateName) {
             case AboutInfo.name:
                 templateQuery = AboutInfo.Query
                 break
@@ -27,42 +18,47 @@
             case FleetInfo.name:
                 templateQuery = FleetInfo.Query
                 break
+            case HomeInfo.name:
+                templateQuery = HomeInfo.Query
+                break
             default:
-                return {
-                    status: 404
-                }
+                throw new Error(`Page template not found: '${template.templateName}'`)
         }
-
-        const response = await query(templateQuery, { id })
-
-        const { data } = response
-
-        return {
-            status: 200,
-            props: {
-                templateName,
-                data
-            }
-        }
+        const response = await query(templateQuery, variables)
+        return response.data
     }
+
+    export const load: Load = createLoad(
+        ({ page, session }) => session.pages.find(item => item.slug === page.params.base),
+        fetchPage
+    )
 </script>
 
 <script lang="ts">
-    import Contact from "./page-templates/_Contact.svelte"
-    import About from "./page-templates/_About.svelte"
-    import Fleet from "./page-templates/_Fleet.svelte"
+    import Contact from "./_page-templates/Contact.svelte"
+    import About from "./_page-templates/About.svelte"
+    import Fleet from "./_page-templates/Fleet.svelte"
+    import Home from "./_page-templates/Home/index.svelte"
     import { Link } from "$lib/components"
+    import { onMount } from "svelte"
 
-    export let templateName: string
+    export let info: any
     export let data: any
+    export let variables: any
+
+    onMount(async () => (data ??= await fetchPage(info, variables)))
 </script>
 
-{#if templateName === ContactInfo.name}
-    <Contact {...data.page} />
-{:else if templateName === AboutInfo.name}
-    <About {...data.page} />
-{:else if templateName === FleetInfo.name}
-    <Fleet {...data} />
-{:else}
-    <Link class="block text-black text-center" sveltekit:prefetch href="/">Home</Link>
+{#if data}
+    {#if info.template.templateName === ContactInfo.name}
+        <Contact {...data} />
+    {:else if info.template.templateName === AboutInfo.name}
+        <About {...data} />
+    {:else if info.template.templateName === FleetInfo.name}
+        <Fleet {...data} />
+    {:else if info.template.templateName === HomeInfo.name}
+        <Home {...data} />
+    {:else}
+        <Link class="block text-black text-center" sveltekit:prefetch href="/">Home</Link>
+    {/if}
 {/if}

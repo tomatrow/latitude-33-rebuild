@@ -6,8 +6,8 @@
 
     export const name = "Contact"
     export const Query = graphql`
-        query AboutPageQuery($id: ID!) {
-            page(id: $id) {
+        query AboutPageQuery($id: ID!, $isPreview: Boolean!) {
+            page(id: $id, asPreview: $isPreview) {
                 ...PageFragment
                 template {
                     ...ContactPageFragment
@@ -48,10 +48,8 @@
         onSubmit() {}
     })
 
-    export let id: string
-    export let slug: string
-    export let title: string
-    export let template: any
+    export let page
+    const { id, slug, title, template } = page
 
     const fields = template.contactPageFields.form.contactFormFields
 </script>

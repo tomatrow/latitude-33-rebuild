@@ -1,4 +1,5 @@
 import { ApolloClient, gql, HttpLink } from "@apollo/client/core"
+import { setContext } from "@apollo/client/link/context"
 import { InMemoryCache, NormalizedCacheObject } from "@apollo/client/cache"
 
 class Client {
@@ -13,13 +14,27 @@ class Client {
     }
 
     setupClient() {
-        const link = new HttpLink({
+        const authLink = setContext(({ variables }, { headers }) => {
+            const authHeaders = {}
+            if (variables?.nonce) {
+                authHeaders["X-WP-Nonce"] = variables.nonce
+                delete variables.nonce
+            }
+            return {
+                headers: {
+                    ...headers,
+                    ...authHeaders
+                }
+            }
+        })
+        const httpLink = new HttpLink({
             uri: import.meta.env.VITE_GRAPHQL_ENDPOINT as string,
+            credentials: "include",
             fetch
         })
-
         const client = new ApolloClient({
-            link,
+            link: authLink.concat(httpLink),
+            credentials: "include",
             cache: new InMemoryCache()
         })
         return client

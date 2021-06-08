@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Offering from "./_Offering.svelte"
+    import Offering from "./Offering.svelte"
 
     const baseSettings = [
         {

@@ -1,94 +1,95 @@
 import { graphql } from "$lib/scripts/apollo"
-import { AcfLinkFragment } from "./utility"
+import { PageFragment } from "$lib/queries/pages"
 
-export const FrontPageQuery = graphql`
-    query FrontPageQuery($id: ID!) {
-        page(id: $id) {
-            title
-            frontPage {
-                grid {
-                    first {
-                        title
-                        link {
-                            ...AcfLinkFragment
+export const FrontPageFragment = graphql`
+    fragment FrontPageFragment on Page {
+        ...PageFragment
+        template {
+            ... on Template_Home {
+                frontPage {
+                    grid {
+                        first {
+                            title
+                            link {
+                                ...AcfLinkFragment
+                            }
+                        }
+                        second {
+                            link {
+                                ...AcfLinkFragment
+                            }
+                            title
+                        }
+                        fourth {
+                            link {
+                                ...AcfLinkFragment
+                            }
+                            title
+                        }
+                        third {
+                            title
+                            link {
+                                ...AcfLinkFragment
+                            }
                         }
                     }
-                    second {
-                        link {
+                    hero {
+                        brandName
+                        title
+                        pageLink {
                             ...AcfLinkFragment
                         }
-                        title
+                        youtubeId
                     }
-                    fourth {
-                        link {
-                            ...AcfLinkFragment
-                        }
-                        title
-                    }
-                    third {
-                        title
-                        link {
-                            ...AcfLinkFragment
-                        }
-                    }
-                }
-                hero {
-                    brandName
-                    title
-                    pageLink {
-                        ...AcfLinkFragment
-                    }
-                    youtubeId
-                }
-                why {
-                    subheading
-                    heading
-                    contenthtml
-                }
-                triblurbs {
-                    firstBlurb {
-                        contentHtml
-                        title
-                    }
-                    secondBlurb {
-                        contentHtml
-                        title
-                    }
-                    thirdBlurb {
-                        contentHtml
-                        title
-                    }
-                }
-                offerings {
-                    firstOffering {
+                    why {
                         subheading
                         heading
-                        link {
-                            ...AcfLinkFragment
+                        contenthtml
+                    }
+                    triblurbs {
+                        firstBlurb {
+                            contentHtml
+                            title
                         }
-                        contenthtml
-                    }
-                    secondOffering {
-                        subheading
-                        heading
-                        link {
-                            ...AcfLinkFragment
+                        secondBlurb {
+                            contentHtml
+                            title
                         }
-                        contenthtml
+                        thirdBlurb {
+                            contentHtml
+                            title
+                        }
                     }
-                }
-                services {
-                    firstService {
-                        title
-                        contenthtml
+                    offerings {
+                        firstOffering {
+                            subheading
+                            heading
+                            link {
+                                ...AcfLinkFragment
+                            }
+                            contenthtml
+                        }
+                        secondOffering {
+                            subheading
+                            heading
+                            link {
+                                ...AcfLinkFragment
+                            }
+                            contenthtml
+                        }
                     }
-                    secondService {
-                        title
-                        contenthtml
+                    services {
+                        firstService {
+                            title
+                            contenthtml
+                        }
+                        secondService {
+                            title
+                            contenthtml
+                        }
                     }
                 }
             }
         }
     }
-    ${AcfLinkFragment}
 `

@@ -1,54 +1,50 @@
 <script lang="ts" context="module">
     import { query } from "$lib/scripts/apollo"
-    import * as AircraftInfo from "./post-templates/_Aircraft.svelte"
+    import * as AircraftInfo from "./_post-templates/Aircraft.svelte"
+    import { createLoad } from "$lib/scripts/utility"
 
-    export const load: import("@sveltejs/kit").Load = async ({ page, session }) => {
-        const { base, slug } = page.params
-
-        const postInfo = session[base]?.find(post => post.slug === slug)
-
-        if (!postInfo)
-            return {
-                status: 404
-            }
-
-        const { id } = postInfo
-
+    async function fetchPost(info, variables) {
         let postQuery: string
-        switch (base) {
-            case AircraftInfo.base:
+        switch (info.base) {
+            case AircraftInfo.name:
                 postQuery = AircraftInfo.Query
                 break
             default:
-                return {
-                    status: 404
-                }
+                throw new Error("Post not found")
         }
+        const response = await query(postQuery, variables)
+        return response.data
+    }
 
-        const response = await query(postQuery, { id })
-
-        const { data } = response
-
+    function findPost({ page, session }) {
+        console.log({ page, session })
+        const result = session[page.params.base]?.find(post => post.slug === page.params.slug)
+        if (!result) return null
         return {
-            status: 200,
-            props: {
-                base,
-                data
-            }
+            base: page.params.base,
+            ...result
         }
     }
+
+    export const load = createLoad(findPost, fetchPost)
 </script>
 
 <script lang="ts">
-    import Aircraft from "./post-templates/_Aircraft.svelte"
+    import Aircraft from "./_post-templates/Aircraft.svelte"
     import { Link } from "$lib/components"
+    import { onMount } from "svelte"
 
-    export let base: string
+    export let info: any
     export let data: any
+    export let variables: any
+
+    onMount(async () => (data ??= await fetchPost(info, variables)))
 </script>
 
-{#if base === AircraftInfo.base}
-    <Aircraft {...data} />
-{:else}
-    <Link class="block text-black text-center" sveltekit:prefetch href="/">Home</Link>
+{#if data}
+    {#if info.base === AircraftInfo.name}
+        <Aircraft {...data} />
+    {:else}
+        <Link class="block text-black text-center" sveltekit:prefetch href="/">Home</Link>
+    {/if}
 {/if}
