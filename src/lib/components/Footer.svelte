@@ -94,13 +94,13 @@
             {/each}
         </div>
         <div class="space-x-5 flex">
-            {#each $session.menus.social.menuItems as { url, fields }}
+            {#each $session.social as { service, url }}
                 <Link
                     href={url}
                     target="_blank"
                     class="transition-opacity duration-200 opacity-50 hover:opacity-100"
                     ><svelte:component
-                        this={icons[fields.icon]}
+                        this={icons[service]}
                         class="w-5 h-5 text-white"
                         strokeWidth="0"
                         fill="white"

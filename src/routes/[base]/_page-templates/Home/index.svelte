@@ -18,6 +18,7 @@
 </script>
 
 <script lang="ts">
+    import { Meta } from "$lib/components"
     import Hero from "./Hero.svelte"
     import Grid from "./Grid.svelte"
     import Why from "./Why.svelte"
@@ -28,9 +29,7 @@
     export let page: any
 </script>
 
-<svelte:head>
-    <title>{page.title}</title>
-</svelte:head>
+<Meta post={page} />
 
 <Hero {...page.template.frontPage.hero} />
 <Grid {...page.template.frontPage.grid} />

@@ -158,7 +158,7 @@
                 {fields.sidebar.socialMedia.heading}
             </h4>
             <div class="space-x-2 flex">
-                {#each $session.menus.social.menuItems as { url, fields }}
+                {#each $session.social as { url, service }}
                     <Link
                         shadow
                         pill
@@ -166,7 +166,7 @@
                         class="bg-pre-coffee-sky-blue border-pre-coffee-sky-blue flex items-center justify-center w-10 h-10 border-2"
                         href={url}
                         ><svelte:component
-                            this={icons[fields.icon]}
+                            this={icons[service]}
                             class="w-4 h-4 text-white"
                             fill="white"
                             strokeWidth="0"

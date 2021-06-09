@@ -7,6 +7,10 @@ export const PageFragment = graphql`
         id
         slug
         title
+        seo {
+            title
+            fullHead
+        }
     }
 `
 

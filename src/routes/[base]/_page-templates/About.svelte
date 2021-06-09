@@ -24,6 +24,7 @@
     import { Link, Button, EmbeddedVideoModal } from "$lib/components"
     import { openModal } from "$lib/components/ModalProvider.svelte"
     import { onMount } from "svelte"
+    import { Meta } from "$lib/components"
 
     export let page
     const { id, slug, title, template } = page
@@ -31,9 +32,7 @@
     const { contentHtml, footer, vimeo } = template.aboutPageFields
 </script>
 
-<svelte:head>
-    <title>{title}</title>
-</svelte:head>
+<Meta post={page} />
 
 <section
     class="bg-cover bg-no-repeat text-white"

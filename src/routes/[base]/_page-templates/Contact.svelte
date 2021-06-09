@@ -3,6 +3,7 @@
     import { ContactFormFragment } from "$lib/queries/contactForms"
     import { PageFragment, ContactPageFragment } from "$lib/queries/pages"
     import { AcfLinkFragment } from "$lib/queries/utility"
+    import { Meta } from "$lib/components"
 
     export const name = "Contact"
     export const Query = graphql`
@@ -54,9 +55,7 @@
     const fields = template.contactPageFields.form.contactFormFields
 </script>
 
-<svelte:head>
-    <title>{title}</title>
-</svelte:head>
+<Meta post={page} />
 
 <div class="banner mb-12 py-32">
     <div class="space-y-6 max-w-screen-2xl mx-auto px-6">
@@ -126,7 +125,7 @@
                     {fields.sidebar.socialMedia.heading}
                 </h4>
                 <div class="space-x-2 flex">
-                    {#each $session.menus.social.menuItems as { url, fields }}
+                    {#each $session.social as { url, service }}
                         <Link
                             shadow
                             pill
@@ -134,7 +133,7 @@
                             class="bg-pre-coffee-sky-blue border-pre-coffee-sky-blue flex items-center justify-center w-10 h-10 border-2"
                             href={url}
                             ><svelte:component
-                                this={icons[fields.icon]}
+                                this={icons[service]}
                                 class="w-4 h-4 text-white"
                                 fill="white"
                                 strokeWidth="0"

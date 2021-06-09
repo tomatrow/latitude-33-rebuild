@@ -5,6 +5,10 @@ export const AircraftFragment = graphql`
         id
         slug
         title
+        seo {
+            title
+            fullHead
+        }
         featuredImage {
             node {
                 ...MediaItemFragment

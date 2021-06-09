@@ -25,6 +25,7 @@
     import { Link } from "$lib/components"
     import { IconChevronRight } from "$lib/svgs"
     import { cssVars } from "$lib/actions/styles"
+    import { Meta } from "$lib/components"
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
@@ -64,9 +65,7 @@
     }
 </script>
 
-<svelte:head>
-    <title>{aircraft.title}</title>
-</svelte:head>
+<Meta post={aircraft} />
 
 <div
     class="stats bg-shark space-y-6 sm:space-y-0 sm:pb-44 sm:pt-8 pb-6 sm:pl-5 sm:bg-center sm:bg-cover sm:bg-no-repeat"

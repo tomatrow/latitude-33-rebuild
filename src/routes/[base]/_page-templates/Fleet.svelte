@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
     import { graphql } from "$lib/scripts/apollo"
     import { PageFragment } from "$lib/queries/pages"
+    import { Meta } from "$lib/components"
 
     export const name = "Fleet"
     export const Query = graphql`
@@ -28,9 +29,7 @@
     export let fleet: any
 </script>
 
-<svelte:head>
-    <title>{page.title}</title>
-</svelte:head>
+<Meta post={page} />
 
 <h1>{page.title}</h1>
 

@@ -6,6 +6,25 @@ import UrlPattern from "url-pattern"
 async function coreQueryMiddleware(request: ServerRequest) {
     const q = graphql`
         query SessionQuery {
+            seo {
+                social {
+                    facebook {
+                        url
+                    }
+                    instagram {
+                        url
+                    }
+                    linkedIn {
+                        url
+                    }
+                    twitter {
+                        username
+                    }
+                    youTube {
+                        url
+                    }
+                }
+            }
             themeGeneralSettings {
                 themeSettingsFields {
                     injection {
@@ -85,23 +104,6 @@ async function coreQueryMiddleware(request: ServerRequest) {
                     }
                 }
             }
-            social: menus(where: { location: SOCIAL }) {
-                edges {
-                    node {
-                        id
-                        menuItems {
-                            edges {
-                                node {
-                                    ...MenuItemFragment
-                                    fields: socialMenuFields {
-                                        icon
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         ${MenuItemFragment}
@@ -164,7 +166,7 @@ export const handle: Handle = async ({ request, resolve }) => {
 
 export const getSession: GetSession = async ({ locals }) => {
     const { coreGraph } = locals
-    const { primary, secondary, secondaryLarge, secondarySmall, social, pages, fleet } = coreGraph
+    const { primary, secondary, secondaryLarge, secondarySmall, pages, fleet, seo } = coreGraph
 
     function smoothEdges(resource) {
         return resource.edges.map(edge => edge.node)
@@ -177,15 +179,28 @@ export const getSession: GetSession = async ({ locals }) => {
         }))[0]
     }
 
+    const social = Object.entries(seo.social)
+        .filter(([key]) => key !== "__typename")
+        .map(([service, values]: [string, any]) => {
+            const computed =
+                service === "twitter" && values.username
+                    ? { url: `https://twitter.com/${values.username}` }
+                    : {}
+            return {
+                service,
+                ...values,
+                ...computed
+            }
+        })
     return {
         pages: smoothEdges(pages),
         fleet: smoothEdges(fleet),
+        social,
         menus: {
             primary: formatMenu(primary),
             secondary: formatMenu(secondary),
             secondaryLarge: formatMenu(secondaryLarge),
-            secondarySmall: formatMenu(secondarySmall),
-            social: formatMenu(social)
+            secondarySmall: formatMenu(secondarySmall)
         }
     }
 }
