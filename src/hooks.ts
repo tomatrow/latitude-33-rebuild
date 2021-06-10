@@ -60,14 +60,35 @@ async function coreQueryMiddleware(request: ServerRequest) {
                     }
                 }
             }
-            primary: menus(where: { location: PRIMARY }) {
+            primary: menus(first: 1, where: { location: PRIMARY }) {
                 edges {
                     node {
-                        ...MenuFragment
+                        id
+                        menuItems(where: { parentDatabaseId: 0 }) {
+                            edges {
+                                node {
+                                    ...MenuItemFragment
+                                    childItems {
+                                        edges {
+                                            node {
+                                                ...MenuItemFragment
+                                                childItems {
+                                                    edges {
+                                                        node {
+                                                            ...MenuItemFragment
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-            secondary: menus(where: { location: SECONDARY }) {
+            secondary: menus(first: 1, where: { location: SECONDARY }) {
                 edges {
                     node {
                         ...MenuFragment
@@ -80,14 +101,14 @@ async function coreQueryMiddleware(request: ServerRequest) {
                     }
                 }
             }
-            secondarySmall: menus(where: { location: SECONDARY_SMALL }) {
+            secondarySmall: menus(first: 1, where: { location: SECONDARY_SMALL }) {
                 edges {
                     node {
                         ...MenuFragment
                     }
                 }
             }
-            secondaryLarge: menus(where: { location: SECONDARY_LARGE }) {
+            secondaryLarge: menus(first: 1, where: { location: SECONDARY_LARGE }) {
                 edges {
                     node {
                         id
@@ -173,8 +194,12 @@ export const getSession: GetSession = async ({ locals }) => {
     }
 
     function formatMenu(menu) {
+        const submap = ({ childItems, ...rest }) => ({
+            ...rest,
+            childItems: childItems ? smoothEdges(childItems).map(submap) : []
+        })
         return smoothEdges(menu).map(({ menuItems, fields }) => ({
-            menuItems: menuItems.edges.map(edge => edge.node),
+            menuItems: smoothEdges(menuItems).map(submap),
             fields
         }))[0]
     }

@@ -5,6 +5,7 @@ export const MenuItemFragment = graphql`
         id
         label
         url
+        target
     }
 `
 

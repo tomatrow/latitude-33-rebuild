@@ -12,9 +12,10 @@
         <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
     </a>
     <nav class="flex">
-        {#each $session.menus.primary.menuItems as { label, url }}
+        {#each $session.menus.primary.menuItems as { label, url, target }}
             <Link
                 sveltekit:prefetch
+                {target}
                 class="font-display text-white text-lg"
                 line={{ color: "white" }}
                 href={url}><span class="p-2">{label}</span></Link

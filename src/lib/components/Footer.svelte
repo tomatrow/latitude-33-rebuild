@@ -62,9 +62,12 @@
         </div>
 
         <div class="grid grid-rows-6 grid-cols-2 grid-flow-col">
-            {#each $session.menus.secondary.menuItems as { label, url }}
-                <Link sveltekit:prefetch href={url} class="font-display font-extrabold text-xl"
-                    >{label}</Link
+            {#each $session.menus.secondary.menuItems as { label, url, target }}
+                <Link
+                    {target}
+                    sveltekit:prefetch
+                    href={url}
+                    class="font-display font-extrabold text-xl">{label}</Link
                 >
             {/each}
         </div>
@@ -89,8 +92,8 @@
         class="space-y-8 md:space-y-0 flex items-center flex-col md:flex-row md:justify-between mt-32 px-5"
     >
         <div class="space-x-5 flex">
-            {#each $session.menus.secondarySmall.menuItems as { label, url }}
-                <Link sveltekit:prefetch href={url} class="text-sm">{label}</Link>
+            {#each $session.menus.secondarySmall.menuItems as { label, url, target }}
+                <Link {target} sveltekit:prefetch href={url} class="text-sm">{label}</Link>
             {/each}
         </div>
         <div class="space-x-5 flex">
