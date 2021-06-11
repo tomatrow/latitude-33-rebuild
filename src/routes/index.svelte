@@ -1,24 +1,40 @@
 <script lang="ts" context="module">
-    import { createLoad } from "$lib/scripts/utility"
-    import { fetchPage } from "./[base]/index.svelte"
+    import { rewriteLoad } from "$lib/components/RewriteLoader.svelte"
+    import { load as loadHome } from "./[home]/index.svelte"
+    import { load as loadAbout } from "./[about].svelte"
+    import { load as loadContact } from "./[contact].svelte"
 
-    export const load = createLoad(
-        ({ session }) => session.pages.find(item => item.isFrontPage),
-        fetchPage
-    )
+    enum PageRoute {
+        about,
+        home,
+        contact
+    }
+
+    export const load = rewriteLoad([
+        { id: PageRoute.home, load: loadHome },
+        { id: PageRoute.about, load: loadAbout },
+        { id: PageRoute.contact, load: loadContact }
+    ])
 </script>
 
 <script lang="ts">
-    import Home from "./[base]/_page-templates/Home/index.svelte"
-    import { onMount } from "svelte"
+    import { RewriteLoader } from "$lib/components"
 
-    export let info: any
-    export let data: any
-    export let variables: any
+    export let id: PageRoute
+    export let props: any
 
-    onMount(async () => (data ??= await fetchPage(info, variables)))
+    function resolve(id: PageRoute) {
+        switch (id) {
+            case PageRoute.about:
+                return import("./[about].svelte")
+            case PageRoute.home:
+                return import("./[home]/index.svelte")
+            case PageRoute.contact:
+                return import("./[contact].svelte")
+            default:
+                throw new Error(`Unknown id ${id}`)
+        }
+    }
 </script>
 
-{#if data}
-    <Home {...data} />
-{/if}
+<RewriteLoader {resolve} {id} {props} />

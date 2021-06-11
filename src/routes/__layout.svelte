@@ -10,5 +10,5 @@
 <main class="relative" style="padding-top: {height}">
     <slot />
     <Footer />
-    <GlobalContactCard />
+    <!-- <GlobalContactCard /> -->
 </main>

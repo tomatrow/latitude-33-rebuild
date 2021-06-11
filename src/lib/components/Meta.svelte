@@ -1,11 +1,12 @@
 <script>
     import { browser } from "$app/env"
-    export let post
+    export let title
+    export let seo
 </script>
 
 <svelte:head>
-    <title>{post.seo.title}</title>
-    {#if browser}
-        {@html post.seo.fullHead}
+    <title>{title}</title>
+    {#if !browser}
+        {@html seo.fullHead}
     {/if}
 </svelte:head>

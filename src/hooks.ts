@@ -1,4 +1,5 @@
 import { MenuItemFragment, MenuFragment } from "$lib/queries/menus"
+import { smoothEdges } from "$lib/scripts/utility"
 import { query, graphql } from "$lib/scripts/apollo"
 import type { Handle, GetSession, ServerRequest, ServerResponse } from "@sveltejs/kit"
 import UrlPattern from "url-pattern"
@@ -25,6 +26,7 @@ async function coreQueryMiddleware(request: ServerRequest) {
                     }
                 }
             }
+
             themeGeneralSettings {
                 themeSettingsFields {
                     injection {
@@ -40,26 +42,40 @@ async function coreQueryMiddleware(request: ServerRequest) {
                 }
             }
 
-            fleet(first: 100, where: { status: PUBLISH, hasPassword: false }) {
+            fleet(first: 500) {
                 edges {
                     node {
                         id
                         slug
+                        uri
                     }
                 }
             }
-            pages(first: 100, where: { status: PUBLISH, hasPassword: false }) {
+
+            subfleets(first: 500) {
+                edges {
+                    node {
+                        id
+                        slug
+                        uri
+                    }
+                }
+            }
+
+            pages(first: 500) {
                 edges {
                     node {
                         id
                         slug
                         isFrontPage
+                        uri
                         template {
                             templateName
                         }
                     }
                 }
             }
+
             primary: menus(first: 1, where: { location: PRIMARY }) {
                 edges {
                     node {
@@ -88,6 +104,7 @@ async function coreQueryMiddleware(request: ServerRequest) {
                     }
                 }
             }
+
             secondary: menus(first: 1, where: { location: SECONDARY }) {
                 edges {
                     node {
@@ -101,6 +118,7 @@ async function coreQueryMiddleware(request: ServerRequest) {
                     }
                 }
             }
+
             secondarySmall: menus(first: 1, where: { location: SECONDARY_SMALL }) {
                 edges {
                     node {
@@ -108,6 +126,7 @@ async function coreQueryMiddleware(request: ServerRequest) {
                     }
                 }
             }
+
             secondaryLarge: menus(first: 1, where: { location: SECONDARY_LARGE }) {
                 edges {
                     node {
@@ -187,11 +206,8 @@ export const handle: Handle = async ({ request, resolve }) => {
 
 export const getSession: GetSession = async ({ locals }) => {
     const { coreGraph } = locals
-    const { primary, secondary, secondaryLarge, secondarySmall, pages, fleet, seo } = coreGraph
-
-    function smoothEdges(resource) {
-        return resource.edges.map(edge => edge.node)
-    }
+    const { primary, secondary, secondaryLarge, secondarySmall, pages, fleet, seo, subfleets } =
+        coreGraph
 
     function formatMenu(menu) {
         const submap = ({ childItems, ...rest }) => ({
@@ -220,6 +236,7 @@ export const getSession: GetSession = async ({ locals }) => {
     return {
         pages: smoothEdges(pages),
         fleet: smoothEdges(fleet),
+        subfleets: smoothEdges(subfleets),
         social,
         menus: {
             primary: formatMenu(primary),

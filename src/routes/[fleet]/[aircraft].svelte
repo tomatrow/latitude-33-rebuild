@@ -1,10 +1,11 @@
 <script lang="ts" context="module">
-    import { graphql } from "$lib/scripts/apollo"
+    import { graphql, query } from "$lib/scripts/apollo"
     import { FleetTypeOptionsFragment, AircraftFragment } from "$lib/queries/aircraft"
     import { AcfLinkFragment, MediaItemFragment } from "$lib/queries/utility"
+    import { matchPath } from "$lib/scripts/router"
+    import type { Load } from "@sveltejs/kit"
 
-    export const name = "fleet"
-    export const Query = graphql`
+    const AircraftPostQuery = graphql`
         query AircraftPostQuery($id: ID!, $isPreview: Boolean!) {
             aircraft(id: $id, asPreview: $isPreview) {
                 ...AircraftFragment
@@ -18,14 +19,32 @@
         ${AcfLinkFragment}
         ${MediaItemFragment}
     `
+
+    export const load: Load = async ({ page, session }) => {
+        const item = session.fleet.find(matchPath(page.path))
+
+        if (!item) return
+
+        const { id } = item
+
+        const { data } = await query(AircraftPostQuery, {
+            id,
+            isPreview: page.query.has("preview"),
+            nonce: page.query.get("nonce")
+        })
+
+        return {
+            status: 200,
+            props: data
+        }
+    }
 </script>
 
 <script lang="ts">
     import _ from "lodash"
-    import { Link } from "$lib/components"
+    import { Link, Meta } from "$lib/components"
     import { IconChevronRight } from "$lib/svgs"
     import { cssVars } from "$lib/actions/styles"
-    import { Meta } from "$lib/components"
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
@@ -65,7 +84,7 @@
     }
 </script>
 
-<Meta post={aircraft} />
+<Meta title={aircraft.title} seo={aircraft.seo} />
 
 <div
     class="stats bg-shark space-y-6 sm:space-y-0 sm:pb-44 sm:pt-8 pb-6 sm:pl-5 sm:bg-center sm:bg-cover sm:bg-no-repeat"

@@ -2,37 +2,40 @@
     import { graphql } from "$lib/scripts/apollo"
     import { PageFragment, AboutPageFragment } from "$lib/queries/pages"
     import { AcfLinkFragment } from "$lib/queries/utility"
+    import { loadPage } from "$lib/scripts/router"
 
-    export const name = "About"
-    export const Query = graphql`
-        query AboutPageQuery($id: ID!, $isPreview: Boolean!) {
-            page(id: $id, asPreview: $isPreview) {
-                ...PageFragment
-                template {
-                    ...AboutPageFragment
+    export const load = loadPage(
+        "About",
+        graphql`
+            query AboutPageQuery($id: ID!, $isPreview: Boolean!) {
+                page(id: $id, asPreview: $isPreview) {
+                    ...PageFragment
+                    template {
+                        ...AboutPageFragment
+                    }
                 }
             }
-        }
-        ${PageFragment}
-        ${AboutPageFragment}
-        ${AcfLinkFragment}
-    `
+            ${PageFragment}
+            ${AboutPageFragment}
+            ${AcfLinkFragment}
+        `
+    )
 </script>
 
 <script lang="ts">
-    import { cssVars } from "$lib/actions/styles"
-    import { Link, Button, EmbeddedVideoModal } from "$lib/components"
-    import { openModal } from "$lib/components/ModalProvider.svelte"
     import { onMount } from "svelte"
-    import { Meta } from "$lib/components"
+    import { cssVars } from "$lib/actions/styles"
+    import { Link, Button, EmbeddedVideoModal, Meta } from "$lib/components"
+    import { openModal } from "$lib/components/ModalProvider.svelte"
 
+    console.log("about page")
     export let page
     const { id, slug, title, template } = page
 
     const { contentHtml, footer, vimeo } = template.aboutPageFields
 </script>
 
-<Meta post={page} />
+<Meta title={page.title} seo={page.seo} />
 
 <section
     class="bg-cover bg-no-repeat text-white"

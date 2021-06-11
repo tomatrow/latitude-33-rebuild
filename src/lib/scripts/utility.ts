@@ -12,6 +12,10 @@ export function delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 
+export function smoothEdges<T, R extends { edges: { node: T }[] }>(resource: R) {
+    return resource.edges.map(edge => edge.node)
+}
+
 export function createLoad(findResource: any, fetchResource: any): Load {
     return async input => {
         const info = findResource(input)

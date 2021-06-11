@@ -3,40 +3,38 @@
     import { ContactFormFragment } from "$lib/queries/contactForms"
     import { PageFragment, ContactPageFragment } from "$lib/queries/pages"
     import { AcfLinkFragment } from "$lib/queries/utility"
-    import { Meta } from "$lib/components"
+    import { loadPage } from "$lib/scripts/router"
 
-    export const name = "Contact"
-    export const Query = graphql`
-        query AboutPageQuery($id: ID!, $isPreview: Boolean!) {
-            page(id: $id, asPreview: $isPreview) {
-                ...PageFragment
-                template {
-                    ...ContactPageFragment
+    export const load = loadPage(
+        "Contact",
+        graphql`
+            query ContactPageQuery($id: ID!, $isPreview: Boolean!) {
+                page(id: $id, asPreview: $isPreview) {
+                    ...PageFragment
+                    template {
+                        ...ContactPageFragment
+                    }
                 }
             }
-        }
-        ${PageFragment}
-        ${ContactFormFragment}
-        ${ContactPageFragment}
-        ${AcfLinkFragment}
-    `
+            ${PageFragment}
+            ${ContactFormFragment}
+            ${ContactPageFragment}
+            ${AcfLinkFragment}
+        `
+    )
 </script>
 
 <script lang="ts">
-    import Button from "$lib/components/Button.svelte"
-    import Field, { fieldDefaults } from "$lib/components/Field.svelte"
+    import { session } from "$app/stores"
     import { createForm } from "felte"
     import { createValidator } from "@felte/validator-superstruct"
-    import { object, string, size } from "superstruct"
     import reporter from "@felte/reporter-cvapi"
-
+    import { object, string, size } from "superstruct"
+    import { fieldDefaults } from "$lib/components/Field.svelte"
+    import { Meta, Button, Link, Field } from "$lib/components"
     import { Envelope, Phone, IconArrowRight } from "$lib/svgs"
-
-    import Link from "$lib/components/Link.svelte"
-
     import { icons } from "$lib/data/social"
     import { stripPhone, splitChoices } from "$lib/scripts/utility"
-    import { session } from "$app/stores"
 
     const { form } = createForm({
         extend: [createValidator(() => "Enter a value"), reporter],
@@ -55,7 +53,7 @@
     const fields = template.contactPageFields.form.contactFormFields
 </script>
 
-<Meta post={page} />
+<Meta title={page.title} seo={page.seo} />
 
 <div class="banner mb-12 py-32">
     <div class="space-y-6 max-w-screen-2xl mx-auto px-6">
