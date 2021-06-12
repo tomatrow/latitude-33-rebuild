@@ -1,37 +1,56 @@
-import type { Load } from "@sveltejs/kit"
+import type { Load, LoadInput } from "@sveltejs/kit"
 import { query } from "$lib/scripts/apollo"
 
-export const normalizePath = (path: string) => (path.endsWith("/") ? path.slice(0, -1) : path)
+export const normalizePath = (path: string) =>
+    path.endsWith("/") && path !== "/" ? path.slice(0, -1) : path
 
-export const matchPath =
-    (incoming: string) =>
-    ({ uri }) =>
-        normalizePath(uri) === normalizePath(incoming)
+export interface Resource {
+    __typename: string
+    id: string
+    uri: string
+}
 
-export function loadPage(templateName: string, graphqlQuery: string): Load {
-    return async ({ page, session }) => {
-        console.log("matching", templateName)
-        const item = session.pages.find(
-            item => item?.template?.templateName === templateName && matchPath(page.path)(item)
-        )
-        console.log({ session })
-        if (!item) {
-            console.log("no match", templateName, page.path)
-            return
-        } else {
-            console.log({ item }, templateName, page.path)
-            const { id } = item
+type AnyResource = Resource & Record<string, any>
 
-            const { data } = await query(graphqlQuery, {
-                id,
-                isPreview: page.query.has("preview"),
-                nonce: page.query.get("nonce")
-            })
+export function matchResource<R extends Resource = AnyResource>(
+    { session, page }: LoadInput,
+    filter: (resource: R) => boolean = () => true
+) {
+    const resource = session.resources[normalizePath(page.path)]
+    return resource && filter(resource) ? resource : null
+}
 
-            return {
-                status: 200,
-                props: data
-            }
+export function previewVariables({ page }: LoadInput) {
+    return {
+        isPreview: page.query.has("preview"),
+        nonce: page.query.get("nonce")
+    }
+}
+
+export function loadResource<R extends Resource = AnyResource>(
+    graphqlQuery: string,
+    filter?: (resource: R) => boolean,
+    getVariables: (resource: R, input: LoadInput) => object = ({ id }) => ({ id })
+): Load {
+    return async input => {
+        const resource = matchResource(input, filter)
+
+        if (!resource) return
+
+        const { data } = await query(graphqlQuery, getVariables(resource, input))
+
+        return {
+            status: 200,
+            props: data
         }
     }
+}
+
+export function loadPage(templateName: string, graphqlQuery: string) {
+    return loadResource(
+        graphqlQuery,
+        resource =>
+            resource.__typename === "Page" && resource.template?.templateName === templateName,
+        ({ id }, input) => ({ id, ...previewVariables(input) })
+    )
 }

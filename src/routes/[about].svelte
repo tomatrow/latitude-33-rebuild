@@ -28,10 +28,9 @@
     import { Link, Button, EmbeddedVideoModal, Meta } from "$lib/components"
     import { openModal } from "$lib/components/ModalProvider.svelte"
 
-    console.log("about page")
     export let page
-    const { id, slug, title, template } = page
 
+    const { id, slug, title, template } = page
     const { contentHtml, footer, vimeo } = template.aboutPageFields
 </script>
 

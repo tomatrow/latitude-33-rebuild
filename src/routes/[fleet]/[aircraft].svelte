@@ -2,42 +2,27 @@
     import { graphql, query } from "$lib/scripts/apollo"
     import { FleetTypeOptionsFragment, AircraftFragment } from "$lib/queries/aircraft"
     import { AcfLinkFragment, MediaItemFragment } from "$lib/queries/utility"
-    import { matchPath } from "$lib/scripts/router"
+    import { loadResource, previewVariables } from "$lib/scripts/router"
     import type { Load } from "@sveltejs/kit"
 
-    const AircraftPostQuery = graphql`
-        query AircraftPostQuery($id: ID!, $isPreview: Boolean!) {
-            aircraft(id: $id, asPreview: $isPreview) {
-                ...AircraftFragment
+    export const load = loadResource(
+        graphql`
+            query AircraftPostQuery($id: ID!, $isPreview: Boolean!) {
+                aircraft(id: $id, asPreview: $isPreview) {
+                    ...AircraftFragment
+                }
+                acfOptionsDrillDown {
+                    ...FleetTypeOptionsFragment
+                }
             }
-            acfOptionsDrillDown {
-                ...FleetTypeOptionsFragment
-            }
-        }
-        ${FleetTypeOptionsFragment}
-        ${AircraftFragment}
-        ${AcfLinkFragment}
-        ${MediaItemFragment}
-    `
-
-    export const load: Load = async ({ page, session }) => {
-        const item = session.fleet.find(matchPath(page.path))
-
-        if (!item) return
-
-        const { id } = item
-
-        const { data } = await query(AircraftPostQuery, {
-            id,
-            isPreview: page.query.has("preview"),
-            nonce: page.query.get("nonce")
-        })
-
-        return {
-            status: 200,
-            props: data
-        }
-    }
+            ${FleetTypeOptionsFragment}
+            ${AircraftFragment}
+            ${AcfLinkFragment}
+            ${MediaItemFragment}
+        `,
+        ({ __typename }) => __typename === "Aircraft",
+        ({ id }, input) => ({ id, ...previewVariables(input) })
+    )
 </script>
 
 <script lang="ts">

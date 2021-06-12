@@ -1,75 +1,58 @@
 <script lang="ts" context="module">
-    import { graphql, query } from "$lib/scripts/apollo"
+    import { graphql } from "$lib/scripts/apollo"
     import { MediaItemFragment } from "$lib/queries/utility"
-    import type { LoadInput } from "@sveltejs/kit"
-    import { matchPath } from "$lib/scripts/router"
-    import type { Route } from "$lib/scripts/router"
+    import { loadResource } from "$lib/scripts/router"
 
-    const SubfleetTaxonomyQuery = graphql`
-        query SubfleetTaxonomyQuery($id: ID!) {
-            subfleet(id: $id) {
-                id
-                name
-                description
-                seo {
-                    title
-                    fullHead
-                }
-                subfleetPageSettings {
-                    gallery {
-                        ...MediaItemFragment
+    export const load = loadResource(
+        graphql`
+            query SubfleetTaxonomyQuery($id: ID!) {
+                subfleet(id: $id) {
+                    id
+                    name
+                    description
+                    seo {
+                        title
+                        fullHead
                     }
-                    gridHeading
-                }
-                fleet {
-                    edges {
-                        node {
-                            id
-                            title
-                            uri
-                            featuredImage {
-                                node {
-                                    altText
-                                    sourceUrl
+                    subfleetPageSettings {
+                        gallery {
+                            ...MediaItemFragment
+                        }
+                        gridHeading
+                    }
+                    fleet {
+                        edges {
+                            node {
+                                id
+                                title
+                                uri
+                                featuredImage {
+                                    node {
+                                        ...MediaItemFragment
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            acfOptionsSubfleets {
-                subfleetOptions {
-                    mainContent {
-                        subheading
-                        bookingCtaLabel
-                        galleryLabel
-                    }
-                    fleetGrid {
-                        subheading
-                        linkLabel
+                acfOptionsSubfleets {
+                    subfleetOptions {
+                        mainContent {
+                            subheading
+                            bookingCtaLabel
+                            galleryLabel
+                        }
+                        fleetGrid {
+                            subheading
+                            linkLabel
+                        }
                     }
                 }
             }
-        }
-        ${MediaItemFragment}
-    `
-
-    export const load: Load = async ({ page, session }) => {
-        const item = session.subfleets.find(matchPath(page.path))
-
-        if (!item) return
-
-        const { id } = item
-
-        const { data } = await query(SubfleetTaxonomyQuery, {
-            id
-        })
-
-        return {
-            status: 200,
-            props: data
-        }
-    }
+            ${MediaItemFragment}
+        `,
+        ({ __typename }) => __typename === "Subfleet"
+    )
 </script>
 
 <script lang="ts">

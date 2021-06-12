@@ -15,29 +15,3 @@ export function delay(ms: number): Promise<void> {
 export function smoothEdges<T, R extends { edges: { node: T }[] }>(resource: R) {
     return resource.edges.map(edge => edge.node)
 }
-
-export function createLoad(findResource: any, fetchResource: any): Load {
-    return async input => {
-        const info = findResource(input)
-        if (!info)
-            return {
-                status: 404,
-                error: "Resource not found"
-            }
-
-        const variables = {
-            id: info.id,
-            isPreview: input.page.query.has("preview"),
-            nonce: input.page.query.get("nonce")
-        }
-
-        return {
-            status: 200,
-            props: {
-                info,
-                data: variables.isPreview ? null : await fetchResource(info, variables),
-                variables
-            }
-        }
-    }
-}

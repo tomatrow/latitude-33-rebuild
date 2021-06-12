@@ -1,5 +1,6 @@
 import { MenuItemFragment, MenuFragment } from "$lib/queries/menus"
 import { smoothEdges } from "$lib/scripts/utility"
+import { normalizePath } from "$lib/scripts/router"
 import { query, graphql } from "$lib/scripts/apollo"
 import type { Handle, GetSession, ServerRequest, ServerResponse } from "@sveltejs/kit"
 import UrlPattern from "url-pattern"
@@ -45,8 +46,8 @@ async function coreQueryMiddleware(request: ServerRequest) {
             fleet(first: 500) {
                 edges {
                     node {
+                        __typename
                         id
-                        slug
                         uri
                     }
                 }
@@ -55,8 +56,8 @@ async function coreQueryMiddleware(request: ServerRequest) {
             subfleets(first: 500) {
                 edges {
                     node {
+                        __typename
                         id
-                        slug
                         uri
                     }
                 }
@@ -65,9 +66,8 @@ async function coreQueryMiddleware(request: ServerRequest) {
             pages(first: 500) {
                 edges {
                     node {
+                        __typename
                         id
-                        slug
-                        isFrontPage
                         uri
                         template {
                             templateName
@@ -197,7 +197,7 @@ export const handle: Handle = async ({ request, resolve }) => {
     const redirection = redirectionMiddleware(request)
     if (redirection) return redirection
 
-    let response = await resolve(request)
+    const response = await resolve(request)
 
     injectionMiddleware(request, response)
 
@@ -233,10 +233,13 @@ export const getSession: GetSession = async ({ locals }) => {
                 ...computed
             }
         })
+
     return {
-        pages: smoothEdges(pages),
-        fleet: smoothEdges(fleet),
-        subfleets: smoothEdges(subfleets),
+        resources: Object.fromEntries(
+            [...smoothEdges(pages), ...smoothEdges(fleet), ...smoothEdges(subfleets)].map(
+                resource => [normalizePath(resource.uri), resource]
+            )
+        ),
         social,
         menus: {
             primary: formatMenu(primary),
