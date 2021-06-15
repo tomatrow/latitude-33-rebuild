@@ -56,7 +56,7 @@
 
 <a
     {href}
-    class:shadow-inner-full={shadow}
+    class:hover:shadow-inner-10xl={shadow}
     class="{clazz} {classes}"
     use:lineAction={line}
     on:click
@@ -64,9 +64,3 @@
 >
     <slot />
 </a>
-
-<style lang="postcss">
-    .shadow-inner-full:hover {
-        box-shadow: inset 0 200px 200px 200px rgba(0, 0, 0, 0.1);
-    }
-</style>

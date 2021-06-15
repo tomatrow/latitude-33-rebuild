@@ -1,6 +1,9 @@
 <script lang="ts">
+    import { session } from "$app/stores"
     import { cssVars } from "../actions/styles"
-    import Link from "$lib/components/Link.svelte"
+    import Link from "./Link.svelte"
+    import RangeFinderCta from "./RangeFinderCta.svelte"
+    import { icons } from "$lib/data/social"
     import {
         IconChevronRight,
         ApplicationDesignGridLayout,
@@ -9,8 +12,6 @@
         UsersFemaleMale,
         BackpackSchool
     } from "$lib/svgs"
-    import { icons } from "$lib/data/social"
-    import { session } from "$app/stores"
 
     const {
         brandname: brandName,
@@ -34,21 +35,7 @@
     class="pb-12 bg-cover bg-no-repeat text-white"
     use:cssVars={{ image: `url(${footerBackgroundImageUrl})`, opacity: 0.5 }}
 >
-    <nav
-        class="flex flex-col sm:flex-row justify-between p-5 border-b border-white"
-        style="margin-bottom: 4.5rem"
-    >
-        <a href="/" sveltekit:prefetch>
-            <img alt="latitude 33 logo" class="w-40" src="/icons/latitude33-logo-white.png" />
-        </a>
-        <Link
-            href="#"
-            class="space-x-10 transition duration-200 hover:shadow-inner-10xl flex items-center py-4 px-5 border border-white rounded"
-        >
-            <span class="font-display text-white font-black text-xl">Range Finder</span>
-            <img class="h-14 filter brightness-200" src="/icons/blue-plane.png" alt="toy plane" />
-        </Link>
-    </nav>
+    <RangeFinderCta class="p-5 border-b border-white" style="margin-bottom: 4.5rem" />
     <nav class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 px-5">
         <div class="font-display space-y-3 flex flex-col text-xl">
             <h6 class="font-bold">{brandName}</h6>

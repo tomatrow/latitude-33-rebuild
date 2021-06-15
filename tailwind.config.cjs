@@ -32,13 +32,15 @@ module.exports = {
                 "disappointment-blue": "#658396",
                 "tinted-rear-window": "#2C2D36",
                 "shark": "#ABABAB",
+                "sarcastic-orange": "#C77853",
                 "the-girl-is-looking-at-the-sky": "#B7DFF6"
             },
             boxShadow: { 
                 "inner-10xl": "inset 0 200px 200px 200px rgba(0, 0, 0, 0.1)"
             },
             fontSize: {
-                "3.5xl": "2rem"
+                "3.5xl": "2rem",
+                "5.5xl": "3.375rem"
             },
             letterSpacing: {
                 "px": "0.0625"

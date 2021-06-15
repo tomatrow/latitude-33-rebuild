@@ -21,14 +21,8 @@
 <button
     {type}
     on:click
-    class:shadow-inner-full={shadow}
+    class:hover:shadow-inner-10xl={shadow}
     class="{clazz} {classes}"
     use:lineAction={line}
     {...$$restProps}><slot /></button
 >
-
-<style lang="postcss">
-    .shadow-inner-full:hover {
-        box-shadow: inset 0 200px 200px 200px rgba(0, 0, 0, 0.1);
-    }
-</style>
