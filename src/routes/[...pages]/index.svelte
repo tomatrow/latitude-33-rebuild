@@ -1,19 +1,22 @@
 <script lang="ts" context="module">
     import { rewriteLoad } from "$lib/components/RewriteLoader.svelte"
-    import { load as loadHome } from "./[home]/index.svelte"
-    import { load as loadAbout } from "./[about].svelte"
-    import { load as loadContact } from "./[contact].svelte"
+    import { load as loadHome } from "./_home/index.svelte"
+    import { load as loadAbout } from "./_about.svelte"
+    import { load as loadContact } from "./_contact.svelte"
+    import { load as loadFleet } from "./_fleet.svelte"
 
     enum PageRoute {
         about,
         home,
-        contact
+        contact,
+        fleet
     }
 
     export const load = rewriteLoad([
         { id: PageRoute.home, load: loadHome },
         { id: PageRoute.about, load: loadAbout },
-        { id: PageRoute.contact, load: loadContact }
+        { id: PageRoute.contact, load: loadContact },
+        { id: PageRoute.fleet, load: loadFleet }
     ])
 </script>
 
@@ -26,11 +29,13 @@
     function resolve(id: PageRoute) {
         switch (id) {
             case PageRoute.about:
-                return import("./[about].svelte")
+                return import("./_about.svelte")
             case PageRoute.home:
-                return import("./[home]/index.svelte")
+                return import("./_home/index.svelte")
             case PageRoute.contact:
-                return import("./[contact].svelte")
+                return import("./_contact.svelte")
+            case PageRoute.fleet:
+                return import("./_fleet.svelte")
             default:
                 throw new Error(`Unknown id ${id}`)
         }

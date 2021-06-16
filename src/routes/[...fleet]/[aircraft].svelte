@@ -64,6 +64,8 @@
         }
     ]
 
+    const mainImage = aircraft.featuredImage?.node
+
     function idify(key: string) {
         return _.kebabCase(key)
     }
@@ -72,18 +74,18 @@
 <Meta title={aircraft.title} seo={aircraft.seo} />
 
 <div
-    class="stats bg-shark space-y-6 sm:space-y-0 sm:pb-44 sm:pt-8 pb-6 sm:pl-5 sm:bg-center sm:bg-cover sm:bg-no-repeat"
-    use:cssVars={{ bg: `url(${aircraft.featuredImage.node.sourceUrl})` }}
+    class="stats bg-either-gray-blue sm:pb-44 sm:pt-8 sm:pl-5 bg-white sm:bg-center sm:bg-cover sm:bg-no-repeat"
+    use:cssVars={{
+        bg: mainImage ? `url(${mainImage.sourceUrl})` : ""
+    }}
 >
-    {#if aircraft.featuredImage}
-        <img
-            class="sm:hidden w-full"
-            src={aircraft.featuredImage.node.sourceUrl}
-            alt={aircraft.featuredImage.node.altText}
-        />
+    {#if mainImage}
+        <img class="sm:hidden w-full" src={mainImage.sourceUrl} alt={mainImage.altText} />
     {/if}
 
-    <section class="rounded-xl sm:px-9 sm:p-0 pt-6 sm:py-16 px-5 sm:max-w-sm">
+    <section
+        class="bg-opacity-70 sm:rounded-xl sm:px-9 relative sm:p-0 py-6 sm:py-16 px-5 sm:max-w-sm bg-white"
+    >
         <h1 class="font-display text-3.5xl leading-9 w-3/4 text-black font-black">
             {aircraft.title}
         </h1>
@@ -205,9 +207,6 @@
     @screen sm {
         .stats {
             background-image: var(--bg);
-            section {
-                background-color: rgba(255, 255, 255, 0.67);
-            }
         }
     }
 </style>
