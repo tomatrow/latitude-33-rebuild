@@ -19,7 +19,7 @@
                 }
             }
 
-            if (!id) return
+            if (output === undefined) return
 
             return {
                 ...output,
