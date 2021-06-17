@@ -67,8 +67,6 @@
 
     const { subfleetOptions } = acfOptionsSubfleets
 
-    console.log({ subfleet, acfOptionsSubfleets })
-
     const images = subfleet.subfleetPageSettings.gallery.map(
         ({ sourceUrl, altText, sizes, srcSet }) => ({
             sizes,
@@ -78,32 +76,24 @@
         })
     )
 
-    let galleryIndex = 0
-
     const fleet = smoothEdges(subfleet.fleet)
 
-    function cardClass(index: number) {
-        if (index !== fleet.length - 1) return ["", "h-96"]
-        if (fleet.length === 1)
-            return [
-                "mx-auto col-span-full  w-full sm:w-3/4 md:w-1/2",
-                "sm:h-full w-full sm:aspect-w-16  h-96 sm:aspect-h-9"
-            ]
-        if (fleet.length % 2 === 1)
-            return [
-                "md:mx-auto md:w-full md:col-span-full lg:col-span-1",
-                "md:aspect-w-16 lg:w-full md:aspect-h-9 h-96 md:h-full lg:h-96 lg:aspect-w-none lg:aspect-h-none"
-            ]
-        else if (fleet.length % 3 === 1)
-            return [
-                "lg:mx-auto  lg:w-1/2 lg:col-span-full",
-                "h-96 lg:h-full lg:aspect-w-16 lg:aspect-h-9"
-            ]
-        else return ["", "h-96"]
+    function isSingular(length: number, chunk: number, index: number) {
+        return index === length - 1 && length % chunk === 1
     }
+
+    function classes(index: number) {
+        return [
+            isSingular(fleet.length, 3, index) && "lg:aspect-w-16 lg:aspect-h-9",
+            isSingular(fleet.length, 2, index) && "md:aspect-w-16 md:aspect-h-9"
+        ]
+            .filter(Boolean)
+            .join(" ")
+    }
+
+    let galleryIndex = 0
 </script>
 
-<!-- /fleet/turboprop-private-aircraft -->
 <Meta title={subfleet.name} seo={subfleet.seo} />
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -170,26 +160,21 @@
     </h4>
 </div>
 
-<div id="subfleet-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+<section class="grid grid-custom">
     {#each fleet as { title, uri, featuredImage }, index}
-        <div class={cardClass(index)[0]}>
-            <div class={cardClass(index)[1]}>
-                <Card
-                    class="h-full"
-                    {title}
-                    href={uri}
-                    linkTitle={subfleetOptions.fleetGrid.linkLabel}
-                    src={featuredImage?.node.sourceUrl}
-                />
-            </div>
+        <div class={classes(index)}>
+            <Card
+                class="h-96"
+                {title}
+                href={uri}
+                linkTitle={subfleetOptions.fleetGrid.linkLabel}
+                src={featuredImage?.node.sourceUrl}
+            />
         </div>
     {/each}
-</div>
+</section>
 
 <style global lang="postcss">
-    #subfleet-grid > * {
-    }
-
     .injected-subfleet-content {
         @apply tracking-px font-light text-xl;
 

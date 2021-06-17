@@ -6,4 +6,26 @@
     .airy-copy {
         @apply font-light font-sans tracking-px;
     }
+    .grid-custom {
+        @apply grid-cols-2 md:grid-cols-4 lg:grid-cols-6;
+        & > * {
+            @apply col-span-2;
+            /* prettier-ignore */
+            &:nth-child(2n+1):last-child {
+                @apply md:col-start-2 lg:col-start-auto;
+            }
+            /* prettier-ignore */
+            &:nth-child(3n+1):last-child {
+                @apply lg:col-span-4 lg:col-start-2;
+            }
+            /* prettier-ignore */
+            &:nth-child(3n+2):last-child {
+                @apply lg:col-span-3 lg:col-start-4;
+            }
+            /* prettier-ignore */
+            &:nth-child(3n+1):nth-last-child(2) {
+                @apply lg:col-span-3;
+            }
+        }
+    }
 }
