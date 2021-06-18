@@ -11,11 +11,9 @@
         }
     ]
 
-    export let firstBlurb: any
-    export let secondBlurb: any
-    export let thirdBlurb: any
+    export let items = []
 
-    const blurbs = [firstBlurb, secondBlurb, thirdBlurb].map(({ contentHtml, title }, index) => ({
+    const blurbs = items.map(({ contentHtml, title }, index) => ({
         contentHtml,
         title,
         ...baseSettings[index]

@@ -7,10 +7,11 @@
     export let hollow = true
     let clazz = ""
     export { clazz as class }
+    export let style = ""
 </script>
 
 <div
-    style="background-image: url({src})"
+    style="background-image: url({src}); {style}"
     class="{clazz} flex flex-col justify-end bg-center bg-cover bg-no-repeat"
 >
     <div

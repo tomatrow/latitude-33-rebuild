@@ -59,7 +59,7 @@
 
 <script lang="ts">
     import _ from "lodash"
-    import { Meta, Link, Button, Gallery, RangeFinderCta, Card } from "$lib/components"
+    import { Meta, Link, Button, Gallery, RangeFinderCta, FleetGrid } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
 
     export let subfleet: any
@@ -77,19 +77,6 @@
     )
 
     const fleet = smoothEdges(subfleet.fleet)
-
-    function isSingular(length: number, chunk: number, index: number) {
-        return index === length - 1 && length % chunk === 1
-    }
-
-    function classes(index: number) {
-        return [
-            isSingular(fleet.length, 3, index) && "lg:aspect-w-16 lg:aspect-h-9",
-            isSingular(fleet.length, 2, index) && "md:aspect-w-16 md:aspect-h-9"
-        ]
-            .filter(Boolean)
-            .join(" ")
-    }
 
     let galleryIndex = 0
 </script>
@@ -160,19 +147,7 @@
     </h4>
 </div>
 
-<section class="grid grid-custom">
-    {#each fleet as { title, uri, featuredImage }, index}
-        <div class={classes(index)}>
-            <Card
-                class="h-96"
-                {title}
-                href={uri}
-                linkTitle={subfleetOptions.fleetGrid.linkLabel}
-                src={featuredImage?.node.sourceUrl}
-            />
-        </div>
-    {/each}
-</section>
+<FleetGrid {fleet} linkTitle={subfleetOptions.fleetGrid.linkLabel} />
 
 <style global lang="postcss">
     .injected-subfleet-content {

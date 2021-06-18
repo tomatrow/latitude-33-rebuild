@@ -76,11 +76,11 @@
 <div
     class="stats bg-either-gray-blue sm:pb-44 sm:pt-8 sm:pl-5 bg-white sm:bg-center sm:bg-cover sm:bg-no-repeat"
     use:cssVars={{
-        bg: mainImage ? `url(${mainImage.sourceUrl})` : ""
+        bg: mainImage ? `url(${mainImage.src})` : ""
     }}
 >
     {#if mainImage}
-        <img class="sm:hidden w-full" src={mainImage.sourceUrl} alt={mainImage.altText} />
+        <img class="sm:hidden w-full" {...mainImage} />
     {/if}
 
     <section
@@ -133,8 +133,7 @@
     >
         <img
             class="sm:transform sm:rounded-3xl sm:-translate-y-1/2 sm:max-h-64 lg:transform-none lg:max-w-none sm:absolute lg:static top-0 left-0 sm:ml-5 lg:ml-0 sm:max-w-sm lg:max-h-full lg:w-full lg:h-full lg:rounded-none lg:object-cover"
-            src={image.sourceUrl}
-            alt={image.altText}
+            {...image}
         />
         <div
             class:lg:col-start-1={index % 2 === 1}
@@ -169,13 +168,12 @@
         <div class="font-display" style="font-size: 3.375rem">{socialProofSummary.rating}</div>
         <p class="mb-4">{socialProofSummary.blurb}</p>
         <div class="space-x-4">
-            {#each socialProofSummary.links.map(item => item.link) as { url, title, target }}
+            {#each socialProofSummary.links as { link }}
                 <Link
                     class="transition ease-in-out hover:text-pre-coffee-sky-blue font-display py-2 px-4 border border-white rounded hover:bg-white text-white font-bold text-sm"
-                    href={url}
+                    {...link}
                     style="transition-duration: 0.425s"
-                    {target}>{title}</Link
-                >
+                />
             {/each}
         </div>
     </div>
@@ -188,8 +186,7 @@
         >
             <img
                 class="h-18 w-18 transform -translate-y-1/2 translate-x-1/3 absolute top-0 left-0 rounded-full"
-                src={proof.featuredImage.node.sourceUrl}
-                alt={proof.featuredImage.node.altText}
+                {...proof.featuredImage.node}
             />
             <p class="text-tinted-rear-window text-xl">{proof.testimonialPostFields.quote}</p>
             <div class="mt-4 text-black text-sm">

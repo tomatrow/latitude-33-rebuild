@@ -10,6 +10,8 @@
     export let pill: boolean = undefined
     export let line: LineActionConfig = false
 
+    export let title: string = undefined
+
     export let type: "button" | "submit" | "reset" = "button"
     export { clazz as class }
 
@@ -24,5 +26,11 @@
     class:hover:shadow-inner-10xl={shadow}
     class="{clazz} {classes}"
     use:lineAction={line}
-    {...$$restProps}><slot /></button
+    {...$$restProps}
 >
+    {#if title}
+        {title}
+    {:else}
+        <slot />
+    {/if}
+</button>

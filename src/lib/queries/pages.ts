@@ -18,28 +18,6 @@ export const FleetPageFragment = graphql`
     fragment FleetPageFragment on 
 `
 
-export const AboutPageFragment = graphql`
-    fragment AboutPageFragment on Template_About {
-        aboutPageFields {
-            contentHtml
-            footer {
-                blurb
-                link {
-                    ...AcfLinkFragment
-                }
-            }
-            vimeo {
-                title
-                vimeoId
-                previewImage {
-                    altText
-                    mediaItemUrl
-                }
-            }
-        }
-    }
-`
-
 export const ContactPageFragment = graphql`
     fragment ContactPageFragment on Template_Contact {
         contactPageFields {

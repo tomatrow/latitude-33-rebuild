@@ -3,7 +3,7 @@
     import { load as loadHome } from "./_home/index.svelte"
     import { load as loadAbout } from "./_about.svelte"
     import { load as loadContact } from "./_contact.svelte"
-    import { load as loadFleet } from "./_fleet.svelte"
+    import { load as loadFleet } from "./_fleet/index.svelte"
 
     enum PageRoute {
         about,
@@ -35,7 +35,7 @@
             case PageRoute.contact:
                 return import("./_contact.svelte")
             case PageRoute.fleet:
-                return import("./_fleet.svelte")
+                return import("./_fleet/index.svelte")
             default:
                 throw new Error(`Unknown id ${id}`)
         }

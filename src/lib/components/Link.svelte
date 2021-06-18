@@ -46,6 +46,8 @@
     export let ease: boolean = undefined
     export let line: LineActionConfig = false
 
+    export let title: string = undefined
+
     export let href: string
     export { clazz as class }
 
@@ -62,5 +64,9 @@
     on:click
     {...$$restProps}
 >
-    <slot />
+    {#if title}
+        {title}
+    {:else}
+        <slot />
+    {/if}
 </a>
