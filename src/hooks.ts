@@ -76,6 +76,16 @@ async function coreQueryMiddleware(request: ServerRequest) {
                 }
             }
 
+            posts(first: 500) {
+                edges {
+                    node {
+                        __typename
+                        id
+                        uri
+                    }
+                }
+            }
+
             primary: menus(first: 1, where: { location: PRIMARY }) {
                 edges {
                     node {
@@ -206,8 +216,17 @@ export const handle: Handle = async ({ request, resolve }) => {
 
 export const getSession: GetSession = async ({ locals }) => {
     const { coreGraph } = locals
-    const { primary, secondary, secondaryLarge, secondarySmall, pages, fleet, seo, subfleets } =
-        coreGraph
+    const {
+        primary,
+        secondary,
+        secondaryLarge,
+        secondarySmall,
+        pages,
+        posts,
+        fleet,
+        seo,
+        subfleets
+    } = coreGraph
 
     function formatMenu(menu) {
         const submap = ({ childItems, ...rest }) => ({
@@ -236,7 +255,13 @@ export const getSession: GetSession = async ({ locals }) => {
 
     return {
         resources: Object.fromEntries(
-            [...smoothEdges(pages), ...smoothEdges(fleet), ...smoothEdges(subfleets)].map(
+            [
+                ...smoothEdges(posts),
+                ...smoothEdges(pages),
+                ...smoothEdges(fleet),
+                ...smoothEdges(subfleets)
+            ].map(
+                // @ts-ignore
                 resource => [normalizePath(resource.uri), resource]
             )
         ),

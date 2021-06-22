@@ -4,19 +4,22 @@
     import { load as loadAbout } from "./_about.svelte"
     import { load as loadContact } from "./_contact.svelte"
     import { load as loadFleet } from "./_fleet/index.svelte"
+    import { load as loadBlog } from "./_blog/index.svelte"
 
     enum PageRoute {
         about,
         home,
         contact,
-        fleet
+        fleet,
+        blog
     }
 
     export const load = rewriteLoad([
         { id: PageRoute.home, load: loadHome },
         { id: PageRoute.about, load: loadAbout },
         { id: PageRoute.contact, load: loadContact },
-        { id: PageRoute.fleet, load: loadFleet }
+        { id: PageRoute.fleet, load: loadFleet },
+        { id: PageRoute.blog, load: loadBlog }
     ])
 </script>
 
@@ -36,6 +39,8 @@
                 return import("./_contact.svelte")
             case PageRoute.fleet:
                 return import("./_fleet/index.svelte")
+            case PageRoute.blog:
+                return import("./_blog/index.svelte")
             default:
                 throw new Error(`Unknown id ${id}`)
         }

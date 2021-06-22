@@ -51,3 +51,11 @@ export const BannerFragment = graphql`
         }
     }
 `
+
+export const TermFragment = graphql`
+    fragment TermFragment on TermNode {
+        id
+        uri
+        name
+    }
+`

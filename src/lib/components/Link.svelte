@@ -1,4 +1,17 @@
 <script context="module" lang="ts">
+    export type PrimaryColor =
+        | "a-taste-of-blueberries"
+        | "either-gray-blue"
+        | "scorpion-tan"
+        | "pre-coffee-sky-blue"
+        | "calm-summer-horizon"
+        | "dark-charcoal"
+        | "disappointment-blue"
+        | "tinted-rear-window"
+        | "shark"
+        | "sarcastic-orange"
+        | "the-girl-is-looking-at-the-sky"
+
     export interface ClassesConfig {
         hollow?: boolean
         filled?: boolean
@@ -7,6 +20,8 @@
         pill?: boolean
         raise?: boolean
         ease?: boolean
+        border?: boolean
+        color?: PrimaryColor
     }
     export function createClasses({
         hollow,
@@ -15,17 +30,19 @@
         blob,
         pill,
         raise,
-        ease
+        ease,
+        border,
+        color
     }: ClassesConfig) {
         return [
             ease && "duration-200 ease-in-out transition",
             raise && "hover:-translate-y-1.5 hover:shadow-md transform",
+            shadow && "hover:shadow-inner-10xl",
             blob && "rounded",
             pill && "rounded-full",
             hollow && "border-white border",
-            filled && "bg-either-gray-blue",
-            (hollow || filled) && "rounded-full py-2 px-4",
-            shadow && "transition-shadow duration-200",
+            filled && `bg-${color} text-white`,
+            border && `border-${color} border-2`,
             "font-display"
         ]
             .filter(Boolean)
@@ -45,6 +62,8 @@
     export let raise: boolean = undefined
     export let ease: boolean = undefined
     export let line: LineActionConfig = false
+    export let color: PrimaryColor = undefined
+    export let border: boolean = undefined
 
     export let title: string = undefined
 
@@ -53,17 +72,10 @@
 
     let clazz = ""
 
-    $: classes = createClasses({ hollow, filled, shadow, blob, pill, raise, ease })
+    $: classes = createClasses({ hollow, filled, shadow, blob, pill, raise, ease, border, color })
 </script>
 
-<a
-    {href}
-    class:hover:shadow-inner-10xl={shadow}
-    class="{clazz} {classes}"
-    use:lineAction={line}
-    on:click
-    {...$$restProps}
->
+<a {href} class="{clazz} {classes}" use:lineAction={line} on:click {...$$restProps}>
     {#if title}
         {title}
     {:else}

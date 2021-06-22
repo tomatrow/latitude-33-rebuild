@@ -29,3 +29,89 @@
         }
     }
 }
+
+/* https://www.tiny.cloud/docs/general-configuration-guide/boilerplate-content-css/ */
+
+.injected-content {
+    @apply text-sm space-y-3 tracking-px font-light;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-bold font-display tracking-normal mt-4;
+    }
+
+    h1 {
+        @apply text-4xl;
+    }
+    h2 {
+        @apply text-3xl;
+    }
+    h3 {
+        @apply text-2xl;
+    }
+    h4 {
+        @apply text-xl;
+    }
+    h5 {
+        @apply text-lg;
+    }
+    h6 {
+        @apply text-base;
+    }
+
+    ul,
+    ol {
+        @apply space-y-1 md:space-y-4 pl-10;
+    }
+    ul {
+        @apply list-disc;
+    }
+    li {
+        @apply list-decimal;
+    }
+
+    figure.image {
+        display: inline-block;
+        border: 1px solid gray;
+        margin: 0 2px 0 1px;
+        background: #f5f2f0;
+    }
+
+    figure.align-left {
+        float: left;
+    }
+
+    figure.align-right {
+        float: right;
+    }
+
+    figure.image img {
+        margin: 8px 8px 0 8px;
+    }
+
+    figure.image figcaption {
+        margin: 6px 8px 6px 8px;
+        text-align: center;
+    }
+
+    /*
+ Alignment using classes rather than inline styles
+ check out the "formats" option
+*/
+
+    img {
+        &.aligncenter {
+            @apply mx-auto;
+        }
+        &.alignleft {
+            @apply mr-auto;
+        }
+        &.alignright {
+            @apply ml-auto;
+        }
+    }
+}
