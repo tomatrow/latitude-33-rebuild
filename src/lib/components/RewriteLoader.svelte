@@ -1,32 +1,21 @@
 <script context="module" lang="ts">
     import type { Load, LoadInput, LoadOutput } from "@sveltejs/kit"
 
-    export interface Route {
-        id: any
-        load: Load
-    }
+    export type Importer = () => Promise<{ default: SvelteComponent }>
 
-    export function rewriteLoad(routes: Route[]): Load {
+    export function rewriteLoad(routes: [Load, Importer][]): Load {
         return async input => {
-            let id: any
-            let output: LoadOutput
+            for (const [index, [load]] of routes.entries()) {
+                const output = await load(input)
 
-            for (const route of routes) {
-                output = await route.load(input)
-                if (output) {
-                    id = route.id
-                    break
-                }
-            }
+                if (!output) continue
 
-            if (output === undefined) return
-
-            return {
-                ...output,
-                props: {
-                    id,
+                output.props = {
+                    index,
                     props: output.props
                 }
+
+                return output
             }
         }
     }
@@ -34,11 +23,11 @@
 
 <script lang="ts">
     import type { SvelteComponent } from "svelte"
-    export let id: any
+    export let index: number
     export let props: any
-    export let resolve: (id: any) => Promise<{ default: SvelteComponent }>
+    export let routes: [Load, Importer][]
 </script>
 
-{#await resolve(id) then module}
+{#await routes[index][1]() then module}
     <svelte:component this={module?.default} {...props ?? {}} />
 {/await}

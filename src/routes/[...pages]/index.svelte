@@ -6,45 +6,22 @@
     import { load as loadFleet } from "./_fleet/index.svelte"
     import { load as loadBlog } from "./_blog/index.svelte"
 
-    enum PageRoute {
-        about,
-        home,
-        contact,
-        fleet,
-        blog
-    }
+    const routes = [
+        [loadHome, () => import("./_home/index.svelte")],
+        [loadAbout, () => import("./_about.svelte")],
+        [loadContact, () => import("./_contact.svelte")],
+        [loadFleet, () => import("./_fleet/index.svelte")],
+        [loadBlog, () => import("./_blog/index.svelte")]
+    ]
 
-    export const load = rewriteLoad([
-        { id: PageRoute.home, load: loadHome },
-        { id: PageRoute.about, load: loadAbout },
-        { id: PageRoute.contact, load: loadContact },
-        { id: PageRoute.fleet, load: loadFleet },
-        { id: PageRoute.blog, load: loadBlog }
-    ])
+    export const load = rewriteLoad(routes)
 </script>
 
 <script lang="ts">
     import { RewriteLoader } from "$lib/components"
 
-    export let id: PageRoute
+    export let index: number
     export let props: any
-
-    function resolve(id: PageRoute) {
-        switch (id) {
-            case PageRoute.about:
-                return import("./_about.svelte")
-            case PageRoute.home:
-                return import("./_home/index.svelte")
-            case PageRoute.contact:
-                return import("./_contact.svelte")
-            case PageRoute.fleet:
-                return import("./_fleet/index.svelte")
-            case PageRoute.blog:
-                return import("./_blog/index.svelte")
-            default:
-                throw new Error(`Unknown id ${id}`)
-        }
-    }
 </script>
 
-<RewriteLoader {resolve} {id} {props} />
+<RewriteLoader {routes} {index} {props} />
