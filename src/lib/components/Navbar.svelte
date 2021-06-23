@@ -1,25 +1,96 @@
 <script lang="ts">
     export let height = "6.25rem"
-    import Link from "$lib/components/Link.svelte"
+    import Link from "./Link.svelte"
     import { session } from "$app/stores"
+    import { MobileMenu, Menu } from "$lib/svelte-stripe-menu"
+
+    const menu = $session.menus.primary.menuItems.map(item => ({
+        title: item.label,
+        dropdown: item.childItems.length > 0,
+        ...item
+    }))
 </script>
 
-<header
-    class="bg-a-taste-of-blueberries fixed top-0 right-0 left-0 z-40 flex items-center justify-center"
+<Menu
+    class="bg-a-taste-of-blueberries absolute md:fixed top-0 right-0 left-0 z-40 flex items-center justify-center"
+    {menu}
     style="height: {height}"
 >
-    <a href="/" sveltekit:prefetch>
+    <a href="/" slot="before-nav" sveltekit:prefetch class="mr-auto">
         <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
     </a>
-    <nav class="flex">
-        {#each $session.menus.primary.menuItems as { label, url, target }}
-            <Link
-                sveltekit:prefetch
-                {target}
-                class="font-display text-white text-lg"
-                line={{ color: "white" }}
-                href={url}><span class="p-2">{label}</span></Link
-            >
+    <div slot="nav-item" let:item let:index class="space-y-2 flex flex-col p-8">
+        {#each item.childItems as { label, target, url }}
+            <Link class="font-bold" {target} href={url}>{label}</Link>
         {/each}
-    </nav>
-</header>
+    </div>
+    <Link
+        slot="title"
+        let:item
+        let:classes
+        let:attributes
+        href={item.url}
+        class="{classes} text-white hover:text-white"
+        {...attributes}
+    >
+        {item.title}
+    </Link>
+    <MobileMenu slot="after-nav">
+        <div class="divide-black divide-opacity-10 divide-dashed divide-y-2 flex flex-col bg-white">
+            {#each menu as { label, target, url, childItems }}
+                <div class="p-6" class:space-y-4={childItems.length}>
+                    <Link class="font-black text-lg" {target} href={url}>{label}</Link>
+                    <div class="grid gap-2 grind-cols-1 sm:grid-cols-2 pl-2">
+                        {#each childItems as { label, target, url }}
+                            <Link class="text-dark-charcoal font-bold" {target} href={url}
+                                >{label}</Link
+                            >
+                        {/each}
+                    </div>
+                </div>
+            {/each}
+        </div>
+    </MobileMenu>
+</Menu>
+
+<style global lang="postcss">
+    .vsm-menu {
+        @apply mx-auto w-full;
+    }
+
+    :root {
+        --vsm-mob-hamburger-color: white;
+        --vsm-mob-hamburger-color-hover: rgba(255, 255, 255, 0.75);
+        --vsm-mob-close-color: theme("colors.dark-charcoal");
+        --vsm-mob-close-color-hover: theme("colors.dark-charcoal");
+    }
+
+    .vsm-nav {
+        @apply w-full mx-5;
+    }
+
+    .vsm-link-container {
+        display: flex;
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+
+    .vsm-mob-show {
+        @apply block;
+    }
+    .vsm-mob-hide {
+        @apply hidden;
+    }
+    .vsm-mob-full {
+        flex-grow: 1;
+    }
+
+    @screen md {
+        .vsm-mob-show {
+            @apply hidden;
+        }
+        .vsm-mob-hide {
+            @apply block;
+        }
+    }
+</style>
