@@ -5,13 +5,15 @@
     import { load as loadContact } from "./_contact.svelte"
     import { load as loadFleet } from "./_fleet/index.svelte"
     import { load as loadBlog } from "./_blog/index.svelte"
+    import { load as loadGeneric } from "./_generic.svelte"
 
     const routes = [
         [loadHome, () => import("./_home/index.svelte")],
         [loadAbout, () => import("./_about.svelte")],
         [loadContact, () => import("./_contact.svelte")],
         [loadFleet, () => import("./_fleet/index.svelte")],
-        [loadBlog, () => import("./_blog/index.svelte")]
+        [loadBlog, () => import("./_blog/index.svelte")],
+        [loadGeneric, () => import("./_generic.svelte")]
     ]
 
     export const load = rewriteLoad(routes)
