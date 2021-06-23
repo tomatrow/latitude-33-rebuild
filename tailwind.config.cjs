@@ -2,6 +2,7 @@ const { tailwindExtractor } = require("tailwindcss/lib/lib/purgeUnusedStyles");
 
 module.exports = {
 	mode: "aot",
+    important: '#svelte',
 	purge: {
 		content: [
 			"./src/**/*.{html,js,svelte,ts}",
