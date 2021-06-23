@@ -24,7 +24,11 @@
             {hollow}
             filled={!hollow}
             ease
-            class="hover:bg-either-gray-blue text-center font-semibold text-sm">{linkTitle}</Link
+            pill
+            fill
+            color="either-gray-blue"
+            class="flex-shrink-0 py-2 px-4 text-center whitespace-no-wrap font-semibold text-sm"
+            >{linkTitle}</Link
         >
     </div>
 </div>

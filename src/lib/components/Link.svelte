@@ -16,6 +16,7 @@
         hollow?: boolean
         filled?: boolean
         shadow?: boolean
+        fill?: boolean
         blob?: boolean
         pill?: boolean
         raise?: boolean
@@ -29,6 +30,7 @@
         shadow,
         blob,
         pill,
+        fill,
         raise,
         ease,
         border,
@@ -38,6 +40,7 @@
             ease && "duration-200 ease-in-out transition",
             raise && "hover:-translate-y-1.5 hover:shadow-md transform",
             shadow && "hover:shadow-inner-10xl",
+            fill && `hover:bg-${color}`,
             blob && "rounded",
             pill && "rounded-full",
             hollow && "border-white border",
@@ -64,6 +67,7 @@
     export let line: LineActionConfig = false
     export let color: PrimaryColor = undefined
     export let border: boolean = undefined
+    export let fill: boolean = undefined
 
     export let title: string = undefined
 
@@ -72,7 +76,18 @@
 
     let clazz = ""
 
-    $: classes = createClasses({ hollow, filled, shadow, blob, pill, raise, ease, border, color })
+    const classes = createClasses({
+        hollow,
+        filled,
+        shadow,
+        blob,
+        pill,
+        raise,
+        ease,
+        border,
+        color,
+        fill
+    })
 </script>
 
 <a {href} class="{clazz} {classes}" use:lineAction={line} on:click {...$$restProps}>

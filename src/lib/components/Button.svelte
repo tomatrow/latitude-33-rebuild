@@ -12,6 +12,7 @@
     export let line: LineActionConfig = false
     export let color: PrimaryColor = undefined
     export let border: boolean = undefined
+    export let fill: boolean = undefined
 
     export let title: string = undefined
 
@@ -20,7 +21,7 @@
 
     let clazz = ""
 
-    $: classes = createClasses({ hollow, filled, shadow, blob, pill, border, color })
+    const classes = createClasses({ hollow, filled, shadow, blob, pill, border, color, fill })
 </script>
 
 <button {type} on:click class="{clazz} {classes}" use:lineAction={line} {...$$restProps}>

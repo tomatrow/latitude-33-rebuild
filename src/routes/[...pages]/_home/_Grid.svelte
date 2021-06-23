@@ -13,7 +13,13 @@
             style="background-color: rgba(0,0,0,0.75)"
         >
             <h3 class="font-black text-lg sm:text-2xl">{items[0].blurb}</h3>
-            <Link hollow shadow {...items[0].link} class="font-semibold text-sm" />
+            <Link
+                hollow
+                shadow
+                pill
+                {...items[0].link}
+                class="flex-shrink-0 py-2 px-3 font-semibold text-sm"
+            />
         </div>
     </div>
     <div
@@ -25,7 +31,13 @@
             style="background-color: rgba(0,0,0,0.75)"
         >
             <h3 class="font-black text-lg sm:text-2xl">{items[1].blurb}</h3>
-            <Link hollow shadow {...items[1].link} class="font-semibold text-sm" />
+            <Link
+                hollow
+                shadow
+                pill
+                {...items[1].link}
+                class="flex-shrink-0 py-2 px-3 font-semibold text-sm"
+            />
         </div>
     </div>
     <div
@@ -37,7 +49,13 @@
             style="background-color: rgba(0,0,0,0.75)"
         >
             <h3 class="font-black text-lg sm:text-2xl">{items[2].blurb}</h3>
-            <Link hollow shadow {...items[2].link} class="font-semibold text-sm" />
+            <Link
+                hollow
+                shadow
+                pill
+                {...items[2].link}
+                class="flex-shrink-0 py-2 px-3 font-semibold text-sm"
+            />
         </div>
     </div>
     <div
@@ -53,7 +71,9 @@
                 {...items[3].link}
                 filled
                 shadow
-                class="leading-3 text-center font-semibold text-xs sm:text-sm"
+                pill
+                color="either-gray-blue"
+                class="leading-3 flex-shrink-0 py-2 px-3 text-center font-semibold text-xs sm:text-sm"
             />
         </div>
     </div>

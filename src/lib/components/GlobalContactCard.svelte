@@ -119,7 +119,7 @@
                     {/each}
                 </svelte:fragment>
             </Field>
-            <Button class="py-2 px-4 border border-white" type="submit">Submit</Button>
+            <Button border class="py-2 px-4" type="submit">Submit</Button>
         </form>
 
         <h4 class="font-display my-4 font-bold text-lg">{fields.sidebar.title}</h4>

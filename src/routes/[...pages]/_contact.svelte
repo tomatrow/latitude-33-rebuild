@@ -83,7 +83,15 @@
                 {/each}
             </svelte:fragment>
         </Field>
-        <Button blob shadow class="bg-either-gray-blue py-2 px-4" type="submit">Submit</Button>
+        <Button
+            ease
+            blob
+            shadow
+            color="either-gray-blue"
+            filled
+            class="py-2 px-4 text"
+            type="submit">Submit</Button
+        >
     </form>
     <div class="flex items-center justify-center">
         <section class="bg-either-gray-blue w-96 rounded-md space-y-2 flex flex-col p-2 text-white">
