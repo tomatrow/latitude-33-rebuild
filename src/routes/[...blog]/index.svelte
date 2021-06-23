@@ -72,8 +72,8 @@
 <script lang="ts">
     import { Meta, PostCard, PostGrid } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
-    import EmailForm from "./EmailForm.svelte"
-    import ClassNav from "./ClassNav.svelte"
+    import EmailForm from "./_EmailForm.svelte"
+    import ClassNav from "./_ClassNav.svelte"
 
     export let page: any
     export let classes: any

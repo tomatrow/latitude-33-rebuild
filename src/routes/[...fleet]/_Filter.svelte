@@ -5,7 +5,7 @@
     import { smoothEdges } from "$lib/scripts/utility"
     import { Button, FleetGrid } from "$lib/components"
     import { Cross } from "$lib/svgs"
-    import Fieldset from "./Fieldset.svelte"
+    import Fieldset from "./_Fieldset.svelte"
 
     export let fleet = []
     export let ctaBar

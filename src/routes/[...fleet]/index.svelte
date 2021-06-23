@@ -79,7 +79,7 @@
         OfferingList
     } from "$lib/components"
 
-    import Filter from "./Filter.svelte"
+    import Filter from "./_Filter.svelte"
 
     export let page: any
     export let fleet: any
