@@ -1,5 +1,8 @@
 {
     "main": "index.js",
+    "scripts": {
+        "build": "npm install"
+    },
     "dependencies": {},
     "devDependencies": {}
 }
