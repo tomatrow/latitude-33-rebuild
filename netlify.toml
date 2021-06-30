@@ -6,3 +6,5 @@
     package = "./plugins/pnpm-preinstaller"
 [build.environment]
     NPM_FLAGS="--prefix=./tmp"
+[[plugins]]
+    package = "@netlify/plugin-local-install-core"
