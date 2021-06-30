@@ -15,7 +15,7 @@ const adapter = {
             },
             dependencies: {}
         }));
-        console.log(readFileSync('functions/package.json', 'utf8'))
+        console.log(readFileSync('functions/render/package.json', 'utf8'))
     }
 }
 
