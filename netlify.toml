@@ -1,9 +1,7 @@
 [build]
-  command = "npm run build"
+  command = "npm run build;cd functions/ && npm run build"
   publish = "build/"
   functions = "functions/"
-[[plugins]]
-   package = "@netlify/plugin-functions-install-core"
 [[plugins]]
     package = "./plugins/pnpm-preinstaller"
 [build.environment]
