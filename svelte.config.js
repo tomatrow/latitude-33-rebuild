@@ -8,7 +8,7 @@ const adapter = {
     name: "faux-netlify",
     async adapt(input) {
         await netlify().adapt(input)
-		writeFileSync('functions/package.json', JSON.stringify({ 
+		writeFileSync('functions/render/package.json', JSON.stringify({ 
             type: 'commonjs',
             scripts: {
                 build: "npm install"
