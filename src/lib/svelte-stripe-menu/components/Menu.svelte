@@ -41,10 +41,15 @@
 
     $: itemsWithDropdown = menu.filter(item => item.dropdown)
 
-    function createLinkAttributes(item, index) {
-        const { class: claz, ...rest } = item?.attributes ?? {}
+    function createLinkAttributes(
+        item: { dropdown: any; attributes?: Record<string, string> },
+        index: number
+    ) {
         return {
-            classes: `vsm-link ` + (item.dropdown ? "vsm-has-dropdown " : " ") + (claz ?? ""),
+            classes:
+                `vsm-link ` +
+                (item.dropdown ? "vsm-has-dropdown " : " ") +
+                (item?.attributes?.class ?? ""),
             attributes: {
                 "data-dropdown": item.dropdown,
                 "aria-haspopup": !!item.dropdown,
@@ -363,7 +368,12 @@
                     aria-hidden="false"
                 >
                     <div class="vsm-dropdown-content">
-                        <slot name="nav-item" {item} {index} />
+                        <slot
+                            name="nav-item"
+                            {item}
+                            {index}
+                            active={_activeContainerItem === item}
+                        />
                     </div>
                 </div>
             {/each}

@@ -1,9 +1,8 @@
 <script lang="ts" context="module">
-    import { graphql, query } from "$lib/scripts/apollo"
+    import { graphql } from "$lib/scripts/apollo"
     import { FleetTypeOptionsFragment, AircraftFragment } from "$lib/queries/aircraft"
     import { AcfLinkFragment, MediaItemFragment } from "$lib/queries/utility"
     import { loadResource, previewVariables } from "$lib/scripts/router"
-    import type { Load } from "@sveltejs/kit"
 
     export const load = loadResource(
         graphql`
@@ -27,7 +26,7 @@
 
 <script lang="ts">
     import _ from "lodash"
-    import { Link, Meta } from "$lib/components"
+    import { Link, Meta, CheckerItem } from "$lib/components"
     import { IconChevronRight } from "$lib/svgs"
     import { cssVars } from "$lib/actions/styles"
 
@@ -36,33 +35,40 @@
 
     const { testimonialProof, socialProofSummary } = acfOptionsDrillDown.fleetPostTypeFields
     const { proof } = testimonialProof
-
-    const features = [
-        {
-            title: "Interior",
-            icon: {
-                src: "/icons/blue-chair.png",
-                alt: "blue chair icon"
+    const features = _.zip(
+        [
+            aircraft.aircraftFields.interior,
+            aircraft.aircraftFields.amenities,
+            aircraft.aircraftFields.avionics
+        ],
+        [
+            {
+                title: "Interior",
+                icon: {
+                    src: "/icons/blue-chair.png",
+                    alt: "blue chair icon"
+                }
             },
-            ...aircraft.aircraftFields.interior
-        },
-        {
-            title: "Amenities",
-            icon: {
-                src: "/icons/blue-tv.png",
-                alt: "blue tv icon"
+            {
+                title: "Amenities",
+                icon: {
+                    src: "/icons/blue-tv.png",
+                    alt: "blue tv icon"
+                }
             },
-            ...aircraft.aircraftFields.amenities
-        },
-        {
-            title: "Avionics",
-            icon: {
-                src: "/icons/blue-jet.png",
-                alt: "blue jet icon"
-            },
-            ...aircraft.aircraftFields.avionics
-        }
-    ]
+            {
+                title: "Avionics",
+                icon: {
+                    src: "/icons/blue-jet.png",
+                    alt: "blue jet icon"
+                }
+            }
+        ]
+    ).map(([{ description, image }, fields]) => ({
+        ...fields,
+        image,
+        contentHtml: description
+    }))
 
     const mainImage = aircraft.featuredImage?.node
 
@@ -80,6 +86,7 @@
     }}
 >
     {#if mainImage}
+        <!-- svelte-ignore a11y-missing-attribute -->
         <img class="sm:hidden w-full" {...mainImage} />
     {/if}
 
@@ -124,38 +131,8 @@
     </section>
 </div>
 
-{#each features as { title, icon, description, image }, index}
-    <section
-        class="{index % 2 === 1
-            ? 'bg-either-gray-blue text-white lg:grid-flow-col-dense'
-            : ''} pb-24 sm:px-5  sm:py-44 lg:py-0   lg:px-0 sm:relative space-y-6 sm:space-y-0 lg:static lg:grid lg:grid-cols-2"
-        id={idify(title)}
-    >
-        <img
-            class="sm:transform sm:rounded-3xl sm:-translate-y-1/2 sm:max-h-64 lg:transform-none lg:max-w-none sm:absolute lg:static top-0 left-0 sm:ml-5 lg:ml-0 sm:max-w-sm lg:max-h-full lg:w-full lg:h-full lg:rounded-none lg:object-cover"
-            {...image}
-        />
-        <div
-            class:lg:col-start-1={index % 2 === 1}
-            class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-5 s mx-5 sm:mx-auto lg:p-4 sm:max-w-lg"
-        >
-            <h3
-                class="sm:col-span-full font-display text-3.5xl lg:mt-auto sm:text-center font-black"
-            >
-                {title}
-            </h3>
-            <img
-                class="sm:col-start-1 h-18 w-18 sm:self-start"
-                style="filter: brightness({index % 2 === 1 ? 100 : 0})"
-                {...icon}
-            />
-            <p
-                class="sm:col-start-2 sm:col-span-4 tracking-px whitespace-pre-line font-thin text-lg"
-            >
-                {description}
-            </p>
-        </div>
-    </section>
+{#each features as item, index}
+    <CheckerItem float id={idify(item.title)} reverse={index % 2 === 1} {...item} />
 {/each}
 
 <section
@@ -184,6 +161,7 @@
         <div
             class="border-the-girl-is-looking-at-the-sky rounded-xl mt-11 relative p-6 pt-12 border bg-white"
         >
+            <!-- svelte-ignore a11y-missing-attribute -->
             <img
                 class="h-18 w-18 transform -translate-y-1/2 translate-x-1/3 absolute top-0 left-0 rounded-full"
                 {...proof.featuredImage.node}

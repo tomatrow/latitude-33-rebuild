@@ -133,6 +133,7 @@
                 <div class="space-x-2 flex">
                     {#each $session.social as { url, service }}
                         <Link
+                            aria-label={service}
                             shadow
                             pill
                             target="_blank"

@@ -2,12 +2,11 @@
     import { graphql } from "$lib/scripts/apollo"
     import { PageFragment } from "$lib/queries/pages"
     import { loadPage } from "$lib/scripts/router"
+    import { AcfLinkFragment, MediaItemFragment } from "$lib/queries/utility"
     import {
-        AcfLinkFragment,
-        MediaItemFragment,
-        OfferingFragment,
-        BannerFragment
-    } from "$lib/queries/utility"
+        createFlexiblePsudoFragment,
+        BannerPsudoFragment
+    } from "$lib/components/FlexibleContent.svelte"
 
     export const load = loadPage(
         "Fleet",
@@ -19,7 +18,7 @@
                         ... on Template_Fleet {
                             fleetArchivePageFields {
                                 banner {
-                                    ...BannerFragment
+                                    ${BannerPsudoFragment}
                                 }
                                 filter {
                                     ctaBar {
@@ -28,13 +27,8 @@
                                     }
                                     gridLinkLabel
                                 }
-                                infoOfferings {
-                                    ...OfferingFragment
-                                }
-                                quoteOffering {
-                                    ...OfferingFragment
-                                }
                             }
+                            ${createFlexiblePsudoFragment("Template_Fleet")}
                         }
                     }
                 }
@@ -62,40 +56,24 @@
             }
             ${PageFragment}
             ${AcfLinkFragment}
-            ${OfferingFragment}
             ${MediaItemFragment}
-            ${BannerFragment}
         `
     )
 </script>
 
 <script lang="ts">
-    import {
-        Meta,
-        Banner,
-        Offering,
-        CornerOffering,
-        FlushOffering,
-        OfferingList
-    } from "$lib/components"
+    import { Meta, Banner, FlexibleContent } from "$lib/components"
 
     import Filter from "./_Filter.svelte"
 
     export let page: any
     export let fleet: any
 
-    const { banner, filter, infoOfferings, quoteOffering } = page.template.fleetArchivePageFields
+    const { banner, filter } = page.template.fleetArchivePageFields
 </script>
 
 <Meta title={page.title} seo={page.seo} />
 
-<Banner {...banner.bannerFields} />
-<Filter {...filter} {fleet} />
-<OfferingList class="bg-either-gray-blue pb-12 text-white">
-    <CornerOffering {...infoOfferings[0].offering} />
-    <FlushOffering {...infoOfferings[1].offering} />
-</OfferingList>
-<OfferingList class="py-32">
-    <div slot="left" class="bg-scorpion-tan" />
-    <Offering {...quoteOffering.offering} />
-</OfferingList>
+<Banner {...banner} />
+<Filter {fleet} {...filter} />
+<FlexibleContent content={page.template.genericPageFields.flexibleContent} />

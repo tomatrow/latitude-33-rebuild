@@ -31,3 +31,23 @@ export function setStyleProperties(
 ) {
     Object.entries(styles).forEach(([key, value]) => node.style.setProperty(transform(key), value))
 }
+
+export function classes(node: HTMLElement, listOrSingleton: any) {
+    let last: string[] = []
+
+    function update(listOrSingleton: any = []) {
+        node.classList.remove(...last)
+
+        const list = Array.isArray(listOrSingleton) ? listOrSingleton : [listOrSingleton]
+        const next = list.filter(Boolean).flatMap(x => x?.split(" "))
+        node.classList.add(...next)
+
+        last = next
+    }
+
+    update(listOrSingleton)
+
+    return {
+        update
+    }
+}

@@ -19,7 +19,7 @@
     import { session } from "$app/stores"
     import { icons } from "$lib/data/social"
 
-    export let showing: boolean
+    export let showing: boolean = false
 
     let fields: any
     query(FloatingContactFormQuery)
@@ -75,9 +75,12 @@
 </script>
 
 <Button
+    aria-label="open contact form"
     on:click={() => (showing = true)}
     shadow
-    class="bg-calm-summer-horizon mb-28 fixed right-0 bottom-0 z-40 mr-6 p-2 border-2 border-white rounded-full text-white"
+    ease
+    pill
+    class="bg-calm-summer-horizon mb-28 fixed right-0 bottom-0 z-40 mr-6 p-2 border-2 border-white text-white"
 >
     <PaperPlaneToy class="h-9 w-9" />
 </Button>
@@ -93,7 +96,7 @@
         id="yes"
         class="space-y-2 bg-either-gray-blue fixed top-0 right-0 z-50 overflow-y-scroll py-10 px-5 h-screen max-w-lg max-h-screen text-white"
     >
-        <Button shadow on:click={() => (showing = false)}>
+        <Button aria-label="close contact popup" shadow on:click={() => (showing = false)}>
             <Cross
                 class="absolute top-0 right-0 m-4 w-10 h-10 text-white fill-current"
                 fill="currentColor"

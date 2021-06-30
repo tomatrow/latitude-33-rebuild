@@ -86,6 +86,7 @@
         <div class="space-x-5 flex">
             {#each $session.social as { service, url }}
                 <Link
+                    aria-label="{service} profile"
                     href={url}
                     target="_blank"
                     class="transition-opacity duration-200 opacity-50 hover:opacity-100"

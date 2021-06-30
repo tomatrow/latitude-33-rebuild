@@ -18,7 +18,7 @@
                         gallery {
                             ...MediaItemFragment
                             sizes
-                            srcSet
+                            srcset: srcSet
                         }
                         gridHeading
                     }
@@ -66,16 +66,7 @@
     export let acfOptionsSubfleets: any
 
     const { subfleetOptions } = acfOptionsSubfleets
-
-    const images = subfleet.subfleetPageSettings.gallery.map(
-        ({ sourceUrl, altText, sizes, srcSet }) => ({
-            sizes,
-            alt: altText,
-            src: sourceUrl,
-            srcset: srcSet
-        })
-    )
-
+    const images = subfleet.subfleetPageSettings.gallery
     const fleet = smoothEdges(subfleet.fleet)
 
     let galleryIndex = 0
@@ -89,7 +80,7 @@
             {subfleetOptions.mainContent.subheading}
         </h5>
         <h1 class="font-black text-2xl sm:text-6xl">{subfleet.name}</h1>
-        <div class="injected-subfleet-content">{@html subfleet.description}</div>
+        <div class="injected-content injected-content_subfleet">{@html subfleet.description}</div>
         <Link
             shadow
             blob
@@ -150,16 +141,14 @@
 <FleetGrid {fleet} linkTitle={subfleetOptions.fleetGrid.linkLabel} />
 
 <style global lang="postcss">
-    .injected-subfleet-content {
-        @apply tracking-px font-light text-xl;
-
+    .injected-content_subfleet {
         h1,
         h2,
         h3,
         h4,
         h5,
         h6 {
-            @apply mt-4 font-bold font-display text-either-gray-blue tracking-normal;
+            @apply text-either-gray-blue;
         }
     }
 </style>

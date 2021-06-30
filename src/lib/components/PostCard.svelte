@@ -20,6 +20,7 @@
 >
     <Link
         {href}
+        aria-label={title}
         class="rounded-2xl relative block mb-4 h-full {layered
             ? ''
             : 'transition duration-200 ease-in-out transform sm:hover:-translate-y-3 '}"
@@ -29,6 +30,7 @@
                 class="transition-none stroke-0 bg-opacity-10 h-1/6 absolute inset-0 m-auto z-10 w-1/6 rounded-lg bg-black text-white fill-current"
             />
         {/if}
+        <!-- svelte-ignore a11y-missing-attribute -->
         <img
             class:shadow-xl={layered}
             class="rounded-2xl w-full h-full object-cover"

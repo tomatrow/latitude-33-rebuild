@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer components {
-    .airy-copy {
-        @apply font-light font-sans tracking-px;
-    }
     .grid-custom {
         @apply grid-cols-2 md:grid-cols-4 lg:grid-cols-6;
         & > * {
@@ -33,7 +30,22 @@
 /* https://www.tiny.cloud/docs/general-configuration-guide/boilerplate-content-css/ */
 
 .injected-content {
-    @apply text-sm space-y-3 tracking-px font-light;
+    @apply space-y-3 tracking-px font-light text-base;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ol,
+    ul,
+    p {
+        @apply mt-3;
+        &:first-child {
+            @apply mt-0;
+        }
+    }
 
     h1,
     h2,
@@ -41,7 +53,7 @@
     h4,
     h5,
     h6 {
-        @apply font-bold font-display tracking-normal mt-4;
+        @apply font-bold font-display tracking-normal;
     }
 
     h1 {
@@ -51,16 +63,38 @@
         @apply text-3xl;
     }
     h3 {
-        @apply text-2xl;
-    }
-    h4 {
         @apply text-xl;
     }
+    h4 {
+        @apply text-base;
+    }
     h5 {
-        @apply text-lg;
+        @apply text-sm;
     }
     h6 {
-        @apply text-base;
+        @apply text-xs;
+    }
+
+    &_large {
+        @apply md:text-xl;
+        h1 {
+            @apply md:text-6xl;
+        }
+        h2 {
+            @apply md:text-5xl;
+        }
+        h3 {
+            @apply md:text-3xl;
+        }
+        h4 {
+            @apply md:text-xl;
+        }
+        h5 {
+            @apply md:text-lg;
+        }
+        h6 {
+            @apply md:text-base;
+        }
     }
 
     ul,
@@ -70,8 +104,12 @@
     ul {
         @apply list-disc;
     }
-    li {
+    ol {
         @apply list-decimal;
+    }
+
+    strong {
+        @apply font-semibold;
     }
 
     figure.image {
@@ -99,10 +137,9 @@
     }
 
     /*
- Alignment using classes rather than inline styles
- check out the "formats" option
-*/
-
+     * Alignment using classes rather than inline styles
+     * check out the "formats" option
+     */
     img {
         &.aligncenter {
             @apply mx-auto;
@@ -113,5 +150,10 @@
         &.alignright {
             @apply ml-auto;
         }
+    }
+
+    a {
+        @apply font-semibold hover:opacity-80 transition-opacity duration-150 ease-in-out;
+        color: var(--injected-link-color);
     }
 }

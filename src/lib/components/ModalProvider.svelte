@@ -3,7 +3,7 @@
     import type { SvelteComponent } from "svelte"
 
     interface ModalPayload {
-        component?: SvelteComponent
+        component?: typeof SvelteComponent
         props: object
     }
 
@@ -11,7 +11,7 @@
     const _payload = writable<ModalPayload>({ props: {} })
     let _closePromise: (payload: any | ModalPayload) => void
 
-    export function openModal(component: SvelteComponent, props = {}) {
+    export function openModal(component: typeof SvelteComponent, props = {}) {
         _open.set(true)
         _payload.set({ component, props })
         return new Promise(resolve => (_closePromise = resolve))

@@ -13,6 +13,7 @@
     export let color: PrimaryColor = undefined
     export let border: boolean = undefined
     export let fill: boolean = undefined
+    export let ease: boolean = undefined
 
     export let title: string = undefined
 
@@ -21,7 +22,7 @@
 
     let clazz = ""
 
-    const classes = createClasses({ hollow, filled, shadow, blob, pill, border, color, fill })
+    const classes = createClasses({ ease, hollow, filled, shadow, blob, pill, border, color, fill })
 </script>
 
 <button {type} on:click class="{clazz} {classes}" use:lineAction={line} {...$$restProps}>

@@ -68,10 +68,10 @@
         >
             <h3 class="font-black text-lg sm:text-2xl">{items[3].blurb}</h3>
             <Link
-                {...items[3].link}
-                filled
                 shadow
+                filled
                 pill
+                {...items[3].link}
                 color="either-gray-blue"
                 class="leading-3 flex-shrink-0 py-2 px-3 text-center font-semibold text-xs sm:text-sm"
             />

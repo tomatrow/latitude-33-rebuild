@@ -11,6 +11,8 @@
         | "shark"
         | "sarcastic-orange"
         | "the-girl-is-looking-at-the-sky"
+        | "white"
+        | "black"
 
     export interface ClassesConfig {
         hollow?: boolean

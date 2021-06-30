@@ -12,7 +12,7 @@
     export let termsNotice: string
 </script>
 
-<form use class="{clazz} space-y-4 flex items-center flex-col" on:submit={noop}>
+<form class="{clazz} space-y-4 flex items-center flex-col" on:submit={noop}>
     <h5 class="font-display text-either-gray-blue text-center font-bold text-xl">
         {subheading}
     </h5>
@@ -41,12 +41,12 @@
             title={submitLabel}
         />
     </div>
-    <div class="space-x-3 flex items-center">
+    <label class="space-x-3 flex items-center">
         <input required name="consent" type="checkbox" />
         <div class="injected-content email-form">
             {@html termsNotice}
         </div>
-    </div>
+    </label>
 </form>
 
 <style lang="postcss" global>

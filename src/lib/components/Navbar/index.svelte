@@ -1,12 +1,13 @@
 <script lang="ts">
     export let height = "6.25rem"
-    import Link from "./Link.svelte"
+    import Link from "$lib/components/Link.svelte"
+    import NavCard from "./NavCard.svelte"
     import { session } from "$app/stores"
     import { MobileMenu, Menu } from "$lib/svelte-stripe-menu"
 
-    const menu = $session.menus.primary.menuItems.map(item => ({
+    const menu = $session.menus.primary.menuItems.map((item, index) => ({
         title: item.label,
-        dropdown: item.childItems.length > 0,
+        dropdown: item.childItems.length > 0 ? String(index) : null,
         ...item
     }))
 </script>
@@ -16,12 +17,28 @@
     {menu}
     style="height: {height}"
 >
-    <a href="/" slot="before-nav" sveltekit:prefetch class="mr-auto">
-        <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
-    </a>
-    <div slot="nav-item" let:item let:index class="space-y-2 flex flex-col p-8">
-        {#each item.childItems as { label, target, url }}
-            <Link class="font-bold" {target} href={url}>{label}</Link>
+    <li slot="before-nav" class="mr-auto">
+        <a href="/" sveltekit:prefetch>
+            <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
+        </a>
+    </li>
+    <div slot="nav-item" let:item let:active class="grid gap-8 grid-cols-2 md:grid-cols-3 p-8">
+        {#each item.childItems as { label, target, url, childItems }}
+            <div class="flex flex-col">
+                <Link class="block h-8 font-bold" {target} href={url} tabindex={active ? 0 : -1}
+                    >{label}</Link
+                >
+                <div class="flex flex-col pl-4">
+                    {#each childItems as { label, target, url }}
+                        <Link
+                            class="text-dark-charcoal font-bold"
+                            {target}
+                            href={url}
+                            tabindex={active ? 0 : -1}>{label}</Link
+                        >
+                    {/each}
+                </div>
+            </div>
         {/each}
     </div>
     <Link
@@ -65,32 +82,34 @@
         --vsm-mob-close-color-hover: theme("colors.dark-charcoal");
     }
 
-    .vsm-nav {
-        @apply w-full mx-5;
-    }
-
     .vsm-link-container {
         display: flex;
         flex: 1 1 auto;
         justify-content: center;
     }
 
-    .vsm-mob-show {
-        @apply block;
-    }
-    .vsm-mob-hide {
-        @apply hidden;
-    }
     .vsm-mob-full {
         flex-grow: 1;
     }
 
-    @screen md {
+    .vsm-nav {
+        @apply w-full mx-5;
         .vsm-mob-show {
-            @apply hidden;
+            @apply block;
         }
         .vsm-mob-hide {
-            @apply block;
+            @apply hidden;
+        }
+    }
+
+    @screen md {
+        .vsm-nav {
+            .vsm-mob-show {
+                @apply hidden;
+            }
+            .vsm-mob-hide {
+                @apply block;
+            }
         }
     }
 </style>

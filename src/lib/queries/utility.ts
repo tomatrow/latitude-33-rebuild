@@ -33,25 +33,6 @@ export const OfferingFragment = graphql`
     }
 `
 
-export const BannerFragment = graphql`
-    fragment BannerFragment on Banner {
-        id
-        bannerFields {
-            title
-            contentHtml
-            backgroundImage {
-                ...MediaItemFragment
-            }
-            footer {
-                blurb
-                link {
-                    ...AcfLinkFragment
-                }
-            }
-        }
-    }
-`
-
 export const TermFragment = graphql`
     fragment TermFragment on TermNode {
         id
