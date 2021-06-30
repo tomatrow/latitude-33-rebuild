@@ -1,7 +1,6 @@
 import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
-// import netlify from "@sveltejs/adapter-netlify"
-import node from '@sveltejs/adapter-node'
+import netlify from "@sveltejs/adapter-netlify"
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -16,7 +15,7 @@ const config = {
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
-        adapter: node(),
+        adapter: netlify(),
         vite: {
             plugins: [
                 format({ load: true })
