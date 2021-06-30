@@ -1,7 +1,7 @@
 import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
 import netlify from "@sveltejs/adapter-netlify"
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync } from 'fs';
 
 /** @type {import('@sveltejs/kit').Adapter} */
 const adapter = {
@@ -13,8 +13,9 @@ const adapter = {
             scripts: {
                 build: "npm install"
             },
-            dependencies: {},
+            dependencies: {}
         }));
+        console.log(readFileSync('functions/package.json', 'utf8'))
     }
 }
 
