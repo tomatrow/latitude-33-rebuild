@@ -1,4 +1,4 @@
-module.exports = {
+exports = {
   onPreBuild: async ({ utils: { build, run, status } }) => {
     try {
       if (process.env.CI) {
