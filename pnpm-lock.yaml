@@ -10,7 +10,6 @@ specifiers:
   '@tailwindcss/aspect-ratio': ^0.2.1
   '@tomatrow/zen-format': ^1.0.2
   '@types/lodash': ^4.14.170
-  agnostic-axe: github:tomatrow/agnostic-axe
   autoprefixer: ^10.2.6
   axios: ^0.21.1
   bueno: ^0.1.5
@@ -48,7 +47,6 @@ devDependencies:
   '@tailwindcss/aspect-ratio': 0.2.1_tailwindcss@2.2.4
   '@tomatrow/zen-format': 1.0.2_prettier-plugin-svelte@2.3.1
   '@types/lodash': 4.14.170
-  agnostic-axe: github.com/tomatrow/agnostic-axe/63657f8ff14983e1620fbd174fa2918e60133475
   autoprefixer: 10.2.6_postcss@8.3.5
   axios: 0.21.1
   bueno: 0.1.5
@@ -416,11 +414,6 @@ packages:
       normalize-range: 0.1.2
       postcss: 8.3.5
       postcss-value-parser: 4.1.0
-    dev: true
-
-  /axe-core/4.2.3:
-    resolution: {integrity: sha512-pXnVMfJKSIWU2Ml4JHP7pZEPIrgBO1Fd3WGx+fPBsS+KRGhE4vxooD8XBGWbQOIVSZsVK7pUDBBkCicNu80yzQ==}
-    engines: {node: '>=4'}
     dev: true
 
   /axios/0.21.1:
@@ -2306,14 +2299,4 @@ packages:
       rollup: ^2.0.0
     dependencies:
       '@rollup/pluginutils': 3.1.0
-    dev: true
-
-  github.com/tomatrow/agnostic-axe/63657f8ff14983e1620fbd174fa2918e60133475:
-    resolution: {tarball: https://codeload.github.com/tomatrow/agnostic-axe/tar.gz/63657f8ff14983e1620fbd174fa2918e60133475}
-    name: agnostic-axe
-    version: 3.0.3
-    prepare: true
-    requiresBuild: true
-    dependencies:
-      axe-core: 4.2.3
     dev: true
