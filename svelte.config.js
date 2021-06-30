@@ -1,21 +1,22 @@
 import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
 import netlify from "@sveltejs/adapter-netlify"
-import { writeFileSync, readFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 
 /** @type {import('@sveltejs/kit').Adapter} */
 const adapter = {
     name: "faux-netlify",
     async adapt(input) {
         await netlify().adapt(input)
-		writeFileSync('functions/render/package.json', JSON.stringify({ 
+        const pkg = JSON.stringify({ 
             type: 'commonjs',
             scripts: {
                 build: "npm install"
             },
             dependencies: {}
-        }));
-        console.log(readFileSync('functions/render/package.json', 'utf8'))
+        })
+		writeFileSync('functions/render/package.json', pkg);
+        writeFileSync('functions/package.json', pkg);
     }
 }
 
