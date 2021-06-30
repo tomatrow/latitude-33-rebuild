@@ -1,6 +1,23 @@
 import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
 import netlify from "@sveltejs/adapter-netlify"
+import { writeFileSync } from 'fs';
+
+/** @type {import('@sveltejs/kit').Adapter} */
+const adapter = {
+    name: "faux-netlify",
+    async adapt(input) {
+        await netlify().adapt(input)
+		writeFileSync('functions/package.json', JSON.stringify({ 
+            type: 'commonjs',
+            scripts: {
+                build: "npm install"
+            },
+            dependencies: {},
+        }));
+    }
+}
+
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -15,7 +32,7 @@ const config = {
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
-        adapter: netlify(),
+        adapter,
         vite: {
             plugins: [
                 format({ load: true })
