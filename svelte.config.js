@@ -17,8 +17,8 @@ const adapter = {
             devDependencies: {}
         })
 
-		// writeFileSync('functions/render/package.json', pkg);
-        writeFileSync('functions/package.json', pkg);
+		writeFileSync('functions/render/package.json', pkg);
+        // writeFileSync('functions/package.json', pkg);
     }
 }
 
