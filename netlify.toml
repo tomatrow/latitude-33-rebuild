@@ -1,8 +1,8 @@
 [build]
-  command = "npm run build; cd functions; npm install --prefix=''"
+  command = "npm run build"
   publish = "build/"
   functions = "functions/"
 [[plugins]]
     package = "./plugins/pnpm-preinstaller"
 [build.environment]
-    NPM_FLAGS="--prefix=./tmp"
+    NPM_FLAGS="--prefix=./empty"
