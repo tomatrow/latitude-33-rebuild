@@ -8,16 +8,16 @@ const adapter = {
     name: "faux-netlify",
     async adapt(input) {
         await netlify().adapt(input)
-        const pkg = JSON.stringify({ 
-            type: 'commonjs',
-            scripts: {
-                build: "npm install"
-            },
-            dependencies: {},
-            devDependencies: {}
-        })
-
-		writeFileSync('functions/render/package.json', pkg);
+//         const pkg = JSON.stringify({ 
+//             type: 'commonjs',
+//             scripts: {
+//                 build: "npm install"
+//             },
+//             dependencies: {},
+//             devDependencies: {}
+//         })
+// 
+// 		writeFileSync('functions/render/package.json', pkg);
         // writeFileSync('functions/package.json', pkg);
     }
 }
