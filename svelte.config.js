@@ -13,10 +13,12 @@ const adapter = {
             scripts: {
                 build: "npm install"
             },
-            dependencies: {}
+            dependencies: {},
+            devDependencies: {}
         })
-		writeFileSync('functions/render/package.json', pkg);
-        // writeFileSync('functions/package.json', pkg);
+
+		// writeFileSync('functions/render/package.json', pkg);
+        writeFileSync('functions/package.json', pkg);
     }
 }
 

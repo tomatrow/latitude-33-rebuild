@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build; cd functions/render; npm install"
+  command = "npm run build; cd functions; npm install --prefix=''"
   publish = "build/"
   functions = "functions/"
 [[plugins]]
