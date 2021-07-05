@@ -24,6 +24,12 @@
                                 emphasizedEmployees {
                                     ...EmployeeFragment
                                 }
+                                footer {
+                                    blurb 
+                                    link {
+                                        ...AcfLinkFragment
+                                    }
+                                }
                             }
                         }
                     }
@@ -35,6 +41,7 @@
             ${EmployeeFragment}
         `
     )
+
     function normalizeEmployee({ name, employeeFields }) {
         return {
             name,
@@ -44,13 +51,14 @@
 </script>
 
 <script lang="ts">
-    import { Meta, Banner, CheckerItem } from "$lib/components"
+    import { IconArrowRight } from "$lib/svgs"
+    import { Meta, Banner, CheckerItem, Link } from "$lib/components"
     import BioCard from "./_BioCard.svelte"
 
     export let page: any
-    const { banner, normalEmployees, emphasizedEmployees } = page.template.teamFields
+    const { banner, normalEmployees, emphasizedEmployees, footer } = page.template.teamFields
 
-    console.log({ banner, normalEmployees, emphasizedEmployees })
+    console.log({ page })
 </script>
 
 <Meta title={page.title} seo={page.seo} />
@@ -69,12 +77,25 @@
         invert={index % 2 === 1}
     />
 {/each}
+
 <div class="mx-auto">
-    <section class="grid grid-custom gap-6 sm:mx-9 lg:mx-18 my-24 mx-5 max-w-5xl">
+    <section class="grid grid-custom gap-6 sm:mx-9 lg:mt-18 mt-24 mx-5 max-w-5xl">
         {#each normalEmployees.map(normalizeEmployee) as employee}
             <div>
                 <BioCard {...employee} />
             </div>
         {/each}
     </section>
+</div>
+
+<div class="space-x-5 flex items-center justify-center mt-8 mb-24 text-lg">
+    <h6 class="">{footer.blurb}</h6>
+    <Link
+        class="text-sarcastic-orange tracking-px space-x-2 flex items-center font-black"
+        href={footer.link.href}
+        target={footer.link.target}
+    >
+        <span>{footer.link.title}</span>
+        <IconArrowRight class="w-4 h-4" />
+    </Link>
 </div>
