@@ -9,12 +9,10 @@ export const AircraftFragment = graphql`
             title
             fullHead
         }
-        featuredImage {
-            node {
+        aircraftFields {
+            featuredImage {
                 ...MediaItemFragment
             }
-        }
-        aircraftFields {
             stats {
                 baggageCapacity
                 maxCruiseSpeed

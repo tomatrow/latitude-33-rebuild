@@ -3,8 +3,11 @@
     import Colors from "$lib/data/colors.json"
     import Link from "./Link.svelte"
 
+    export let smallTitle = false
+
     export let title: string
-    export let contentHtml: string
+    export let subheading = ""
+    export let contentHtml = ""
     export let backgroundImage: any
     export let footer: any
 </script>
@@ -15,10 +18,19 @@
         url: `url(${backgroundImage.src})`
     }}
 >
-    <div class="space-y-6 mx-5 md:mx-10 py-24" style="max-width: 32rem">
-        <h1 class="font-display md:text-7xl font-black text-4xl">{title}</h1>
+    <div class="space-y-6 mx-5 md:mx-10 py-24 max-w-lg">
+        {#if subheading}
+            <h5 class="font-display mb-2.5 text-white font-extrabold text-sm">{subheading}</h5>
+        {/if}
+        <h1
+            class="{smallTitle
+                ? 'md:text-5.5xl text-3.5xl'
+                : 'md:text-7xl text-4xl'} font-display font-black "
+        >
+            {title}
+        </h1>
         <div
-            class="injected-content injected-content_large"
+            class="injected-content injected-content_large mt-6"
             use:cssVars={{
                 injectedLinkColor: Colors["disappointment-blue"]
             }}

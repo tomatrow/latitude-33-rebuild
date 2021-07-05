@@ -40,3 +40,16 @@ export const TermFragment = graphql`
         name
     }
 `
+export const EmployeeFragment = `
+fragment EmployeeFragment on Employee {
+  id 
+  name: title 
+  employeeFields {
+    bio
+    position
+    image: featuredImage {
+      ...MediaItemFragment
+    }
+  }
+}
+`

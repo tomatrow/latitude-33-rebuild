@@ -70,7 +70,7 @@
         contentHtml: description
     }))
 
-    const mainImage = aircraft.featuredImage?.node
+    const { featuredImage } = aircraft
 
     function idify(key: string) {
         return _.kebabCase(key)
@@ -82,12 +82,12 @@
 <div
     class="stats bg-either-gray-blue sm:pb-44 sm:pt-8 sm:pl-5 bg-white sm:bg-center sm:bg-cover sm:bg-no-repeat"
     use:cssVars={{
-        bg: mainImage ? `url(${mainImage.src})` : ""
+        bg: featuredImage ? `url(${featuredImage.src})` : ""
     }}
 >
-    {#if mainImage}
+    {#if featuredImage}
         <!-- svelte-ignore a11y-missing-attribute -->
-        <img class="sm:hidden w-full" {...mainImage} />
+        <img class="sm:hidden w-full" {...featuredImage} />
     {/if}
 
     <section

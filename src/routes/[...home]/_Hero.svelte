@@ -21,7 +21,7 @@
             <h2 class="uppercase" style="letter-spacing: 2px;font-size: 1.75rem">{brandName}</h2>
             <h1
                 class="whitespace-pre-line font-extrabold"
-                style="letter-spacing: 0.6px; font-size: 2.375rem; line-height: 2.75rem "
+                style="letter-spacing: 0.6px; font-size: 2.375rem; line-height: 2.75rem"
             >
                 {title}
             </h1>

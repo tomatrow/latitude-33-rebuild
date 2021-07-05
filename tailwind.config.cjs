@@ -9,7 +9,13 @@ function prefixColors(prefix) {
 const safelist = [
     ...prefixColors("hover:bg-"),
     ...prefixColors("bg-"),
+    ...prefixColors("sm:bg-"),
+    ...prefixColors("md:bg-"),
+    ...prefixColors("lg:bg-"),
     ...prefixColors("text-"),
+    ...prefixColors("sm:text-"),
+    ...prefixColors("md:text-"),
+    ...prefixColors("lg:text-"),
     ...prefixColors("border-")
 ]
 
@@ -45,6 +51,9 @@ module.exports = {
             },
             lineHeight: {
                 "12": "3rem"
+            },
+            rotate: {
+                "315": "315deg"
             }
         }
     },

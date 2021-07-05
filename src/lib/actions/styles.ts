@@ -32,14 +32,29 @@ export function setStyleProperties(
     Object.entries(styles).forEach(([key, value]) => node.style.setProperty(transform(key), value))
 }
 
-export function classes(node: HTMLElement, listOrSingleton: any) {
+type BuildExpression = string | boolean
+type BuildExpressionMaybeList = BuildExpression | BuildExpression[]
+
+function parseBuildExpressions(listOrSingleton: BuildExpressionMaybeList) {
+    const list = Array.isArray(listOrSingleton) ? listOrSingleton : [listOrSingleton]
+    return list
+        .filter(Boolean)
+        .flatMap((x: string) => x?.split(" "))
+        .filter(Boolean)
+}
+
+export function buildClasses(listOrSingleton: BuildExpressionMaybeList) {
+    return parseBuildExpressions(listOrSingleton).join(" ")
+}
+
+export function classes(node: HTMLElement, listOrSingleton: BuildExpressionMaybeList) {
     let last: string[] = []
 
-    function update(listOrSingleton: any = []) {
+    function update(listOrSingleton: BuildExpressionMaybeList = []) {
         node.classList.remove(...last)
 
-        const list = Array.isArray(listOrSingleton) ? listOrSingleton : [listOrSingleton]
-        const next = list.filter(Boolean).flatMap(x => x?.split(" "))
+        const next = parseBuildExpressions(listOrSingleton)
+        console.log({ next })
         node.classList.add(...next)
 
         last = next
