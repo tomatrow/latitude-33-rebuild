@@ -27,7 +27,7 @@
 <script lang="ts">
     import _ from "lodash"
     import { Link, Meta, CheckerItem } from "$lib/components"
-    import { IconChevronRight } from "$lib/svgs"
+    import { ChevronRight } from "$lib/svgs"
     import { cssVars } from "$lib/actions/styles"
 
     export let aircraft: any
@@ -121,12 +121,12 @@
                     class="font-display feature-link-title ease-in-out transition duration-200 font-black"
                     >{title}</span
                 >
-                <IconChevronRight class="ml-auto w-6 h-6" />
+                <ChevronRight class="ml-auto w-6 h-6" />
             </Link>
         {/each}
         <Link raise ease pill class="bg-either-gray-blue flex my-3 py-4 px-6 text-white" href="#">
             Book Your Flight Today
-            <IconChevronRight class="ml-auto w-6 h-6" />
+            <ChevronRight class="ml-auto w-6 h-6" />
         </Link>
     </section>
 </div>

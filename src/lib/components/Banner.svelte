@@ -9,7 +9,7 @@
     export let subheading = ""
     export let contentHtml = ""
     export let backgroundImage: any
-    export let footer: any
+    export let footer: any = undefined
 </script>
 
 <section
@@ -39,7 +39,7 @@
         </div>
         <slot />
     </div>
-    {#if footer.link || footer.blurb}
+    {#if footer?.link || footer?.blurb}
         <hr class="bg-white opacity-25" />
         <div
             class="space-y-4 md:space-x-12 md:space-y-0 flex items-center flex-col md:flex-row justify-between py-12 px-10"

@@ -53,3 +53,11 @@ fragment EmployeeFragment on Employee {
   }
 }
 `
+
+export const ResourceFragment = `
+    fragment ResourceFragment on ContentNode {
+    	__typename
+      id 
+      uri
+    }
+`

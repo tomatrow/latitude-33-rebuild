@@ -34,7 +34,8 @@ module.exports = {
         extend: {
             colors,
             boxShadow: {
-                "inner-10xl": "inset 0 200px 200px 200px rgba(0, 0, 0, 0.1)"
+                "inner-10xl": "inset 0 200px 200px 200px rgba(0, 0, 0, 0.1)",
+                "card": "0 8px 16px 0 rgba(0, 0, 0, 0.1)"
             },
             fontSize: {
                 base: ['1rem', '1.5rem'],
@@ -47,15 +48,19 @@ module.exports = {
                 "px": "0.0625rem"
             },
             spacing: {
-                "18": "4.5rem"
+                "18": "4.5rem",
+                "4.5": "1.125rem"
             },
             lineHeight: {
                 "12": "3rem"
             },
             rotate: {
                 "315": "315deg"
+            },
+            borderRadius: {
+                '2.5xl' : "1.25rem"
             }
         }
     },
-    plugins: [require("@tailwindcss/aspect-ratio")]
+    plugins: [require("@tailwindcss/aspect-ratio"), require('tailwindcss-scroll-snap')]
 }

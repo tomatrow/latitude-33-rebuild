@@ -1,9 +1,10 @@
+import type { Handle, GetSession, ServerRequest, ServerResponse } from "@sveltejs/kit"
+import UrlPattern from "url-pattern"
 import { MenuItemFragment, MenuFragment } from "$lib/queries/menus"
+// import { ResourceFragment } from "$lib/queries/utility"
 import { smoothEdges } from "$lib/scripts/utility"
 import { normalizePath } from "$lib/scripts/router"
 import { query, graphql } from "$lib/scripts/apollo"
-import type { Handle, GetSession, ServerRequest, ServerResponse } from "@sveltejs/kit"
-import UrlPattern from "url-pattern"
 
 async function coreQueryMiddleware(request: ServerRequest) {
     const q = graphql`
@@ -54,6 +55,16 @@ async function coreQueryMiddleware(request: ServerRequest) {
             }
 
             subfleets(first: 500) {
+                edges {
+                    node {
+                        __typename
+                        id
+                        uri
+                    }
+                }
+            }
+
+            properties(first: 500) {
                 edges {
                     node {
                         __typename
@@ -221,6 +232,7 @@ export const getSession: GetSession = async ({ locals }) => {
         secondary,
         secondaryLarge,
         secondarySmall,
+        properties,
         pages,
         posts,
         fleet,
@@ -259,7 +271,8 @@ export const getSession: GetSession = async ({ locals }) => {
                 ...smoothEdges(posts),
                 ...smoothEdges(pages),
                 ...smoothEdges(fleet),
-                ...smoothEdges(subfleets)
+                ...smoothEdges(subfleets),
+                ...smoothEdges(properties)
             ].map(
                 // @ts-ignore
                 resource => [normalizePath(resource.uri), resource]

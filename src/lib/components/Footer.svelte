@@ -5,7 +5,7 @@
     import RangeFinderCta from "./RangeFinderCta.svelte"
     import { icons } from "$lib/data/social"
     import {
-        IconChevronRight,
+        ChevronRight,
         ApplicationDesignGridLayout,
         Envelope,
         Phone,
@@ -24,7 +24,7 @@
         "/images/Cessna-Citation-Sovereign-Super-Midsize-Aircraft-For-Charter.jpeg"
 
     const menuIcons = {
-        IconChevronRight,
+        ChevronRight,
         UsersFemaleMale,
         BackpackSchool,
         ApplicationDesignGridLayout
@@ -70,7 +70,7 @@
                 >
                     <svelte:component this={menuIcons[fields.icon]} class="h-9 mr-4 w-9" />
                     {label}
-                    <IconChevronRight class="chevron transition duration-200 ml-auto w-6 h-6" />
+                    <ChevronRight class="chevron transition duration-200 ml-auto w-6 h-6" />
                 </Link>
             {/each}
         </div>

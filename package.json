@@ -9,20 +9,21 @@
     "check:watch": "npm run check -- --watch"
   },
   "devDependencies": {
-    "@apollo/client": "^3.3.20",
+    "@apollo/client": "^3.3.21",
     "@beyonk/async-script-loader": "^2.0.0",
     "@felte/reporter-cvapi": "^0.1.13",
     "@felte/validator-superstruct": "^0.2.5",
     "@googlemaps/js-api-loader": "^1.12.1",
     "@googlemaps/markerclustererplus": "^1.2.0",
-    "@sveltejs/adapter-netlify": "^1.0.0-next.18",
-    "@sveltejs/adapter-node": "^1.0.0-next.30",
+    "@sveltejs/adapter-netlify": "^1.0.0-next.19",
+    "@sveltejs/adapter-node": "^1.0.0-next.32",
     "@sveltejs/adapter-vercel": "next",
-    "@sveltejs/kit": "^1.0.0-next.120",
+    "@sveltejs/kit": "^1.0.0-next.122",
+    "@sveltejs/svelte-scroller": "^2.0.7",
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tomatrow/zen-format": "^1.0.2",
-    "@types/google.maps": "^3.45.4",
-    "@types/lodash": "^4.14.170",
+    "@types/google.maps": "^3.45.6",
+    "@types/lodash": "^4.14.171",
     "agnostic-axe": "github:tomatrow/agnostic-axe",
     "autoprefixer": "^10.2.6",
     "axios": "^0.21.1",
@@ -30,10 +31,11 @@
     "cross-fetch": "^3.1.4",
     "cssnano": "^5.0.6",
     "date-fns": "^2.22.1",
-    "felte": "^0.7.8",
+    "felte": "^0.7.9",
     "graphql": "^15.5.1",
     "lodash": "^4.17.21",
     "lottie-web": "^5.7.11",
+    "numeral": "^2.0.6",
     "postcss": "^8.3.5",
     "postcss-load-config": "^3.1.0",
     "postcss-nested": "^5.0.5",
@@ -47,10 +49,14 @@
     "svelte-loading-spinners": "^0.1.5",
     "svelte-preprocess": "^4.7.3",
     "tailwindcss": "^2.2.4",
+    "tailwindcss-scroll-snap": "^1.1.0",
     "tslib": "^2.3.0",
     "typescript": "^4.3.5",
     "typescript-svelte-plugin": "^0.2.2",
     "url-pattern": "^1.0.3"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "svelte-scrollto": "^0.2.0"
+  }
 }

@@ -15,7 +15,7 @@
     <div class="mx-auto md:mr-0 md:pl-5">
         <!-- svelte-ignore a11y-missing-attribute -->
         <img
-            class="rounded-xl ease-in-out offering-raise transform transition duration-200 hover:-translate-y-3 z-10 w-full max-w-lg"
+            class="rounded-xl ease-in-out hover:shadow-card transform transition duration-200 hover:-translate-y-3 z-10 w-full max-w-lg"
             {...image}
         />
     </div>
@@ -47,9 +47,3 @@
         {/if}
     </div>
 </section>
-
-<style global lang="postcss">
-    .offering-raise:hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
-    }
-</style>
