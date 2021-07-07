@@ -9,7 +9,7 @@
     }
 
     function rowType(fields?: object) {
-        return Object.keys(ContentType).find(contentType => fields?.[contentType])
+        return Object.keys(ContentType).find(contentType => fields?.[contentType]) as ContentType
     }
 
     export const BannerPsudoFragment = graphql`
@@ -85,6 +85,7 @@
 
 <script lang="ts">
     export let content = []
+    const rows = content.map(rowType)
 
     function loadRow(contentType: ContentType) {
         switch (contentType) {
@@ -102,12 +103,12 @@
     function spacing(index: number) {
         const isOffering = (value: string) => ContentType.OFFERINGS === value
 
-        const curr = rowType(content[index])
+        const curr = rows[index]
 
         if (!isOffering(curr)) return {}
 
-        const prev = rowType(content[index - 1])
-        const next = rowType(content[index + 1])
+        const prev = rows[index - 1]
+        const next = rows[index + 1]
 
         return {
             isFlush: {
@@ -122,7 +123,9 @@
 </script>
 
 {#each content as fields, index}
-    {#await loadRow(rowType(fields)) then module}
+    <slot name="before" {index} {rows} />
+    {#await loadRow(rows[index]) then module}
         <svelte:component this={module?.default} {...fields} {...spacing(index)} />
     {/await}
+    <slot name="after" {index} {rows} />
 {/each}

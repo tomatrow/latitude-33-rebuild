@@ -28,7 +28,7 @@
 <script lang="ts">
     import { Meta, FlexibleContent } from "$lib/components"
 
-    export let page
+    export let page: any
 </script>
 
 <Meta title={page.title} seo={page.seo} />
