@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-    import { Loader } from "@googlemaps/js-api-loader"
+    import { Loader } from "@googlemaps/js-api-loader/dist/index.esm"
     import type { LoaderOptions } from "@googlemaps/js-api-loader"
     import { onMount, createEventDispatcher } from "svelte"
 
