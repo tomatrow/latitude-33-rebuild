@@ -56,19 +56,12 @@
     }
     let lottieContainer: HTMLDivElement
     $: if (browser && lottieContainer) {
-        lottie.setQuality("low")
         const animation = lottie.loadAnimation({
             path: "/bg-dna-lottie.json",
             container: lottieContainer,
-            renderer: "svg",
+            // renderer: "canvas",
             loop: true,
-            autoplay: true,
-            rendererSettings: {
-                // preserveAspectRatio: "xMidYMid meet",
-                // clearCanvas: true,
-                // progressiveLoad: true,
-                hideOnTransparent: true
-            }
+            autoplay: true
         })
         animation.setSpeed(0.33)
     }
@@ -80,7 +73,7 @@
     shadow
     ease
     pill
-    class="bg-calm-summer-horizon mb-28 fixed right-0 bottom-0 z-40 mr-6 p-2 border-2 border-white text-white"
+    class="bg-either-gray-blue mb-28 fixed right-0 bottom-0 z-40 mr-6 p-2 border-2 border-white text-white"
 >
     <PaperPlaneToy class="h-9 w-9" />
 </Button>

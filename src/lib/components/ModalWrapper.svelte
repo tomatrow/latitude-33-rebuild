@@ -7,6 +7,10 @@
     export let shouldClose: (target: HTMLElement) => boolean
 
     let container: HTMLElement
+
+    function handleClick({ target }) {
+        if (container === target || shouldClose?.(target)) closeModal()
+    }
 </script>
 
 <svelte:window on:keydown={({ key }) => ["Escape", "Esc"].includes(key) && closeModal()} />
@@ -15,7 +19,7 @@
     transition:fade
     class="fixed inset-0 z-50 flex items-center justify-center bg-black"
     bind:this={container}
-    on:click={({ target }) => container === target || (shouldClose?.(target) && closeModal())}
+    on:click={handleClick}
 >
     <Button on:click={closeModal} class="z-50">
         <Cross

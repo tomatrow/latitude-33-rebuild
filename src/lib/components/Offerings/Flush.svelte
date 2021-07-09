@@ -13,8 +13,9 @@
 </script>
 
 <section class="{clazz} grid grid-cols-1 md:grid-cols-2">
+    <!-- svelte-ignore a11y-missing-attribute -->
     <img {...image} class="rounded-2xl md:order-last mx-auto md:mr-6 w-full max-w-xl" />
-    <div class="space-y-3 mx-auto md:pr-5 md:pl-6 max-w-lg lg:max-w-xl">
+    <div class="space-y-3 mx-auto md:pr-5 pb-12 md:pl-6 max-w-lg lg:max-w-xl">
         {#if subheading}
             <h5 class="text-{accentColor} font-display font-bold md:text-xl">
                 {subheading}

@@ -113,10 +113,16 @@
         return {
             isFlush: {
                 top:
-                    index === 0 ||
-                    [curr, prev].every(isOffering) ||
+                    (index === 0 && [ContentType.BANNER, ContentType.CHECKERS].includes(curr)) ||
+                    // ([curr, prev].every(isOffering)  ||
+                    (ContentType.OFFERINGS === curr && content[index].style.hasCorner) ||
                     [ContentType.BANNER, ContentType.CHECKERS].includes(prev),
-                bottom: index === content.length - 1 || [curr, next].every(isOffering)
+                bottom:
+                    (index === content.length - 1 &&
+                        [ContentType.BANNER, ContentType.CHECKERS, ContentType.OFFERINGS].includes(
+                            curr
+                        )) ||
+                    [curr, next].every(isOffering)
             }
         }
     }

@@ -20,7 +20,7 @@
         />
     </div>
 
-    <div class="mx-auto md:ml-0 max-w-xl">
+    <div class="mx-auto md:ml-0 pb-12 max-w-xl">
         {#if subheading}
             <h5 class="text-{accentColor} font-display font-bold md:text-xl">
                 {subheading}

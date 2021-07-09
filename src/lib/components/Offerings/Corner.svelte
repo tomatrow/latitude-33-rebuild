@@ -15,6 +15,7 @@
 </script>
 
 <section class="{clazz} grid grid-cols-1 md:grid-cols-2" class:md:gap-x-8={!full}>
+    <!-- svelte-ignore a11y-missing-attribute -->
     <img
         {...image}
         class:max-w-xl={!full}

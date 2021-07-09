@@ -37,7 +37,11 @@
         {#if index === 0 && style.hasCorner}
             <CornerOffering full={style.largeCornerImage} {accentColor} {...fields} />
         {:else if style.layout === "centered"}
-            <CenteredOffering {accentColor} {...fields} class="md:text-black" />
+            <CenteredOffering
+                {accentColor}
+                {...fields}
+                class={style.backgroundColor === "white" ? "md:text-black" : ""}
+            />
         {:else if style.layout === "flush"}
             <FlushOffering {accentColor} {...fields} />
         {/if}

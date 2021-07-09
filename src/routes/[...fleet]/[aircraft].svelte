@@ -68,7 +68,7 @@
         contentHtml: description
     }))
 
-    const { featuredImage } = aircraft
+    const { featuredImage } = aircraft.aircraftFields
 
     function idify(key: string) {
         return _.kebabCase(key)
