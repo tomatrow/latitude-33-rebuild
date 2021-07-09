@@ -1,4 +1,4 @@
-import format from "@tomatrow/zen-format"
+// import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
 import vercel from "@sveltejs/adapter-vercel"
 
@@ -16,11 +16,11 @@ const config = {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
         adapter: vercel(),
-        vite: {
-            plugins: [
-                format({ load: true })
-            ]
-        }
+        // vite: {
+        //     plugins: [
+        //         format({ load: true })
+        //     ]
+        // }
 	}
 };
 
