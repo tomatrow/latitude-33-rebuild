@@ -29,6 +29,7 @@
                             pill
                             filled
                             shadow
+                            sveltekit:prefetch
                             color="either-gray-blue"
                             class="flex-shrink-0 py-2 px-4 text-center whitespace-no-wrap font-semibold text-sm"
                             {...link}
@@ -38,4 +39,7 @@
             </div>
         {/each}
     </section>
+    {#if items.length === 0}
+        <slot name="empty" />
+    {/if}
 </Grid>

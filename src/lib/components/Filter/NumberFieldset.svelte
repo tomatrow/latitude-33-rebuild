@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Field } from "$lib/components"
+    import Field from "$lib/components/Field.svelte"
     export let name: string
 
     const text = {

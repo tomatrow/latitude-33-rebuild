@@ -65,8 +65,8 @@
             autoplay: true,
             rendererSettings: {
                 // preserveAspectRatio: "xMidYMid meet",
-                clearCanvas: true,
-                progressiveLoad: true,
+                // clearCanvas: true,
+                // progressiveLoad: true,
                 hideOnTransparent: true
             }
         })

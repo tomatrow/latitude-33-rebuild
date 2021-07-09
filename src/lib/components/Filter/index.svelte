@@ -12,12 +12,15 @@
 
     const { form, data, reset, setFields } = createForm({
         onSubmit() {
+            filtered = filter($data, items)
+            hide()
             dispatch("submit")
         }
     })
 
     let filtering = false
     let persistedData: any
+    let filtered = filter($data, items)
 
     async function show() {
         filtering = true
@@ -51,8 +54,9 @@
         <form use:form class="space-y-4">
             <slot name="fields" />
             <Button class="py-2 px-4 border border-white" on:click={reset}>Reset</Button>
+            <Button type="submit" class="py-2 px-4 border border-white">Submit</Button>
         </form>
     </section>
 {/if}
 
-<slot {filtering} {show} {hide} filtered={filter($data, items)} />
+<slot {filtering} {show} {hide} {filtered} />

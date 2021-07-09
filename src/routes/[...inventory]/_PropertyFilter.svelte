@@ -1,6 +1,7 @@
 <script lang="ts">
     import { smoothEdges } from "$lib/scripts/utility"
     import { CollectionGrid, CtaBar, Filter, NumberFieldset } from "$lib/components"
+    import { filterRanges } from "../[...fleet]/_FleetFilter.svelte"
 
     export let properties = []
     export let ctaBar: any
@@ -10,16 +11,9 @@
         const result = smoothEdges(items)
 
         return result
-            .filter(({ propertyFields }) => {
-                return Object.entries(filterSettings).every(([key, { min, max }]) => {
-                    const value = propertyFields.stats[key]
-
-                    if (min !== undefined && value < min) return false
-                    if (max !== undefined && value > max) return false
-
-                    return true
-                })
-            })
+            .filter(({ propertyFields }) =>
+                filterRanges({ item: propertyFields.stats, ranges: filterSettings })
+            )
             .map(({ href, propertyFields }) => ({
                 title: propertyFields.info.name,
                 image: propertyFields.info.featuredImage,
@@ -38,5 +32,12 @@
     </svelte:fragment>
 
     <CtaBar {...ctaBar} on:click={show} />
-    <CollectionGrid items={filtered} />
+    <CollectionGrid items={filtered}>
+        <div
+            class="sm:py-18 font-display py-8 px-5 text-black text-center font-bold text-2xl"
+            slot="empty"
+        >
+            We have “0” aircraft matching your filters
+        </div>
+    </CollectionGrid>
 </Filter>
