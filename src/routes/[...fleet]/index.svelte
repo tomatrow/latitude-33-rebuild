@@ -36,13 +36,11 @@
                     edges {
                         node {
                             title
-                            uri
-                            featuredImage {
-                                node {
+                            href: uri
+                            aircraftFields {
+                                featuredImage {
                                     ...MediaItemFragment
                                 }
-                            }
-                            aircraftFields {
                                 stats {
                                     baggageCapacity
                                     maxCruiseSpeed
@@ -63,8 +61,7 @@
 
 <script lang="ts">
     import { Meta, Banner, FlexibleContent } from "$lib/components"
-
-    import Filter from "./_Filter.svelte"
+    import FleetFilter from "./_FleetFilter.svelte"
 
     export let page: any
     export let fleet: any
@@ -75,5 +72,5 @@
 <Meta title={page.title} seo={page.seo} />
 
 <Banner {...banner} />
-<Filter {fleet} {...filter} />
+<FleetFilter {fleet} {...filter} />
 <FlexibleContent content={page.template.genericPageFields.flexibleContent} />

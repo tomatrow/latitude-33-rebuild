@@ -1,0 +1,58 @@
+<script lang="ts">
+    import { createForm } from "felte"
+    import { fly } from "svelte/transition"
+    import { tick, createEventDispatcher } from "svelte"
+    import Button from "$lib/components/Button.svelte"
+    import { Cross } from "$lib/svgs"
+
+    const dispatch = createEventDispatcher<{ submit: any }>()
+
+    export let items = []
+    export let filter = (data: any, items: any[]) => items
+
+    const { form, data, reset, setFields } = createForm({
+        onSubmit() {
+            dispatch("submit")
+        }
+    })
+
+    let filtering = false
+    let persistedData: any
+
+    async function show() {
+        filtering = true
+        await tick()
+        setFields(persistedData)
+    }
+
+    function hide() {
+        persistedData = $data
+        filtering = false
+    }
+</script>
+
+{#if filtering}
+    <section
+        class="space-y-2 bg-either-gray-blue fixed top-0 left-0 z-50 overflow-y-scroll p-4 w-full h-screen max-w-lg max-h-screen sm:w-auto text-white"
+        transition:fly={{
+            delay: 0,
+            duration: 500,
+            x: -600,
+            y: 0
+        }}
+    >
+        <Button shadow on:click={hide}>
+            <Cross
+                class="absolute top-0 right-0 m-4 w-10 h-10 text-white fill-current"
+                fill="currentColor"
+                strokeWidth={1}
+            />
+        </Button>
+        <form use:form class="space-y-4">
+            <slot name="fields" />
+            <Button class="py-2 px-4 border border-white" on:click={reset}>Reset</Button>
+        </form>
+    </section>
+{/if}
+
+<slot {filtering} {show} {hide} filtered={filter($data, items)} />

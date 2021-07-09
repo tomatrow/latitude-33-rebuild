@@ -28,8 +28,8 @@
                                 id
                                 title
                                 uri
-                                featuredImage {
-                                    node {
+                                aircraftFields {
+                                    featuredImage {
                                         ...MediaItemFragment
                                     }
                                 }
@@ -59,15 +59,26 @@
 
 <script lang="ts">
     import _ from "lodash"
-    import { Meta, Link, Button, Gallery, RangeFinderCta, FleetGrid } from "$lib/components"
+    import {
+        Meta,
+        Link,
+        Button,
+        Gallery,
+        RangeFinderCta,
+        FleetGrid,
+        CollectionGrid
+    } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
+    import { fleetFormat } from "./_FleetFilter.svelte"
 
     export let subfleet: any
     export let acfOptionsSubfleets: any
 
     const { subfleetOptions } = acfOptionsSubfleets
     const images = subfleet.subfleetPageSettings.gallery
-    const fleet = smoothEdges(subfleet.fleet)
+    const fleet = smoothEdges(subfleet.fleet).map(aircraft =>
+        fleetFormat(aircraft, subfleetOptions.fleetGrid.linkLabel)
+    )
 
     let galleryIndex = 0
 </script>
@@ -93,6 +104,7 @@
     <Gallery {images} let:show>
         <section>
             <div class="h-72 flex items-end m-4">
+                <!-- svelte-ignore a11y-missing-attribute -->
                 <img
                     class="rounded-xl transition duration-200 transform hover:-translate-y-3 mx-auto mb-4 hover:shadow-lg object-cover"
                     {...images[galleryIndex]}
@@ -107,6 +119,7 @@
                         class="grid gap-2 grid-cols-3 sm:grid-cols-5 md:grid-cols-3 lg:grid-cols-5"
                     >
                         {#each images.slice(0, 6) as image, index}
+                            <!-- svelte-ignore a11y-missing-attribute -->
                             <img
                                 class="w-full h-16 object-cover"
                                 {...image}
@@ -138,7 +151,7 @@
     </h4>
 </div>
 
-<FleetGrid {fleet} linkTitle={subfleetOptions.fleetGrid.linkLabel} />
+<CollectionGrid items={fleet} />
 
 <style global lang="postcss">
     .injected-content_subfleet {

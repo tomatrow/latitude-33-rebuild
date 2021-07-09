@@ -25,6 +25,7 @@
                                 craft {
                                     ... on Aircraft {
                                         id
+                                        title
                                         aircraftFields {
                                             stats {
                                                 maxPassengers
@@ -61,7 +62,8 @@
 </script>
 
 <script lang="ts">
-    import { Meta, FlexibleContent } from "$lib/components"
+    import { Meta, FlexibleContent, Anchor } from "$lib/components"
+    import DealsBanner from "./_DealsBanner.svelte"
     import DealsGrid from "./_DealsGrid.svelte"
 
     export let page: any
@@ -70,10 +72,8 @@
 
 <Meta title={page.title} seo={page.seo} />
 
-<FlexibleContent content={page.template.genericPageFields.flexibleContent}>
-    <svelte:fragment let:index slot="after">
-        {#if index === 0}
-            <DealsGrid {deals} />
-        {/if}
-    </svelte:fragment>
-</FlexibleContent>
+<DealsBanner />
+<Anchor id="deals" />
+<DealsGrid {deals} />
+
+<FlexibleContent content={page.template.genericPageFields.flexibleContent} />

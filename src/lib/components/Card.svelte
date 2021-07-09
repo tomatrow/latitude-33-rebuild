@@ -1,5 +1,6 @@
 <script lang="ts">
     import Link from "./Link.svelte"
+
     export let title: string
     export let linkTitle: string
     export let src: string
@@ -11,6 +12,7 @@
 </script>
 
 <div
+    on:mouseover
     style="background-image: url({src}); {style}"
     class="{clazz} flex flex-col justify-end bg-center bg-cover bg-no-repeat"
 >

@@ -19,7 +19,7 @@
                 src: `https://my.matterport.com/show/?m=${matterportId}`
             })}
     >
-        Walkthrough</Button
+        3D Walkthrough</Button
     >
 {/if}
 {#if youtubeId}
@@ -35,6 +35,6 @@
                 src: `https://www.youtube.com/embed/${youtubeId}?autoplay=1`
             })}
     >
-        Overview</Button
+        Video</Button
     >
 {/if}

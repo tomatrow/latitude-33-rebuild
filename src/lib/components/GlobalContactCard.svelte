@@ -93,7 +93,6 @@
             x: 600,
             y: 0
         }}
-        id="yes"
         class="space-y-2 bg-either-gray-blue fixed top-0 right-0 z-50 overflow-y-scroll py-10 px-5 h-screen max-w-lg max-h-screen text-white"
     >
         <Button aria-label="close contact popup" shadow on:click={() => (showing = false)}>

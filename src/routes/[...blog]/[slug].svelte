@@ -65,7 +65,7 @@
 </script>
 
 <script lang="ts">
-    import { Meta, Link, PostInfo } from "$lib/components"
+    import { Meta, Link, PostInfo, Anchor } from "$lib/components"
     import Colors from "$lib/data/colors.json"
     import { cssVars } from "$lib/actions/styles"
 
@@ -100,8 +100,8 @@
     <img class="rounded-2xl" {...post.postFields.featuredImage} />
 </div>
 
+<Anchor id="post" />
 <section
-    id="post"
     class="injected-content injected-content_post mx-auto p-5 max-w-6xl"
     use:cssVars={{ injectedLinkColor: Colors["disappointment-blue"] }}
 >

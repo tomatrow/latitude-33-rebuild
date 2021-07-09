@@ -14,7 +14,7 @@
 
 <ModalProvider />
 <Navbar bind:height />
-<main class="relative" style="padding-top: {height}">
+<main class="relative" style="padding-top: {height}; --nav-h: {height}">
     <slot />
     <Footer />
     <GlobalContactCard />

@@ -2,6 +2,7 @@
     import Gallery from "./Gallery.svelte"
     import Colors from "$lib/data/colors"
     import DetailsAccordionGroup from "./DetailsAccordionGroup.svelte"
+    import { Anchor } from "$lib/components"
     import type { AcfImage } from "$lib/index.type"
 
     export let title: string
@@ -21,7 +22,8 @@
         class="bg-sarcastic-orange rounded-xl mx-auto p-3 w-full sm:max-w-md text-white"
         --injected-link-color={Colors["either-gray-blue"]}
     >
-        <header class="font-display space-y-2" slot="header">
+        <header class="font-display space-y-2 relative" slot="header">
+            <Anchor id="details" />
             <p class="font-extrabold text-sm">{subheading}</p>
             <h2 class="text-4.5xl font-bold">{title}</h2>
         </header>
@@ -29,6 +31,7 @@
     </DetailsAccordionGroup>
 
     <div class="space-y-4">
+        <Anchor id="gallery" />
         <Gallery {gallery} />
         {#if secondaryImage}
             <!-- svelte-ignore a11y-missing-attribute  -->

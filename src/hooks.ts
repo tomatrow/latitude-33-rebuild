@@ -44,6 +44,16 @@ async function coreQueryMiddleware(request: ServerRequest) {
                 }
             }
 
+            airports(first: 500) {
+                edges {
+                    node {
+                        __typename
+                        id
+                        uri
+                    }
+                }
+            }
+
             fleet(first: 500) {
                 edges {
                     node {
@@ -213,6 +223,7 @@ function injectionMiddleware(request: ServerRequest, response: ServerResponse) {
 }
 
 export const handle: Handle = async ({ request, resolve }) => {
+    console.log("A request for " + request.path)
     await coreQueryMiddleware(request)
 
     const redirection = redirectionMiddleware(request)
@@ -237,6 +248,7 @@ export const getSession: GetSession = async ({ locals }) => {
         posts,
         fleet,
         seo,
+        airports,
         subfleets
     } = coreGraph
 
@@ -272,7 +284,8 @@ export const getSession: GetSession = async ({ locals }) => {
                 ...smoothEdges(pages),
                 ...smoothEdges(fleet),
                 ...smoothEdges(subfleets),
-                ...smoothEdges(properties)
+                ...smoothEdges(properties),
+                ...smoothEdges(airports)
             ].map(
                 // @ts-ignore
                 resource => [normalizePath(resource.uri), resource]

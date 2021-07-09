@@ -102,7 +102,7 @@
 </script>
 
 <script lang="ts">
-    import { Banner, Meta } from "$lib/components"
+    import { Banner, Meta, Link } from "$lib/components"
     import Overview from "./_Overview.svelte"
     import Details from "./_Details/index.svelte"
     import Files from "./_Files.svelte"
@@ -118,7 +118,28 @@
 <Meta title={property.title} seo={property.seo} />
 
 <Banner title={info.name} contentHtml={info.descriptionHtml} backgroundImage={info.featuredImage}>
-    <ModalButtons {...media} />
+    <Link
+        blob
+        filled
+        outline
+        shadow
+        ease
+        border
+        color="calm-summer-horizon"
+        class="inline-block mr-4 py-2 px-4"
+        href="#details">Details</Link
+    >
+    <Link
+        blob
+        filled
+        outline
+        shadow
+        ease
+        border
+        color="calm-summer-horizon"
+        class="inline-block py-2 px-4"
+        href="#gallery">Gallery</Link
+    >
 </Banner>
 
 <Overview {stats} {...overviewSection} />

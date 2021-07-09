@@ -26,7 +26,7 @@
 
 <script lang="ts">
     import _ from "lodash"
-    import { Link, Meta, CheckerItem, TestimonialExpose } from "$lib/components"
+    import { Link, Meta, CheckerItem, TestimonialExpose, Anchor } from "$lib/components"
     import { ChevronRight } from "$lib/svgs"
     import { cssVars } from "$lib/actions/styles"
 
@@ -130,7 +130,8 @@
 </div>
 
 {#each features as item, index}
-    <CheckerItem float id={idify(item.title)} reverse={index % 2 === 1} {...item} />
+    <Anchor id={idify(item.title)} />
+    <CheckerItem float reverse={index % 2 === 1} {...item} />
 {/each}
 
 <TestimonialExpose {...acfOptionsDrillDown.fleetPostTypeFields} />
