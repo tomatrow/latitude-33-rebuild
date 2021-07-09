@@ -123,7 +123,7 @@
         </p>
 
         <Link
-            href={fields.sidebar.bookingLink.url}
+            href={fields.sidebar.bookingLink.href}
             class="arrow-link font-display flex items-center my-2 font-bold text-lg"
         >
             {fields.sidebar.bookingLink.title}

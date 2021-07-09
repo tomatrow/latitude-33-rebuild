@@ -22,7 +22,7 @@
             <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
         </a>
     </li>
-    <div slot="nav-item" let:item let:active class="grid gap-8 grid-cols-2 md:grid-cols-3 p-8">
+    <div slot="nav-item" let:item let:active class="grid gap-8 grid-cols-2 md:grid-cols-3 p-8" style="width: 1000px">
         {#each item.childItems as { label, target, url, childItems }}
             <div class="flex flex-col">
                 <Link class="block h-8 font-bold" {target} href={url} tabindex={active ? 0 : -1}
