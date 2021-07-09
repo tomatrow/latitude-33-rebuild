@@ -19,9 +19,12 @@
 
 <div
     class={clazz}
-    use:classes={invert
-        ? `bg-${bgColor} sm:bg-white lg:bg-${bgColor}`
-        : `bg-white sm:bg-${bgColor} lg:bg-white`}
+    use:classes={[
+        invert
+            ? `bg-${bgColor} sm:bg-white lg:bg-${bgColor}`
+            : `bg-white sm:bg-${bgColor} lg:bg-white`,
+        "lg:py-18 py-8 sm:py-12"
+    ]}
 >
     <div
         class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-5 mx-5 sm:mx-auto h-full sm:max-w-lg"
@@ -46,7 +49,9 @@
             <!-- svelte-ignore a11y-missing-attribute -->
             <img
                 class="sm:col-start-1 h-18 w-18 sm:self-start"
-                style="filter: brightness({invert ? 100 : 0})"
+                use:classes={invert
+                    ? "brightness-[100] sm:brightness-0 lg:brightness-[100]"
+                    : "brightness-0 sm:brightness-[100] lg:brightness-0"}
                 {...icon}
             />
         {/if}

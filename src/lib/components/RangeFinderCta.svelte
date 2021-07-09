@@ -10,7 +10,7 @@
         <img alt="latitude 33 logo" class="w-40" src="/icons/latitude33-logo-white.png" />
     </Link>
     <Link
-        href="#"
+        href="/range-finder"
         ease
         blob
         shadow

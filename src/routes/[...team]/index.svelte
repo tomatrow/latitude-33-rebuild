@@ -78,7 +78,7 @@
     />
 {/each}
 
-<div class="mx-auto">
+<div class="flex justify-center mx-auto">
     <section class="grid grid-custom gap-6 sm:mx-9 lg:mt-18 mt-24 mx-5 max-w-5xl">
         {#each normalEmployees.map(normalizeEmployee) as employee}
             <div>

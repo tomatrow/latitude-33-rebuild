@@ -35,10 +35,10 @@
     </div>
     <div class="vsm-mob-content">
         {#if active}
+            <slot name="close">
+                <div class="vsm-mob-close" on:click={toggle} />
+            </slot>
             <div transiton:fade class="vsm-mob-content__wrap">
-                <slot name="close">
-                    <div class="vsm-mob-close" on:click={toggle} />
-                </slot>
                 <slot />
             </div>
         {/if}

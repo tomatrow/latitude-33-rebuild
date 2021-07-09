@@ -8,7 +8,7 @@
     let clazz = ""
 </script>
 
-<div class="{clazz} flex items-center justify-center">
+<div class="{clazz} flex items-center justify-center sm:pt-8 lg:pt-0">
     <!-- svelte-ignore a11y-missing-attribute -->
     <img
         class="sm:rounded-3xl sm:max-h-64 sm:max-w-[26rem] w-full lg:max-h-full sm:w-auto"

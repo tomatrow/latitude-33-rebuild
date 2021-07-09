@@ -27,7 +27,7 @@
                             node {
                                 id
                                 title
-                                uri
+                                href: uri
                                 aircraftFields {
                                     featuredImage {
                                         ...MediaItemFragment
