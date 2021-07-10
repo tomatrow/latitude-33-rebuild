@@ -22,11 +22,11 @@ const config = {
         //     assets: "build"
         // }),
         adapter: vercel(),
-        prerender: {
-            enabled: true,
-            force: true,
-            pages: ["*", ...pages]
-        }
+        // prerender: {
+        //     enabled: true,
+        //     force: true,
+        //     pages: ["*", ...pages]
+        // }
         // vite: {
         //     plugins: [
         //         format({ load: true })
