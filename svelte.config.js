@@ -1,7 +1,7 @@
 // import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
-// import vercel from "@sveltejs/adapter-vercel"
-import adapter from '@sveltejs/adapter-static';
+import vercel from "@sveltejs/adapter-vercel"
+// import adapter from '@sveltejs/adapter-static';
 import pages from "./prerender.js"
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -17,10 +17,11 @@ const config = {
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
-        adapter: adapter({
-            pages: "build",
-            assets: "build"
-        }),
+        // adapter: adapter({
+        //     pages: "build",
+        //     assets: "build"
+        // }),
+        adapter: vercel(),
         prerender: {
             enabled: true,
             force: true,
