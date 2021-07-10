@@ -4,6 +4,7 @@ bump 3
 bump 4
 bump 5
 bump 6
+bump 7
 
 # create-svelte
 
