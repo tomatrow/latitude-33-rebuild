@@ -17,6 +17,7 @@
     "@googlemaps/markerclustererplus": "^1.2.0",
     "@sveltejs/adapter-netlify": "^1.0.0-next.19",
     "@sveltejs/adapter-node": "^1.0.0-next.32",
+    "@sveltejs/adapter-static": "^1.0.0-next.13",
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "^1.0.0-next.123",
     "@sveltejs/svelte-scroller": "^2.0.7",
