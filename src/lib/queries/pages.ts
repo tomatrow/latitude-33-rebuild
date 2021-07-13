@@ -1,6 +1,4 @@
 import { graphql } from "$lib/scripts/apollo"
-import { AcfLinkFragment } from "./utility"
-import { ContactFormFragment } from "./contactForms"
 
 export const PageFragment = graphql`
     fragment PageFragment on Page {
