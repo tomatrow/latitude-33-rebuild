@@ -34,6 +34,8 @@
     }
 </script>
 
+<svelte:window on:sveltekit:navigation-start={() => (filtering = false)} />
+
 {#if filtering}
     <section
         class="space-y-2 bg-either-gray-blue fixed top-0 left-0 z-50 overflow-y-scroll p-4 w-full h-screen max-w-lg max-h-screen sm:w-auto text-white"

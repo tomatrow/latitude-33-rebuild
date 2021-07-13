@@ -1,9 +1,10 @@
 <script lang="ts">
     export let height = "6.25rem"
     import Link from "$lib/components/Link.svelte"
-    import NavCard from "./NavCard.svelte"
     import { session } from "$app/stores"
     import { MobileMenu, Menu } from "$lib/svelte-stripe-menu"
+
+    let active: boolean
 
     const menu = $session.menus.primary.menuItems.map((item, index) => ({
         title: item.label,
@@ -11,6 +12,8 @@
         ...item
     }))
 </script>
+
+<svelte:window on:sveltekit:navigation-start={() => (active = false)} />
 
 <Menu
     class="bg-a-taste-of-blueberries absolute md:fixed top-0 right-0 left-0 z-40 flex items-center justify-center"
@@ -22,7 +25,13 @@
             <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
         </a>
     </li>
-    <div slot="nav-item" let:item let:active class="grid gap-8 grid-cols-2 md:grid-cols-3 p-8" style="width: 1000px">
+    <div
+        slot="nav-item"
+        let:item
+        let:active
+        class="grid gap-8 grid-cols-2 md:grid-cols-3 p-8"
+        style="width: 1000px"
+    >
         {#each item.childItems as { label, target, url, childItems }}
             <div class="flex flex-col">
                 <Link class="block h-8 font-bold" {target} href={url} tabindex={active ? 0 : -1}
@@ -52,7 +61,7 @@
     >
         {item.title}
     </Link>
-    <MobileMenu slot="after-nav">
+    <MobileMenu slot="after-nav" bind:active>
         <div class="divide-a-taste-of-blueberries divide-y-2 flex flex-col px-5 bg-white">
             {#each menu as { label, target, url, childItems }}
                 <div class="p-6" class:space-y-4={childItems.length}>

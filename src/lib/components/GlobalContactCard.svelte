@@ -67,6 +67,8 @@
     }
 </script>
 
+<svelte:window on:sveltekit:navigation-start={() => (showing = false)} />
+
 <Button
     aria-label="open contact form"
     on:click={() => (showing = true)}

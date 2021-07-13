@@ -13,7 +13,10 @@
     }
 </script>
 
-<svelte:window on:keydown={({ key }) => ["Escape", "Esc"].includes(key) && closeModal()} />
+<svelte:window
+    on:sveltekit:navigation-start={closeModal}
+    on:keydown={({ key }) => ["Escape", "Esc"].includes(key) && closeModal()}
+/>
 
 <div
     transition:fade
