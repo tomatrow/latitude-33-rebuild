@@ -14,10 +14,6 @@ export const PageFragment = graphql`
     }
 `
 
-export const FleetPageFragment = graphql`
-    fragment FleetPageFragment on 
-`
-
 export const ContactPageFragment = graphql`
     fragment ContactPageFragment on Template_Contact {
         contactPageFields {
