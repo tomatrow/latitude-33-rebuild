@@ -36,12 +36,19 @@ export function loadResource<R extends Resource = AnyResource>(
         const resource = matchResource(input, filter)
 
         if (!resource) return
+        try {
+            const { data } = await query(graphqlQuery, getVariables(resource, input))
 
-        const { data } = await query(graphqlQuery, getVariables(resource, input))
-
-        return {
-            status: 200,
-            props: data
+            return {
+                status: 200,
+                props: data
+            }
+        } catch (error) {
+            console.error(JSON.stringify(error))
+            return {
+                status: 500,
+                error
+            }
         }
     }
 }
