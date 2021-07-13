@@ -1,6 +1,5 @@
-// import format from "@tomatrow/zen-format"
+import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
-// import vercel from "@sveltejs/adapter-vercel"
 import adapter from '@sveltejs/adapter-static';
 import pages from "./prerender.js"
 
@@ -21,22 +20,17 @@ const config = {
             pages: ".vercel_build_output",
             assets: ".vercel_build_output"
         }),
-        // adapter: vercel(),
         prerender: {
             enabled: true,
             force: true,
             pages: ["*", ...pages]
+        },
+        vite: {
+            plugins: [
+                format({ load: true })
+            ]
         }
-        // vite: {
-        //     plugins: [
-        //         format({ load: true })
-        //     ]
-        // }
 	}
 };
 
 export default config;
-// Workaround until SvelteKit uses Vite 2.3.8 (and it's confirmed to fix the Tailwind JIT problem)
-// const mode = process.env.NODE_ENV;
-// const dev = mode === "development";
-// process.env.TAILWIND_MODE = dev ? "watch" : "build";
