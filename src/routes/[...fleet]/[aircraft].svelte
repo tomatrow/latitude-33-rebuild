@@ -78,7 +78,7 @@
 <Meta title={aircraft.title} seo={aircraft.seo} />
 
 <div
-    class="stats bg-either-gray-blue sm:pb-44 sm:pt-8 sm:pl-5 bg-white sm:bg-center sm:bg-cover sm:bg-no-repeat"
+    class="stats sm:bg-either-gray-blue sm:pb-44 sm:pt-8 sm:pl-5 bg-black bg-white sm:bg-center sm:bg-cover sm:bg-no-repeat"
     use:cssVars={{
         bg: featuredImage ? `url(${featuredImage.src})` : ""
     }}
