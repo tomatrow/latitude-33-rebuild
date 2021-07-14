@@ -15,6 +15,7 @@
                         node {
                             id
                             title
+                            href: uri
                             aircraftFields {
                                 stats {
                                     maxRange
@@ -38,6 +39,7 @@
                     edges {
                         node {
                             id
+                            href: uri
                             airportFields {
                                 coordinates {
                                     city
@@ -58,7 +60,7 @@
     import { fade } from "svelte/transition"
     import Colors from "$lib/data/colors.json"
     import { smoothEdges } from "$lib/scripts/utility"
-    import { Meta } from "$lib/components"
+    import { Meta, Link, Arrow } from "$lib/components"
     import { MapsSdkLoader, isMapsLoaded, Map, Marker, Circle } from "$lib/svelte-google-maps"
     import Select from "./_Select.svelte"
     import Stat from "./_Stat.svelte"
@@ -67,8 +69,9 @@
     export let airports: any
     export let fleet: any
 
-    const locations = smoothEdges(airports).map(({ id, airportFields }) => ({
+    const locations = smoothEdges(airports).map(({ id, href, airportFields }) => ({
         id,
+        href,
         ...airportFields.coordinates
     }))
     const planes: any[] = smoothEdges(fleet).sort(
@@ -81,6 +84,8 @@
 
     const key = import.meta.env.VITE_RANGE_FINDER_MAPS_API_KEY as string
     const METERS_PER_NAUTICAL_MILE = 1852
+
+    $: console.log({ selectedLocation, locations })
 </script>
 
 <Meta title={page.title} seo={page.seo} />

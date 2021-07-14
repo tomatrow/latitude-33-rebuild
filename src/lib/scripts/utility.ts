@@ -1,5 +1,3 @@
-import type { Load } from "@sveltejs/kit"
-
 export function stripPhone(phone: string) {
     return phone.match(/\d/g)?.join("") ?? ""
 }
