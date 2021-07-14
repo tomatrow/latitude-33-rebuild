@@ -12,6 +12,8 @@
         dropdown: item.childItems.length > 0 ? String(index) : null,
         ...item
     }))
+
+    $: browser && document.body.classList[active ? "add" : "remove"]("lock-scroll")
 </script>
 
 <svelte:window on:sveltekit:navigation-start={() => (active = false)} />
@@ -81,6 +83,10 @@
 </Menu>
 
 <style global lang="postcss">
+    body.lock-scroll {
+        overflow: hidden;
+    }
+
     .vsm-menu {
         @apply mx-auto w-full;
     }
