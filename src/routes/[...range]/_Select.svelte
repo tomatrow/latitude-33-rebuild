@@ -8,7 +8,7 @@
     export let label: string
     export let value: { href: string }
     let ready = false
-    
+
     onMount(async () => {
         await delay(100)
         ready = true // the initial value is auto selected, so we wait to prefetch
