@@ -1,9 +1,10 @@
 <script lang="ts">
-    export let height = "6.25rem"
-    import Link from "$lib/components/Link.svelte"
+    import { browser } from "$app/env"
     import { session } from "$app/stores"
+    import Link from "$lib/components/Link.svelte"
     import { MobileMenu, Menu } from "$lib/svelte-stripe-menu"
 
+    export let height = "6.25rem"
     let active: boolean
 
     const menu = $session.menus.primary.menuItems.map((item, index) => ({
