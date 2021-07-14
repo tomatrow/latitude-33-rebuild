@@ -39,6 +39,7 @@ specifiers:
   svelte-check: ^2.2.2
   svelte-language-server: ^0.14.3
   svelte-loading-spinners: ^0.1.6
+  svelte-portal: ^2.1.2
   svelte-preprocess: ^4.7.4
   svelte-scrollto: ^0.2.0
   tailwindcss: ^2.2.4
@@ -90,6 +91,7 @@ devDependencies:
   svelte-check: 2.2.2_1e60e55b022cbc4d590e891355c7d065
   svelte-language-server: 0.14.3_91166e6035b0f171970eb3e57b29a551
   svelte-loading-spinners: 0.1.6
+  svelte-portal: 2.1.2
   svelte-preprocess: 4.7.4_f72cb119e5efb9f4f70f63ca9c9312db
   tailwindcss: 2.2.4_d0cbdb03a6e75c60c9760f17c403e6d9
   tailwindcss-scroll-snap: 1.1.0
@@ -2063,6 +2065,10 @@ packages:
 
   /svelte-loading-spinners/0.1.6:
     resolution: {integrity: sha512-fqhA+Eq6qVc5RkTh7uADp6TNi9APIrSppr95ivggVyiotPisw0s0lSX4pdiQpMTE+J/tIERy/kmGQjRsDoGLXQ==}
+    dev: true
+
+  /svelte-portal/2.1.2:
+    resolution: {integrity: sha512-u1ONI4ZJDNhVJPDW7tH6RH1ZIzALt6kJZbF00Hz9bgNIVRlzvzimsnwf35rGFMtPFA+FYenvsTHUR815yYNc9A==}
     dev: true
 
   /svelte-preprocess/4.7.4_f72cb119e5efb9f4f70f63ca9c9312db:
