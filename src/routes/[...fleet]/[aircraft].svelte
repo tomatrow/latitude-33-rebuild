@@ -29,6 +29,7 @@
     import { Link, Meta, CheckerItem, TestimonialExpose, Anchor } from "$lib/components"
     import { ChevronRight } from "$lib/svgs"
     import { cssVars } from "$lib/actions/styles"
+    import Stat from "./_Stat.svelte"
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
@@ -95,17 +96,12 @@
             {aircraft.title}
         </h1>
 
-        <h5 class="font-display text-either-gray-blue mt-3 font-bold text-xl">Max Range</h5>
-        <span>{aircraft.aircraftFields.stats.maxRange} NM</span>
-
-        <h5 class="font-display text-either-gray-blue mt-3 font-bold text-xl">Max Cruise Speed</h5>
-        <span>{aircraft.aircraftFields.stats.maxCruiseSpeed} MPH</span>
-
-        <h5 class="font-display text-either-gray-blue mt-3 font-bold text-xl">Max Passengers</h5>
-        <span>{aircraft.aircraftFields.stats.maxPassengers}</span>
-
-        <h5 class="font-display text-either-gray-blue mt-3 font-bold text-xl">Baggage Capacity</h5>
-        <span>{aircraft.aircraftFields.stats.baggageCapacity} FT<sup>3</sup></span>
+        <Stat label="Max Range">{aircraft.aircraftFields.stats.maxRange} NM</Stat>
+        <Stat label="Max Cruise Speed">{aircraft.aircraftFields.stats.maxCruiseSpeed} MPH</Stat>
+        <Stat label="Max Passengers">{aircraft.aircraftFields.stats.maxPassengers}</Stat>
+        <Stat label="Baggage Capacity"
+            >{aircraft.aircraftFields.stats.baggageCapacity} FT<sup>3</sup></Stat
+        >
 
         {#each features as { title }}
             <Link
