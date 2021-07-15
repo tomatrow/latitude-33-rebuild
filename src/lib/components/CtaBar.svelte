@@ -1,20 +1,9 @@
 <script lang="ts">
-    import lottie from "lottie-web"
-    import { browser } from "$app/env"
     import Button from "$lib/components/Button.svelte"
+    import { Animation } from "$lib/svelte-lottie"
 
     export let heading: string
     export let buttonLabel: string
-
-    let container: HTMLDivElement
-    $: if (browser && container) {
-        const animation = lottie.loadAnimation({
-            path: "/curved-arrow-lottie.json",
-            container,
-            loop: true,
-            autoplay: true
-        })
-    }
 </script>
 
 <section class="font-display bg-sarcastic-orange space-y-4 py-10 px-12 text-white text-center">
@@ -27,10 +16,14 @@
         on:click
         >{buttonLabel}
 
-        <div
-            bind:this={container}
+        <Animation
             class="absolute invisible sm:visible w-32"
-            style="right:-10rem;bottom: -2rem"
+            style="right:-10rem; bottom: -2rem"
+            params={{
+                path: "/curved-arrow-lottie.json",
+                loop: true,
+                autoplay: true
+            }}
         />
     </Button>
 </section>
