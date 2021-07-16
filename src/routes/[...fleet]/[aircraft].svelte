@@ -127,7 +127,7 @@
 
 {#each features as item, index}
     <Anchor id={idify(item.title)} />
-    <CheckerItem invert={index % 2 === 0} swap={index % 2 === 0} {...item} />
+    <CheckerItem invert={index % 2 === 1} swap={index % 2 === 1} {...item} />
 {/each}
 
 <TestimonialExpose {...acfOptionsDrillDown.fleetPostTypeFields} />

@@ -4,5 +4,5 @@
 </script>
 
 {#each checkers as item, index}
-    <CheckerItem {...item} reverse={index % 2 === 1} />
+    <CheckerItem {...item} swap={index % 2 === 1} invert={index % 2 === 1} />
 {/each}
