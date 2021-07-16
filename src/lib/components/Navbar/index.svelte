@@ -137,14 +137,15 @@
             @apply hidden;
         }
     }
-
-    @media (max-width: 1000px) {
-        .vsm-dropdown.vsm-mob-hide {
-            @apply hidden;
-        }
+    
+    .vsm-dropdown.vsm-mob-hide {
+        @apply hidden;
     }
 
-    @media (min-width: 1000px) {
+    @screen full-nav {
+        .vsm-dropdown.vsm-mob-hide {
+            @apply block;
+        }
         .vsm-nav {
             .vsm-mob-show {
                 @apply hidden;

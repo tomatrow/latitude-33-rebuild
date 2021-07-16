@@ -23,7 +23,7 @@
         --injected-link-color={Colors["either-gray-blue"]}
     >
         <header class="font-display space-y-2 relative" slot="header">
-            <Anchor id="details" />
+            <Anchor id="details" --offset="2rem" />
             <p class="font-extrabold text-sm">{subheading}</p>
             <h2 class="text-4.5xl font-bold">{title}</h2>
         </header>
@@ -31,7 +31,7 @@
     </DetailsAccordionGroup>
 
     <div class="space-y-4">
-        <Anchor id="gallery" />
+        <Anchor id="gallery" --offset="1rem" />
         <Gallery {gallery} />
         {#if secondaryImage}
             <!-- svelte-ignore a11y-missing-attribute  -->

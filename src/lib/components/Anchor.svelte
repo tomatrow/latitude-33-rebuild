@@ -1,6 +1,16 @@
 <script lang="ts">
     export let id: string
-    export let offset = "2rem"
 </script>
 
-<div {id} class="relative" style="top: calc(-1 * (var(--nav-h) + {offset}))" />
+<div {id} class="relative" />
+
+<style lang="postcss">
+    div {
+        top: calc(-1 * (var(--offset, 0rem)));
+    }
+    @screen full-nav {
+        div {
+            top: calc(-1 * (var(--nav-h) + var(--offset, 0rem)));
+        }
+    }
+</style>
