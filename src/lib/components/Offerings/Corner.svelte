@@ -1,6 +1,5 @@
 <script lang="ts">
-    import type { AcfImage, AcfLink } from "$lib/index.type"
-    import type { ColorScheme } from "./index.svelte"
+    import type { AcfImage, AcfLink, ColorScheme } from "$lib/index.type"
     import Link from "$lib/components/Link.svelte"
 
     export let image: AcfImage
@@ -25,19 +24,17 @@
     />
     <div class="my-4 md:my-0 mx-auto md:pt-24 md:pr-5 md:pl-6 max-w-full">
         <div class="text-{scheme.foreground} space-y-3 mx-auto max-w-lg lg:max-w-xl">
-            <!-- {#if subheading} -->
-            <h5 class="text-{scheme.accent} font-display font-bold md:text-xl">
-                {subheading}
-                Subheading
-            </h5>
-            <!-- {/if} -->
+            {#if subheading}
+                <h5 class="text-{scheme.accent} font-display font-bold md:text-xl">
+                    {subheading}
+                </h5>
+            {/if}
             <h4 class="font-display md:pr-18 font-black text-3xl md:text-5xl">{title}</h4>
             <div class="injected-content injected-content_large">
                 {@html contentHtml}
-                <a href="#">Link</a>
             </div>
         </div>
-        {#if true || link}
+        {#if link}
             <Link
                 shadow
                 pill
