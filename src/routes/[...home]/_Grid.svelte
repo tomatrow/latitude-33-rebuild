@@ -7,7 +7,6 @@
         pill: true,
         ease: true,
         fill: true,
-        "sveltekit:prefetch": true,
         color: "either-gray-blue" as PrimaryColor,
         class: "flex-shrink-0 py-2 px-3 border border-white font-semibold text-sm"
     }
@@ -39,7 +38,6 @@
             filled
             pill
             ease
-            sveltekit:prefetch
             color="either-gray-blue"
             class="leading-3 flex-shrink-0 py-2 px-3 text-center font-semibold text-xs sm:text-sm"
         />
