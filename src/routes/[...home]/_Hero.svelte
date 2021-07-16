@@ -1,13 +1,14 @@
 <script lang="ts">
+    import type { AcfImage, AcfLink } from "$lib/index.type"
     import { Link, Button, EmbeddedVideoModal } from "$lib/components"
     import { cssVars } from "$lib/actions/styles"
     import { openModal } from "$lib/components/ModalProvider.svelte"
 
     export let brandName: string
     export let title: string
-    export let pageLink: any
+    export let pageLink: AcfLink
     export let youtubeId: string
-    export let backgroundImage: any
+    export let backgroundImage: AcfImage
 </script>
 
 <section
