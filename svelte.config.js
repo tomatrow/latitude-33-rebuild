@@ -1,4 +1,4 @@
-import format from "@tomatrow/zen-format"
+// import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
 import adapter from '@sveltejs/adapter-static';
 import pages from "./prerender.js"
