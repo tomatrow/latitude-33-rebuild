@@ -30,7 +30,7 @@
         class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-5 mx-5 sm:mx-auto h-full sm:max-w-lg"
         use:classes={expand ? "lg:py-24" : "lg:py-4"}
     >
-        <div class="space-y-3 font-display sm:col-span-full sm:text-center">
+        <div class="space-y-3 font-display sm:col-span-full mt-auto sm:text-center">
             <h3 class="{textColor} font-display text-3.5xl lg:mt-auto sm:text-center font-black">
                 {title}
             </h3>
