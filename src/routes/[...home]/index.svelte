@@ -27,7 +27,7 @@
                                     }
                                 }
                                 grid {
-                                    blurb
+                                    title: blurb
                                     link {
                                         ...AcfLinkFragment
                                     }
