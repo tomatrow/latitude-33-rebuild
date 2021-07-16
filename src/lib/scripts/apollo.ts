@@ -13,7 +13,7 @@ class Client {
         this.client = this.setupClient()
     }
 
-    setupClient() {
+    setupClient(): ApolloClient {
         const authLink = setContext(({ variables }, { headers }) => {
             const authHeaders = {}
             if (variables?.nonce) {
@@ -32,16 +32,15 @@ class Client {
             // credentials: "include",
             fetch
         })
-        const client = new ApolloClient({
+        return new ApolloClient({
             link: authLink.concat(httpLink),
             credentials: "include",
             cache: new InMemoryCache()
         })
-        return client
     }
 }
 
-const client = new Client().client
+const client: ApolloClient = new Client().client
 
 export function query(query, variables = {}) {
     return apolloQuery("query", "query", query, variables)
@@ -64,7 +63,7 @@ function apolloQuery(method, key, query, variables) {
 }
 
 // just to get prettier to autocorrect syntax
-export function graphql(strings, ...keys) {
+export function graphql(strings: TemplateStringsArray, ...keys: string[]) {
     return strings.reduce((acc, next, index) => {
         return acc + next + (keys[index] ?? "")
     }, "")

@@ -1,18 +1,5 @@
 <script context="module" lang="ts">
-    export type PrimaryColor =
-        | "a-taste-of-blueberries"
-        | "either-gray-blue"
-        | "scorpion-tan"
-        | "pre-coffee-sky-blue"
-        | "calm-summer-horizon"
-        | "dark-charcoal"
-        | "disappointment-blue"
-        | "tinted-rear-window"
-        | "shark"
-        | "sarcastic-orange"
-        | "the-girl-is-looking-at-the-sky"
-        | "white"
-        | "black"
+    import type { PrimaryColor } from "$lib/index.type"
 
     export interface ClassesConfig {
         hollow?: boolean

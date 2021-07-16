@@ -29,7 +29,11 @@ export function setStyleProperties(
     styles: Record<string, any>,
     transform = (x: any) => x
 ) {
-    Object.entries(styles).forEach(([key, value]) => node.style.setProperty(transform(key), value))
+    Object.entries(styles).forEach(([key, value]) => {
+        const property = transform(key)
+        if (value === undefined || value === null) node.style.removeProperty(property)
+        else node.style.setProperty(property, value)
+    })
 }
 
 type BuildExpression = string | boolean

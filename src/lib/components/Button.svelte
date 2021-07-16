@@ -2,7 +2,7 @@
     import { line as lineAction } from "../actions/line"
     import type { LineActionConfig } from "../actions/line"
     import { createClasses } from "./Link.svelte"
-    import type { PrimaryColor } from "./Link.svelte"
+    import type { PrimaryColor } from "$lib/index.type"
 
     export let hollow: boolean = undefined
     export let filled: boolean = undefined

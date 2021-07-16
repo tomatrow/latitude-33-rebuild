@@ -2,6 +2,7 @@ import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
 import adapter from '@sveltejs/adapter-static';
 import pages from "./prerender.js"
+// import format from "@tomatrow/zen-format"
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -27,7 +28,7 @@ const config = {
         },
         vite: {
             plugins: [
-                format({ load: true })
+                // format({ load: true })
             ]
         }
 	}

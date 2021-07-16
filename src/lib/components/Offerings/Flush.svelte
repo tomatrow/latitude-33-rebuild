@@ -1,12 +1,14 @@
 <script lang="ts">
+    import type { AcfImage, AcfLink } from "$lib/index.type"
     import Link from "$lib/components/Link.svelte"
+    import type { OfferingColorScheme } from "./index.svelte"
 
-    export let image: any
+    export let image: AcfImage
     export let subheading: string
     export let title: string
     export let contentHtml: string
-    export let link: any
-    export let accentColor: string
+    export let link: AcfLink
+    export let scheme: OfferingColorScheme
 
     let clazz = ""
     export { clazz as class }
@@ -15,9 +17,11 @@
 <section class="{clazz} grid grid-cols-1 md:grid-cols-2">
     <!-- svelte-ignore a11y-missing-attribute -->
     <img {...image} class="rounded-2xl md:order-last mx-auto md:mr-6 w-full max-w-xl" />
-    <div class="space-y-3 mx-auto md:pr-5 pb-12 md:pl-6 max-w-lg lg:max-w-xl">
+    <div
+        class="text-{scheme.foreground} space-y-3 mx-auto md:pr-5 pb-12 md:pl-6 max-w-lg lg:max-w-xl"
+    >
         {#if subheading}
-            <h5 class="text-{accentColor} font-display font-bold md:text-xl">
+            <h5 class="text-{scheme.accent} font-display font-bold md:text-xl">
                 {subheading}
             </h5>
         {/if}
@@ -30,7 +34,9 @@
                 shadow
                 pill
                 ease
-                class="bg-pre-coffee-sky-blue inline-block mt-4 py-4 px-6 text-white font-black text-sm"
+                filled
+                color={scheme.button}
+                class="inline-block mt-4 py-4 px-6 text-white font-black text-sm"
                 {...link}
             />
         {/if}

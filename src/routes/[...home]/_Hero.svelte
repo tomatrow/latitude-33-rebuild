@@ -28,7 +28,8 @@
             <Link
                 style="letter-spacing: 0.6px"
                 line={{ color: "white", trackColor: "#bababa" }}
-                {...pageLink}/>
+                {...pageLink}
+            />
         </div>
         <Button
             class="hidden md:block w-1/2"

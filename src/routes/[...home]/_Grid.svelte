@@ -1,80 +1,47 @@
-<script>
-    import { Link } from "$lib/components"
+<script lang="ts">
+    import type { PrimaryColor } from "$lib/index.type"
+    import { Link, CollectionItem } from "$lib/components"
     export let items = []
+
+    const regularLink = {
+        pill: true,
+        ease: true,
+        fill: true,
+        "sveltekit:prefetch": true,
+        color: "either-gray-blue" as PrimaryColor,
+        class: "flex-shrink-0 py-2 px-3 border border-white font-semibold text-sm"
+    }
 </script>
 
 <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-    <div
-        style="background-image: url({items[0].image.src}); background-position: 50% 5%"
-        class="sm:row-span-2 flex flex-col justify-end h-64 sm:h-auto bg-cover bg-no-repeat"
+    <CollectionItem
+        style="background-position: 50% 5%"
+        class="sm:row-span-2 h-64 sm:h-auto"
+        {...items[0]}
     >
-        <div
-            class="font-display flex items-center justify-between px-5 h-16 text-white"
-            style="background-color: rgba(0,0,0,0.75)"
-        >
-            <h3 class="font-black text-lg sm:text-2xl">{items[0].blurb}</h3>
-            <Link
-                hollow
-                shadow
-                pill
-                {...items[0].link}
-                class="flex-shrink-0 py-2 px-3 font-semibold text-sm"
-            />
-        </div>
-    </div>
-    <div
-        style="background-image: url({items[1].image.src})"
-        class="flex flex-col justify-end h-56 bg-center bg-cover bg-no-repeat"
-    >
-        <div
-            class="font-display flex items-center justify-between px-5 h-16 text-white"
-            style="background-color: rgba(0,0,0,0.75)"
-        >
-            <h3 class="font-black text-lg sm:text-2xl">{items[1].blurb}</h3>
-            <Link
-                hollow
-                shadow
-                pill
-                {...items[1].link}
-                class="flex-shrink-0 py-2 px-3 font-semibold text-sm"
-            />
-        </div>
-    </div>
-    <div
-        style="background-image: url({items[2].image.src})"
-        class="flex flex-col justify-end h-56 bg-center bg-cover bg-no-repeat"
-    >
-        <div
-            class="font-display flex items-center justify-between px-5 h-16 text-white"
-            style="background-color: rgba(0,0,0,0.75)"
-        >
-            <h3 class="font-black text-lg sm:text-2xl">{items[2].blurb}</h3>
-            <Link
-                hollow
-                shadow
-                pill
-                {...items[2].link}
-                class="flex-shrink-0 py-2 px-3 font-semibold text-sm"
-            />
-        </div>
-    </div>
-    <div
-        style="background-image: url({items[3].image.src})"
-        class="sm:col-span-2 sm:h-72 flex flex-col justify-end h-56 bg-center bg-cover bg-no-repeat"
-    >
-        <div
-            class="font-display flex items-center justify-between px-5 h-16 text-white"
-            style="background-color: rgba(0,0,0,0.75)"
-        >
-            <h3 class="font-black text-lg sm:text-2xl">{items[3].blurb}</h3>
-            <Link
-                shadow
-                filled
-                pill
-                {...items[3].link}
-                color="either-gray-blue"
-                class="leading-3 flex-shrink-0 py-2 px-3 text-center font-semibold text-xs sm:text-sm"
-            />
-        </div>
-    </div>
+        <Link slot="link" let:link {...link} {...regularLink} />
+    </CollectionItem>
+
+    <CollectionItem class="h-56" {...items[1]}>
+        <Link slot="link" let:link {...link} {...regularLink} />
+    </CollectionItem>
+
+    <CollectionItem class="h-56" {...items[2]}>
+        <Link slot="link" let:link {...link} {...regularLink} />
+    </CollectionItem>
+
+    <CollectionItem class="sm:col-span-2 sm:h-72 h-56" {...items[3]}>
+        <Link
+            slot="link"
+            let:link
+            {...link}
+            shadow
+            filled
+            pill
+            ease
+            sveltekit:prefetch
+            color="either-gray-blue"
+            class="leading-3 flex-shrink-0 py-2 px-3 text-center font-semibold text-xs sm:text-sm"
+        />
+    </CollectionItem>
 </section>

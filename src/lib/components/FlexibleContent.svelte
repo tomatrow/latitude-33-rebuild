@@ -85,6 +85,8 @@
 
 <script lang="ts">
     export let content = []
+    export let topFlush: boolean = true
+    export let bottomFlush: boolean = true
     const rows = content.map(rowType)
 
     function loadRow(contentType: ContentType) {
@@ -107,22 +109,32 @@
 
         if (!isOffering(curr)) return {}
 
-        const prev = rows[index - 1]
-        const next = rows[index + 1]
+        function sameColorOfferings(leftIndex: number, rightIndex: number) {
+            if (!(isOffering(rows[leftIndex]) && isOffering(rows[rightIndex]))) return false
+
+            return (
+                content[leftIndex].style.backgroundColor ===
+                content[rightIndex].style.backgroundColor
+            )
+        }
+
+        function top() {
+            if (content[index].style.hasCorner) return true
+            else if (index === 0) return topFlush
+            else if (sameColorOfferings(index - 1, index)) return false
+            else return true
+        }
+
+        function bottom() {
+            if (index === rows.length - 1) return bottomFlush
+            else if (sameColorOfferings(index, index + 1)) return false
+            else return true
+        }
 
         return {
             isFlush: {
-                top:
-                    (index === 0 && [ContentType.BANNER, ContentType.CHECKERS].includes(curr)) ||
-                    // ([curr, prev].every(isOffering)  ||
-                    (ContentType.OFFERINGS === curr && content[index].style.hasCorner) ||
-                    [ContentType.BANNER, ContentType.CHECKERS].includes(prev),
-                bottom:
-                    (index === content.length - 1 &&
-                        [ContentType.BANNER, ContentType.CHECKERS, ContentType.OFFERINGS].includes(
-                            curr
-                        )) ||
-                    [curr, next].every(isOffering)
+                top: top(),
+                bottom: bottom()
             }
         }
     }
