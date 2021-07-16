@@ -59,15 +59,7 @@
 
 <script lang="ts">
     import _ from "lodash"
-    import {
-        Meta,
-        Link,
-        Button,
-        Gallery,
-        RangeFinderCta,
-        FleetGrid,
-        CollectionGrid
-    } from "$lib/components"
+    import { Meta, Link, Button, Gallery, RangeFinderCta, CollectionGrid } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
     import { fleetFormat } from "./_FleetFilter.svelte"
 
