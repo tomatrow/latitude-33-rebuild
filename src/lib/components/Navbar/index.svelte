@@ -37,12 +37,13 @@
     >
         {#each item.childItems as { label, target, url, childItems }}
             <div class="flex flex-col">
-                <Link class="block h-8 font-bold" {target} href={url} tabindex={active ? 0 : -1}
+                <Link sveltekit:prefetch class="block h-8 font-bold" {target} href={url} tabindex={active ? 0 : -1}
                     >{label}</Link
                 >
                 <div class="flex flex-col pl-4">
                     {#each childItems as { label, target, url }}
                         <Link
+                            sveltekit:prefetch
                             class="text-dark-charcoal font-bold"
                             {target}
                             href={url}
@@ -68,10 +69,10 @@
         <div class="divide-a-taste-of-blueberries divide-y-2 flex flex-col px-5 bg-white">
             {#each menu as { label, target, url, childItems }}
                 <div class="p-6" class:space-y-4={childItems.length}>
-                    <Link class="font-black text-lg" {target} href={url}>{label}</Link>
+                    <Link sveltekit:prefetch class="font-black text-lg" {target} href={url}>{label}</Link>
                     <div class="grid gap-2 grind-cols-1 sm:grid-cols-2 pl-2">
                         {#each childItems as { label, target, url }}
-                            <Link class="text-dark-charcoal font-bold" {target} href={url}
+                            <Link sveltekit:prefetch class="text-dark-charcoal font-bold" {target} href={url}
                                 >{label}</Link
                             >
                         {/each}

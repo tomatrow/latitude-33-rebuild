@@ -14,6 +14,7 @@
         ease
         blob
         shadow
+        sveltekit:prefetch
         class="space-x-10 flex items-center py-4 px-5 border border-white"
     >
         <span class="font-display text-white font-black text-xl">Range Finder</span>
