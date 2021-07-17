@@ -1,7 +1,7 @@
 import type { Handle, GetSession, ServerRequest, ServerResponse } from "@sveltejs/kit"
 import UrlPattern from "url-pattern"
-import { MenuItemFragment, MenuFragment } from "$lib/queries/menus"
-// import { ResourceFragment } from "$lib/queries/utility"
+import { ResourcesPsuedoFragment } from "$lib/queries/resources"
+import { MenuItemFragment, MenuFragment, MenusPsuedoFragment } from "$lib/queries/menus"
 import { smoothEdges } from "$lib/scripts/utility"
 import { normalizePath } from "$lib/scripts/router"
 import { query, graphql } from "$lib/scripts/apollo"
@@ -44,138 +44,8 @@ async function coreQueryMiddleware(request: ServerRequest) {
                 }
             }
 
-            airports(first: 500) {
-                edges {
-                    node {
-                        __typename
-                        id
-                        uri
-                    }
-                }
-            }
-
-            fleet(first: 500) {
-                edges {
-                    node {
-                        __typename
-                        id
-                        uri
-                    }
-                }
-            }
-
-            subfleets(first: 500) {
-                edges {
-                    node {
-                        __typename
-                        id
-                        uri
-                    }
-                }
-            }
-
-            properties(first: 500) {
-                edges {
-                    node {
-                        __typename
-                        id
-                        uri
-                    }
-                }
-            }
-
-            pages(first: 500) {
-                edges {
-                    node {
-                        __typename
-                        id
-                        uri
-                        template {
-                            templateName
-                        }
-                    }
-                }
-            }
-
-            posts(first: 500) {
-                edges {
-                    node {
-                        __typename
-                        id
-                        uri
-                    }
-                }
-            }
-
-            primary: menus(first: 1, where: { location: PRIMARY }) {
-                edges {
-                    node {
-                        id
-                        menuItems(where: { parentDatabaseId: 0 }) {
-                            edges {
-                                node {
-                                    ...MenuItemFragment
-                                    childItems {
-                                        edges {
-                                            node {
-                                                ...MenuItemFragment
-                                                childItems {
-                                                    edges {
-                                                        node {
-                                                            ...MenuItemFragment
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            secondary: menus(first: 1, where: { location: SECONDARY }) {
-                edges {
-                    node {
-                        ...MenuFragment
-                        fields: footerFields {
-                            brandname
-                            email
-                            phone
-                            physicaladdress
-                        }
-                    }
-                }
-            }
-
-            secondarySmall: menus(first: 1, where: { location: SECONDARY_SMALL }) {
-                edges {
-                    node {
-                        ...MenuFragment
-                    }
-                }
-            }
-
-            secondaryLarge: menus(first: 1, where: { location: SECONDARY_LARGE }) {
-                edges {
-                    node {
-                        id
-                        menuItems {
-                            edges {
-                                node {
-                                    ...MenuItemFragment
-                                    fields: secondaryLargeMenuFields {
-                                        icon
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+            ${ResourcesPsuedoFragment}
+            ${MenusPsuedoFragment}
 
         ${MenuItemFragment}
         ${MenuFragment}
