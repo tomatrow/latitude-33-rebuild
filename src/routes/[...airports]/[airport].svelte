@@ -41,7 +41,6 @@
 
     const key = import.meta.env.VITE_RANGE_FINDER_MAPS_API_KEY as string
 
-    console.log({ airport })
     const position = airport.airportFields.coordinates
 </script>
 
