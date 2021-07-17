@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { AcfImage } from "$lib/index.type"
     import { cssVars } from "$lib/actions/styles"
     import Colors from "$lib/data/colors.json"
     import Link from "./Link.svelte"
@@ -8,7 +9,7 @@
     export let title: string
     export let subheading = ""
     export let contentHtml = ""
-    export let backgroundImage: any
+    export let backgroundImage: AcfImage
     export let footer: any = undefined
 </script>
 
