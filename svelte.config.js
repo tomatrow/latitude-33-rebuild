@@ -1,8 +1,6 @@
-// import format from "@tomatrow/zen-format"
 import preprocess from 'svelte-preprocess'
 import adapter from '@sveltejs/adapter-static';
-import pages from "./prerender.js"
-// import format from "@tomatrow/zen-format"
+import { getResources } from "./scripts/prerender/index.js"
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -18,18 +16,24 @@ const config = {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
         adapter: adapter({
-            pages: ".vercel_build_output",
-            assets: ".vercel_build_output"
+            pages: process.env.BUILD_FOLDER,
+            assets: process.env.BUILD_FOLDER
         }),
         prerender: {
             enabled: true,
             force: true,
-            pages: ["*", ...pages]
+            pages: getResources()
         },
-        vite: {
-            plugins: [
-                // format({ load: true })
-            ]
+        async vite() {
+            if (process.env.NODE_ENV !== "development") return {}
+
+            const { default: format } = await import("@tomatrow/zen-format")
+
+            return {
+                plugins: [
+                    format({ load: true })
+                ]
+            }
         }
 	}
 };

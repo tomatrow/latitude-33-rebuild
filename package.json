@@ -3,10 +3,12 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
+    "build": "npm run prerender-query;svelte-kit build; npm run sitemap",
     "preview": "svelte-kit preview",
     "check": "svelte-check --output human-verbose --tsconfig ./tsconfig.json",
-    "check:watch": "npm run check -- --watch"
+    "check:watch": "npm run check -- --watch",
+    "prerender-query": "node scripts/prerender/run.js",
+    "sitemap": "svelte-sitemap --domain $FRONTEND_DOMAIN --out-dir $BUILD_FOLDER"
   },
   "devDependencies": {
     "@apollo/client": "^3.3.21",
@@ -49,6 +51,7 @@
     "svelte-loading-spinners": "^0.1.7",
     "svelte-portal": "^2.1.2",
     "svelte-preprocess": "^4.7.4",
+    "svelte-sitemap": "^1.2.1",
     "tailwindcss": "^2.2.4",
     "tailwindcss-scroll-snap": "^1.1.0",
     "tslib": "^2.3.0",
