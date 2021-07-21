@@ -44,15 +44,3 @@
         </Button>
     </div>
 </section>
-
-<style>
-    .hero {
-        min-height: 80vh;
-        width: 100vw;
-        background-image: linear-gradient(180deg, rgba(16, 16, 16, 0.44), rgba(16, 16, 16, 0.44)),
-            var(--bg);
-        background-position: 0px 0px, 50% 50%;
-        background-size: auto, cover;
-        background-repeat: repeat, no-repeat;
-    }
-</style>
