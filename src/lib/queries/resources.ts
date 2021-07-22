@@ -6,7 +6,7 @@ export const ResourcesPsuedoFragment = graphql`
             node {
                 __typename
                 id
-                uri
+                href: uri
             }
         }
     }
@@ -16,7 +16,7 @@ export const ResourcesPsuedoFragment = graphql`
             node {
                 __typename
                 id
-                uri
+                href: uri
             }
         }
     }
@@ -26,7 +26,7 @@ export const ResourcesPsuedoFragment = graphql`
             node {
                 __typename
                 id
-                uri
+                href: uri
             }
         }
     }
@@ -36,7 +36,7 @@ export const ResourcesPsuedoFragment = graphql`
             node {
                 __typename
                 id
-                uri
+                href: uri
             }
         }
     }
@@ -46,7 +46,37 @@ export const ResourcesPsuedoFragment = graphql`
             node {
                 __typename
                 id
-                uri
+                href: uri
+            }
+        }
+    }
+
+    categories(first: 500) {
+        edges {
+            node {
+                __typename
+                id
+                href: uri
+            }
+        }
+    }
+
+    tags(first: 1000) {
+        edges {
+            node {
+                __typename
+                id
+                href: uri
+            }
+        }
+    }
+
+    classes(first: 500) {
+        edges {
+            node {
+                __typename
+                id
+                href: uri
             }
         }
     }
@@ -56,7 +86,8 @@ export const ResourcesPsuedoFragment = graphql`
             node {
                 __typename
                 id
-                uri
+                href: uri
+                isPostsPage
                 template {
                     templateName
                 }

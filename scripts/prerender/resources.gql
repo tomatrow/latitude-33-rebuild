@@ -2,8 +2,6 @@ query Resources {
     airports(first: 500) {
         edges {
             node {
-                __typename
-                id
                 uri
             }
         }
@@ -12,8 +10,6 @@ query Resources {
     fleet(first: 500) {
         edges {
             node {
-                __typename
-                id
                 uri
             }
         }
@@ -22,8 +18,6 @@ query Resources {
     subfleets(first: 500) {
         edges {
             node {
-                __typename
-                id
                 uri
             }
         }
@@ -32,8 +26,6 @@ query Resources {
     properties(first: 500) {
         edges {
             node {
-                __typename
-                id
                 uri
             }
         }
@@ -42,22 +34,39 @@ query Resources {
     posts(first: 500) {
         edges {
             node {
-                __typename
-                id
                 uri
             }
         }
     }
-    
+
+    categories(first: 500) {
+        edges {
+            node {
+                uri
+            }
+        }
+    }
+
+    tags(first: 1000) {
+        edges {
+            node {
+                uri
+            }
+        }
+    }
+
+    classes(first: 500) {
+        edges {
+            node {
+                uri
+            }
+        }
+    }
+
     pages(first: 500) {
         edges {
             node {
-                __typename
-                id
                 uri
-                template {
-                    templateName
-                }
             }
         }
     }

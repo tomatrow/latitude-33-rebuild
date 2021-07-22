@@ -113,13 +113,16 @@ export const getSession: GetSession = async ({ locals }) => {
         secondary,
         secondaryLarge,
         secondarySmall,
-        properties,
-        pages,
-        posts,
-        fleet,
         seo,
         airports,
-        subfleets
+        fleet,
+        subfleets,
+        properties,
+        posts,
+        categories,
+        tags,
+        classes,
+        pages
     } = coreGraph
 
     function formatMenu(menu) {
@@ -155,12 +158,16 @@ export const getSession: GetSession = async ({ locals }) => {
                 ...smoothEdges(fleet),
                 ...smoothEdges(subfleets),
                 ...smoothEdges(properties),
-                ...smoothEdges(airports)
+                ...smoothEdges(airports),
+                ...smoothEdges(classes),
+                ...smoothEdges(categories),
+                ...smoothEdges(tags)
             ].map(
                 // @ts-ignore
-                resource => [normalizePath(resource.uri), resource]
+                resource => [normalizePath(resource.href), resource]
             )
         ),
+        postsPage: smoothEdges(pages).find(page => page.isPostsPage),
         social,
         menus: {
             primary: formatMenu(primary),
