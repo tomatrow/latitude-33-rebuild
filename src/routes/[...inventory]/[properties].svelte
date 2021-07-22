@@ -13,6 +13,18 @@
                     ...PageFragment
                     template {
                         ... on Template_Properties {
+                            propertiesPageFields {
+                                gridLinkLabel
+                                ctaBar {
+                                    buttonLabel
+                                    heading
+                                }
+                                filter {
+                                    noResultsLabel
+                                    landingsLabel
+                                    ttafLabel
+                                }
+                            }
                             ${createFlexiblePsudoFragment("Template_Properties")}
                         }
                     }
@@ -58,13 +70,10 @@
     <svelte:fragment slot="after" let:index>
         {#if index === 0}
             <PropertyFilter
-                ctaBar={{
-                    heading:
-                        "Too many choices? Use our filter tool to easily find what you're looking for!",
-                    buttonLabel: "Filter"
-                }}
+                ctaBar={page.template.propertiesPageFields.ctaBar}
                 {properties}
-                gridLinkLabel="View Now"
+                gridLinkLabel={page.template.propertiesPageFields.gridLinkLabel}
+                {...page.template.propertiesPageFields.filter}
             />
         {/if}
     </svelte:fragment>

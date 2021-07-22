@@ -12,6 +12,8 @@
     export let gallery: AcfImage[] = []
     export let secondaryImage: AcfImage = undefined
     export let engines: any[] = []
+    export let specsTitle: string 
+    export let engineSpecLabels: Record<string, string>
 </script>
 
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 py-18 items-center justify-center px-5">
@@ -19,6 +21,8 @@
         {details}
         {labels}
         {engines}
+        {specsTitle}
+        {engineSpecLabels}
         class="bg-sarcastic-orange rounded-xl mx-auto p-3 w-full sm:max-w-md text-white"
         --injected-link-color={Colors["either-gray-blue"]}
     >

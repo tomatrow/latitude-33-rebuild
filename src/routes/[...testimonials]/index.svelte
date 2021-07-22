@@ -16,6 +16,7 @@
                         ... on Template_Testimonials {
                             ${createFlexiblePsudoFragment("Template_Testimonials")}
                             testimonialsPageFields {
+                                gridTitle
                                 testimonies {
                                     ... on Testimonial {
                                         id
@@ -57,6 +58,6 @@
 <TestimonialExpose class="sm:mt-18 mt-12" {...acfOptionsDrillDown.fleetPostTypeFields} />
 
 <TestimonialGrid
-    title="More Client Testimonials"
+    title={page.template.testimonialsPageFields.gridTitle}
     testimonies={page.template.testimonialsPageFields.testimonies}
 />

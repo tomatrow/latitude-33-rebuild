@@ -4,6 +4,8 @@
 
     export let matterportId: string
     export let youtubeId: string
+    export let matterportLabel: string 
+    export let videoLabel: string
 </script>
 
 {#if matterportId}
@@ -19,7 +21,7 @@
                 src: `https://my.matterport.com/show/?m=${matterportId}`
             })}
     >
-        3D Walkthrough</Button
+        {matterportLabel}</Button
     >
 {/if}
 {#if youtubeId}
@@ -35,6 +37,6 @@
                 src: `https://www.youtube.com/embed/${youtubeId}?autoplay=1`
             })}
     >
-        Video</Button
+        {videoLabel}</Button
     >
 {/if}

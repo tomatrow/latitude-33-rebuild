@@ -62,6 +62,10 @@
                 }
                 acfOptionsProperties {
                     propertyOptions {
+                        bannerSection {
+                            detailsLinkLabel
+                            galleryLinkLabel
+                        }
                         overviewSection {
                             title
                             labels {
@@ -74,6 +78,16 @@
                         detailsSection {
                             title
                             subheading
+                            specsTitle
+                            engineSpecLabels {
+                                serialNumber
+                                hoursSinceNew
+                                cyclesSinceNew
+                            }
+                            modalButtonLabels {
+                                matterportLabel
+                                videoLabel
+                            }
                             labels {
                                 engine
                                 maintenance
@@ -111,42 +125,32 @@
     export let property: any
     export let acfOptionsProperties: any
 
-    const { overviewSection, detailsSection, filesSection } = acfOptionsProperties.propertyOptions
+    const { bannerSection, overviewSection, detailsSection, filesSection } = acfOptionsProperties.propertyOptions
     const { info, stats, details, media, files } = property.propertyFields
+    
+    const linkProps = {
+        blob: true,
+        filled: true,
+        outline: true,
+        shadow: true,
+        ease: true,
+        border: true,
+        color: "calm-summer-horizon"
+    }
 </script>
 
 <Meta title={property.title} seo={property.seo} />
 
 <Banner title={info.name} contentHtml={info.descriptionHtml} backgroundImage={info.featuredImage}>
-    <Link
-        blob
-        filled
-        outline
-        shadow
-        ease
-        border
-        color="calm-summer-horizon"
-        class="inline-block mr-4 py-2 px-4"
-        href="#details">Details</Link
-    >
-    <Link
-        blob
-        filled
-        outline
-        shadow
-        ease
-        border
-        color="calm-summer-horizon"
-        class="inline-block py-2 px-4"
-        href="#gallery">Gallery</Link
-    >
+    <Link class="inline-block mr-4 py-2 px-4" href="#details" {...linkProps}>{bannerSection.detailsLinkLabel}</Link>
+    <Link class="inline-block py-2 px-4" href="#gallery" {...linkProps}>{bannerSection.galleryLinkLabel}</Link>
 </Banner>
 
 <Overview {stats} {...overviewSection} />
 
 <Details {details} {...media} {...detailsSection} engines={info.engines}>
     <div slot="accordionFooter" class="space-x-4 flex">
-        <ModalButtons {...media} />
+        <ModalButtons {...{...media, ...detailsSection.modalButtonLabels}} />
     </div>
 </Details>
 

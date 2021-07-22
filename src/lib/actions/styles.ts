@@ -58,7 +58,7 @@ export function classes(node: HTMLElement, listOrSingleton: BuildExpressionMaybe
         node.classList.remove(...last)
 
         const next = parseBuildExpressions(listOrSingleton)
-        console.log({ next })
+
         node.classList.add(...next)
 
         last = next

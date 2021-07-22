@@ -7,6 +7,10 @@
     export let date: string
     export let end: any
     export let start: any
+    
+    export let passengersPrefix: string 
+    export let costPostfix: string
+    export let phone: { labelHtml: string, number: string }
 
     function formatAirport(port: any) {
         const { city, stateShort } = port.airportFields.coordinates
@@ -22,9 +26,9 @@
         <h2 class="font-display text-either-gray-blue font-bold text-3xl">
             {date}: {formatAirport(start)} — {formatAirport(end)}
         </h2>
-        <strong class="text-sm">{"$" + numeral(cost).format("0,0")} (+tax)</strong>
+        <strong class="text-sm">{"$" + numeral(cost).format("0,0")} {costPostfix}</strong>
         <strong class="text-sm" style="margin-bottom: 1rem"
-            >{craft.title} - Seats {craft.aircraftFields.stats.maxPassengers}</strong
+            >{craft.title} - {passengersPrefix} {craft.aircraftFields.stats.maxPassengers}</strong
         >
         <Link
             filled
@@ -32,7 +36,7 @@
             style="margin-top: auto"
             class="font-display inline-block mx-auto py-3 px-6 text-center font-bold text-sm"
             color="a-taste-of-blueberries"
-            href="tel:1-800-840-0310 ">Call 1-800-840-0310 <br /> to Reserve Your Flight</Link
+            href="tel:{phone.number}">{@html phone.labelHtml}</Link
         >
     </div>
 </div>

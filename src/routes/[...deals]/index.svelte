@@ -14,6 +14,28 @@
                     template {
                         ... on Template_Deals {
                             ${createFlexiblePsudoFragment("Template_Deals")}
+                            dealsPageFields {
+                                bannerSection {
+                                    title
+                                    contentHtml
+                                    dealsLinkLabel
+                                    image {
+                                        ...MediaItemFragment
+                                    }
+                                }
+                                dealsSection {
+                                    title
+                                    subheading
+                                    dealLabels {
+                                        passengersPrefix
+                                        costPostfix
+                                        phone {
+                                            number 
+                                            labelHtml
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -72,8 +94,8 @@
 
 <Meta title={page.title} seo={page.seo} />
 
-<DealsBanner />
+<DealsBanner {...page.template.dealsPageFields.bannerSection} />
 <Anchor id="deals" />
-<DealsGrid {deals} />
+<DealsGrid {deals} {...page.template.dealsPageFields.dealsSection} />
 
 <FlexibleContent content={page.template.genericPageFields.flexibleContent} />

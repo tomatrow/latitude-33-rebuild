@@ -6,6 +6,9 @@
     export let properties = []
     export let ctaBar: any
     export let gridLinkLabel: string
+    export let noResultsLabel: string
+    export let landingsLabel: string 
+    export let ttafLabel: string
 
     function filter(filterSettings: any, items: any[]) {
         const result = smoothEdges(items)
@@ -27,8 +30,8 @@
 
 <Filter {filter} items={properties} let:filtered let:show>
     <svelte:fragment slot="fields">
-        <NumberFieldset name="landings">Landings</NumberFieldset>
-        <NumberFieldset name="ttaf">TTAF</NumberFieldset>
+        <NumberFieldset name="landings">{landingsLabel}</NumberFieldset>
+        <NumberFieldset name="ttaf">{ttafLabel}</NumberFieldset>
     </svelte:fragment>
 
     <CtaBar {...ctaBar} on:click={show} />
@@ -37,7 +40,7 @@
             class="sm:py-18 font-display py-8 px-5 text-black text-center font-bold text-2xl"
             slot="empty"
         >
-            We have “0” aircraft matching your filters
+            {noResultsLabel}
         </div>
     </CollectionGrid>
 </Filter>
