@@ -29,7 +29,7 @@ class Client {
         })
         const httpLink = new HttpLink({
             uri: import.meta.env.VITE_GRAPHQL_ENDPOINT as string,
-            // credentials: "include",
+            credentials: "include",
             fetch
         })
         return new ApolloClient({

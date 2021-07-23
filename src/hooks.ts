@@ -61,7 +61,7 @@ async function coreQueryMiddleware(request: ServerRequest) {
     }
 }
 
-function redirectionMiddleware({ locals: coreGraph, path }: ServerRequest) {
+function redirectionMiddleware({ locals: { coreGraph }, path }: ServerRequest) {
     if (!coreGraph) return
 
     const redirection = coreGraph.themeGeneralSettings.themeSettingsFields.redirections.find(
