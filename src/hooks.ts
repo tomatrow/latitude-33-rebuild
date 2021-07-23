@@ -99,7 +99,7 @@ function injectionMiddleware(request: ServerRequest, response: ServerResponse) {
 
 export const handle: Handle = async ({ request, resolve }) => {
     console.log("A request for " + request.path)
-    console.log(cookie.parse(request.headers.cookie))
+    console.log(cookie.parse(request.headers.cookie ?? ""))
 
     await coreQueryMiddleware(request)
 
