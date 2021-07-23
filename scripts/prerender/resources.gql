@@ -6,7 +6,7 @@ query Resources {
             }
         }
     }
-    
+
     fleet(first: 500) {
         edges {
             node {
@@ -14,7 +14,7 @@ query Resources {
             }
         }
     }
-    
+
     subfleets(first: 500) {
         edges {
             node {
@@ -22,7 +22,7 @@ query Resources {
             }
         }
     }
-    
+
     properties(first: 500) {
         edges {
             node {
@@ -30,7 +30,7 @@ query Resources {
             }
         }
     }
-    
+
     posts(first: 500) {
         edges {
             node {
