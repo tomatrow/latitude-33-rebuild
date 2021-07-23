@@ -4,7 +4,8 @@ import { ResourcesPsuedoFragment } from "$lib/queries/resources"
 import { MenuItemFragment, MenuFragment, MenusPsuedoFragment } from "$lib/queries/menus"
 import { smoothEdges } from "$lib/scripts/utility"
 import { normalizePath } from "$lib/scripts/router"
-import { query, graphql } from "$lib/scripts/apollo"
+import { query, graphql, mutation, setCookie } from "$lib/scripts/apollo"
+import cookie from "cookie"
 
 async function coreQueryMiddleware(request: ServerRequest) {
     const q = graphql`
@@ -46,19 +47,23 @@ async function coreQueryMiddleware(request: ServerRequest) {
 
             ${ResourcesPsuedoFragment}
             ${MenusPsuedoFragment}
+        }
 
         ${MenuItemFragment}
         ${MenuFragment}
     `
+    try {        
+        const result = await query(q)
 
-    const result = await query(q)
-
-    request.locals.coreGraph = result.data
+        request.locals.coreGraph = result.data
+    } catch (err) {
+        console.error(JSON.stringify(err))
+    }
 }
 
-function redirectionMiddleware(request: ServerRequest) {
-    const { coreGraph } = request.locals
+function redirectionMiddleware({ locals: coreGraph, path }: ServerRequest) {
     if (!coreGraph) return
+
     const redirection = coreGraph.themeGeneralSettings.themeSettingsFields.redirections.find(
         ({ origin, matchType }) => {
             try {
@@ -66,7 +71,7 @@ function redirectionMiddleware(request: ServerRequest) {
                 if (matchType === "pattern") pattern = new UrlPattern(origin)
                 else if (matchType === "regex") pattern = new UrlPattern(new RegExp(origin))
                 else throw new Error("Unknown redirection match type")
-                return pattern.match(request.path)
+                return pattern.match(path)
             } catch (error) {
                 console.error(error)
                 return false
@@ -94,6 +99,8 @@ function injectionMiddleware(request: ServerRequest, response: ServerResponse) {
 
 export const handle: Handle = async ({ request, resolve }) => {
     console.log("A request for " + request.path)
+    console.log(cookie.parse(request.headers.cookie))
+
     await coreQueryMiddleware(request)
 
     const redirection = redirectionMiddleware(request)
@@ -167,6 +174,7 @@ export const getSession: GetSession = async ({ locals }) => {
                 resource => [normalizePath(resource.href), resource]
             )
         ),
+        // @ts-expect-error
         postsPage: smoothEdges(pages).find(page => page.isPostsPage),
         social,
         menus: {
