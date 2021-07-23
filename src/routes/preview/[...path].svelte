@@ -3,10 +3,7 @@
     import { query, graphql } from "$lib/scripts/apollo"
     import type { Load } from "@sveltejs/kit"
     
-    async function preview(previewPath: string) {
-        const root = "/preview"
-        const path = previewPath === root ? "/" : previewPath.replace(root, '')
-
+    async function preview(path: string) {
         try {
             console.log("Preview query", { browser, path })
             const result = await query(graphql`
@@ -18,24 +15,27 @@
                 }
             `, { nonce: true, path })
             console.log({ browser }, JSON.stringify(result))
+            return {
+                path,
+                result
+            }
         } catch (error) {
             console.error({ browser }, JSON.stringify(error))
+            return { error }
         }
     }
 
     export const load: Load = async ({ page }) => {
-        const { path } = page
-        await preview(path)
-        return { status: 200, props: { path } }
+        const root = "/preview"
+        const path = page.path === root ? "/" : page.path.replace(root, '')
+        return { status: 200, props: await preview(path) }
     }
 </script>
 
 <script lang="ts">
-    import { onMount } from "svelte"
-    
     export let path: string
-    
-    onMount(()=> preview(path))
 </script>
 
-<h1>Preview: {path}</h1>
+Path: <input bind:value={path} />
+<br />
+<button type="button" on:click={() => preview(path)}>Run</button>

@@ -22,7 +22,7 @@ const config = {
         prerender: {
             enabled: true,
             force: true,
-            pages: getResources()
+            pages: ["/preview", ...getResources()]
         },
         async vite() {
             /** @type {import('vite').UserConfig} */
