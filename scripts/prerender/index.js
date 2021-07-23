@@ -18,8 +18,13 @@ export function write(filename, text) {
 }
 
 export function getResources() {
-    const rawPages = read(PAGES_PATH)
-    return JSON.parse(rawPages)
+    try {
+        const rawPages = read(PAGES_PATH)
+        return JSON.parse(rawPages)
+    } catch (error) {
+        console.error(error)
+        return []
+    }
 }
 
 export async function fetchResources() {
