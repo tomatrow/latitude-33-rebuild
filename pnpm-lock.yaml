@@ -17,10 +17,10 @@ specifiers:
   '@tomatrow/zen-format': ^1.0.2
   '@types/google.maps': ^3.45.6
   '@types/lodash': ^4.14.171
-  agnostic-axe: github:tomatrow/agnostic-axe
   autoprefixer: ^10.3.1
   axios: ^0.21.1
   bueno: ^0.1.5
+  cookie: ^0.4.1
   cross-fetch: ^3.1.4
   cssnano: ^5.0.6
   date-fns: ^2.22.1
@@ -71,10 +71,10 @@ devDependencies:
   '@tomatrow/zen-format': 1.0.2_prettier-plugin-svelte@2.3.1
   '@types/google.maps': 3.45.6
   '@types/lodash': 4.14.171
-  agnostic-axe: github.com/tomatrow/agnostic-axe/63657f8ff14983e1620fbd174fa2918e60133475
   autoprefixer: 10.3.1_postcss@8.3.5
   axios: 0.21.1
   bueno: 0.1.5
+  cookie: 0.4.1
   cross-fetch: 3.1.4
   cssnano: 5.0.6_postcss@8.3.5
   date-fns: 2.22.1
@@ -517,11 +517,6 @@ packages:
       postcss-value-parser: 4.1.0
     dev: true
 
-  /axe-core/4.3.1:
-    resolution: {integrity: sha512-3WVgVPs/7OnKU3s+lqMtkv3wQlg3WxK1YifmpJSDO0E1aPBrZWlrrTO6cxRqCXLuX2aYgCljqXIQd0VnRidV0g==}
-    engines: {node: '>=4'}
-    dev: true
-
   /axios/0.21.1:
     resolution: {integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==}
     dependencies:
@@ -693,6 +688,11 @@ packages:
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    dev: true
+
+  /cookie/0.4.1:
+    resolution: {integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==}
+    engines: {node: '>= 0.6'}
     dev: true
 
   /cosmiconfig/7.0.0:
@@ -2498,14 +2498,4 @@ packages:
       rollup: ^2.0.0
     dependencies:
       '@rollup/pluginutils': 3.1.0
-    dev: true
-
-  github.com/tomatrow/agnostic-axe/63657f8ff14983e1620fbd174fa2918e60133475:
-    resolution: {tarball: https://codeload.github.com/tomatrow/agnostic-axe/tar.gz/63657f8ff14983e1620fbd174fa2918e60133475}
-    name: agnostic-axe
-    version: 3.0.3
-    prepare: true
-    requiresBuild: true
-    dependencies:
-      axe-core: 4.3.1
     dev: true
