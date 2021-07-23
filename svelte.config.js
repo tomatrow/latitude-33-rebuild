@@ -1,20 +1,20 @@
-import preprocess from 'svelte-preprocess'
-import adapter from '@sveltejs/adapter-static';
+import preprocess from "svelte-preprocess"
+import adapter from "@sveltejs/adapter-static"
 import { getResources } from "./scripts/prerender/index.js"
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://github.com/sveltejs/svelte-preprocess
-	// for more information about preprocessors
-	preprocess: [
-		preprocess({
-			postcss: true
-		}),
-	],
+    // Consult https://github.com/sveltejs/svelte-preprocess
+    // for more information about preprocessors
+    preprocess: [
+        preprocess({
+            postcss: true
+        })
+    ],
 
-	kit: {
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
+    kit: {
+        // hydrate the <div id="svelte"> element in src/app.html
+        target: "#svelte",
         adapter: adapter({
             pages: process.env.BUILD_FOLDER,
             assets: process.env.BUILD_FOLDER
@@ -25,17 +25,18 @@ const config = {
             pages: getResources()
         },
         async vite() {
-            if (process.env.NODE_ENV !== "development") return {}
+            /** @type {import('vite').UserConfig} */
+            const result = {}
 
-            const { default: format } = await import("@tomatrow/zen-format")
-
-            return {
-                plugins: [
-                    format({ load: true })
-                ]
+            if (process.env.NODE_ENV === "development") {
+                // @ts-ignore
+                const { default: format } = await import("@tomatrow/zen-format")
+                result.plugins = [format({ load: true })]
             }
+
+            return result
         }
-	}
+    }
 }
 
-export default config;
+export default config
