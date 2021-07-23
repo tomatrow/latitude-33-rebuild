@@ -8,7 +8,8 @@
     "check": "svelte-check --output human-verbose --tsconfig ./tsconfig.json",
     "check:watch": "npm run check -- --watch",
     "prerender-query": "node scripts/prerender/run.js",
-    "sitemap": "svelte-sitemap --domain $FRONTEND_DOMAIN --out-dir $BUILD_FOLDER"
+    "sitemap": "svelte-sitemap --domain $FRONTEND_DOMAIN --out-dir $BUILD_FOLDER",
+    "srcenv": "fish -c 'srcenv .env; srcenv .env.local; srcenv .env.development.local'"
   },
   "devDependencies": {
     "@apollo/client": "^3.3.21",
