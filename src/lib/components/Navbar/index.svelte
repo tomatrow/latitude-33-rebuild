@@ -25,7 +25,7 @@
 >
     <li slot="before-nav" class="mr-auto">
         <a href="/" sveltekit:prefetch>
-            <img alt="latitude 33 logo" class="mr-32 w-24" src="/icons/latitude33-logo-white.png" />
+            <img alt="latitude 33 logo" class="mr-32 w-36" src="/icons/latitude33-logo-white.png" />
         </a>
     </li>
     <div

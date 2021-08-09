@@ -61,7 +61,7 @@ module.exports = {
                 '2.5xl' : "1.25rem"
             },
             screens: {
-                "full-nav": "1000px"
+                "full-nav": "1100px"
             }
         }
     },
