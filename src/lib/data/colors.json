@@ -1,5 +1,6 @@
 {
     "a-taste-of-blueberries": "#24369A",
+    "ripe-blueberry-indentaion": "#000F9F",
     "either-gray-blue": "#537FA9",
     "scorpion-tan": "#D6CCBB",
     "pre-coffee-sky-blue": "#9CBADC",
@@ -11,5 +12,6 @@
     "sarcastic-orange": "#C77853",
     "the-girl-is-looking-at-the-sky": "#B7DFF6",
     "white": "#FFFFFF",
-    "black": "#000000"
+    "black": "#000000",
+    "sadly-not-white": "#F0EFEE"
 }
