@@ -1,13 +1,12 @@
-import type { Handle, GetSession, ServerRequest, ServerResponse } from "@sveltejs/kit"
+import type { Handle, GetSession, Request, Response } from "@sveltejs/kit"
 import UrlPattern from "url-pattern"
 import { ResourcesPsuedoFragment } from "$lib/queries/resources"
 import { MenuItemFragment, MenuFragment, MenusPsuedoFragment } from "$lib/queries/menus"
 import { smoothEdges } from "$lib/scripts/utility"
 import { normalizePath } from "$lib/scripts/router"
-import { query, graphql, mutation, setCookie } from "$lib/scripts/apollo"
-import cookie from "cookie"
+import { query, graphql } from "$lib/scripts/apollo"
 
-async function coreQueryMiddleware(request: ServerRequest) {
+async function coreQueryMiddleware(request: Request) {
     const q = graphql`
         query SessionQuery {
             seo {
@@ -61,7 +60,7 @@ async function coreQueryMiddleware(request: ServerRequest) {
     }
 }
 
-function redirectionMiddleware({ locals: { coreGraph }, path }: ServerRequest) {
+function redirectionMiddleware({ locals: { coreGraph }, path }: Request) {
     if (!coreGraph) return
 
     const redirection = coreGraph.themeGeneralSettings.themeSettingsFields.redirections.find(
@@ -87,7 +86,7 @@ function redirectionMiddleware({ locals: { coreGraph }, path }: ServerRequest) {
         }
 }
 
-function injectionMiddleware(request: ServerRequest, response: ServerResponse) {
+function injectionMiddleware(request: Request, response: Response) {
     if (!(response.headers["content-type"] === "text/html" && typeof response.body === "string"))
         return
     const { head, footer } =
@@ -99,7 +98,6 @@ function injectionMiddleware(request: ServerRequest, response: ServerResponse) {
 
 export const handle: Handle = async ({ request, resolve }) => {
     console.log("A request for " + request.path)
-    console.log(cookie.parse(request.headers.cookie ?? ""))
 
     await coreQueryMiddleware(request)
 
