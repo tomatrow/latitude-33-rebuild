@@ -21,7 +21,7 @@ const config = {
         }),
         prerender: {
             enabled: true,
-            force: true,
+            onError: "continue",
             pages: ["/preview", ...getResources()]
         },
         async vite() {
