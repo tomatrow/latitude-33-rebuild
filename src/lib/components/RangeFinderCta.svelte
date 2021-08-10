@@ -1,14 +1,18 @@
 <script lang="ts">
     import Link from "./Link.svelte"
+
     export let style = ""
+
     let clazz = ""
     export { clazz as class }
 </script>
 
 <nav class="{clazz} flex items-center flex-col sm:flex-row justify-between" {style}>
-    <Link href="/" sveltekit:prefetch>
-        <img alt="latitude 33 logo" class="w-40" src="/icons/latitude33-logo-white.png" />
-    </Link>
+    <slot name="logo">
+        <Link href="/" sveltekit:prefetch>
+            <img  class="w-40" src="/icons/latitude33-logo-white.png" alt="latitude 33 logo" />
+        </Link>
+    </slot>
     <Link
         href="/range-finder"
         ease
