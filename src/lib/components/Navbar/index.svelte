@@ -19,26 +19,30 @@
 <svelte:window on:sveltekit:navigation-start={() => (active = false)} />
 
 <Menu
-    class="bg-a-taste-of-blueberries absolute md:fixed top-0 right-0 left-0 z-40 flex items-center justify-center"
+    class="bg-sadly-not-white absolute md:fixed top-0 right-0 left-0 z-40 flex items-center justify-center"
     {menu}
     style="height: {height}"
 >
     <li slot="before-nav" class="mr-auto">
         <a href="/" sveltekit:prefetch>
-            <img alt="latitude 33 logo" class="mr-32 w-36" src="/icons/latitude33-logo-white.png" />
+            <img alt="latitude 33 logo" class="w-36 mr-32" src="/icons/latitude33-logo-blue.png" />
         </a>
     </li>
     <div
         slot="nav-item"
         let:item
         let:active
-        class="grid gap-8 grid-cols-2 md:grid-cols-3 p-8"
+        class="grid gap-8 grid-cols-2 md:grid-cols-3 bg-sadly-not-white p-8"
         style="width: 1000px"
     >
         {#each item.childItems as { label, target, url, childItems }}
             <div class="flex flex-col">
-                <Link sveltekit:prefetch class="block h-8 font-bold" {target} href={url} tabindex={active ? 0 : -1}
-                    >{label}</Link
+                <Link
+                    sveltekit:prefetch
+                    class="block h-8 font-bold"
+                    {target}
+                    href={url}
+                    tabindex={active ? 0 : -1}>{label}</Link
                 >
                 <div class="flex flex-col pl-4">
                     {#each childItems as { label, target, url }}
@@ -54,26 +58,38 @@
             </div>
         {/each}
     </div>
-    <Link
+    <div
         slot="title"
         let:item
         let:classes
         let:attributes
-        href={item.url}
-        class="{classes} text-white hover:text-white"
+        class="{classes} flex items-center"
         {...attributes}
     >
-        {item.title}
-    </Link>
+        <Link
+            line
+            href={item.url}
+            style="line-height: 1.4rem"
+            class="text-ripe-blueberry-indentation hover:text-ripe-blueberry-indentation"
+        >
+            {item.title}
+        </Link>
+    </div>
+
     <MobileMenu slot="after-nav" bind:active>
-        <div class="divide-a-taste-of-blueberries divide-y-2 flex flex-col px-5 bg-white">
+        <div class="divide-a-taste-of-blueberries divide-y-2 bg-sadly-not-white flex flex-col px-5">
             {#each menu as { label, target, url, childItems }}
                 <div class="p-6" class:space-y-4={childItems.length}>
-                    <Link sveltekit:prefetch class="font-black text-lg" {target} href={url}>{label}</Link>
+                    <Link sveltekit:prefetch class="font-black text-lg" {target} href={url}
+                        >{label}</Link
+                    >
                     <div class="grid gap-2 grind-cols-1 sm:grid-cols-2 pl-2">
                         {#each childItems as { label, target, url }}
-                            <Link sveltekit:prefetch class="text-dark-charcoal font-bold" {target} href={url}
-                                >{label}</Link
+                            <Link
+                                sveltekit:prefetch
+                                class="text-dark-charcoal font-bold"
+                                {target}
+                                href={url}>{label}</Link
                             >
                         {/each}
                     </div>
@@ -108,6 +124,10 @@
         justify-content: center;
     }
 
+    .vsm-dropdown-container {
+        background-color: theme("colors.sadly-not-white");
+    }
+
     .vsm-mob-full {
         flex-grow: 1;
     }
@@ -138,7 +158,7 @@
             @apply hidden;
         }
     }
-    
+
     .vsm-dropdown.vsm-mob-hide {
         @apply hidden;
     }
