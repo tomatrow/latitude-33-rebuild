@@ -51,7 +51,7 @@ async function coreQueryMiddleware(request: Request) {
         ${MenuItemFragment}
         ${MenuFragment}
     `
-    try {        
+    try {
         const result = await query(q)
 
         request.locals.coreGraph = result.data

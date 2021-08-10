@@ -35,7 +35,7 @@ export function previewVariables({ page }: LoadInput) {
 }
 
 export function loadResource<R extends Resource = AnyResource>(
-    graphqlQueryOrFunction: string|((resource: R, input: LoadInput) => string),
+    graphqlQueryOrFunction: string | ((resource: R, input: LoadInput) => string),
     filter?: (resource: R) => boolean,
     getVariables: (resource: R, input: LoadInput) => object = ({ id }) => ({ id })
 ): Load {
@@ -44,7 +44,10 @@ export function loadResource<R extends Resource = AnyResource>(
 
         if (!resource) return
         try {
-            const graphqlQuery = typeof graphqlQueryOrFunction === 'string' ? graphqlQueryOrFunction :  graphqlQueryOrFunction(resource, input)
+            const graphqlQuery =
+                typeof graphqlQueryOrFunction === "string"
+                    ? graphqlQueryOrFunction
+                    : graphqlQueryOrFunction(resource, input)
             const { data } = await query(graphqlQuery, getVariables(resource, input))
 
             return {
@@ -65,7 +68,8 @@ export function loadPage(templateName: string, graphqlQuery: string) {
     return loadResource(
         graphqlQuery,
         resource =>
-            resource.__typename === ResourceTypes.Page && resource.template?.templateName === templateName,
+            resource.__typename === ResourceTypes.Page &&
+            resource.template?.templateName === templateName,
         ({ id }, input) => ({ id, ...previewVariables(input) })
     )
 }

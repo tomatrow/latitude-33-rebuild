@@ -10,7 +10,7 @@
 <nav class="{clazz} flex items-center flex-col sm:flex-row justify-between" {style}>
     <slot name="logo">
         <Link href="/" sveltekit:prefetch>
-            <img  class="w-40" src="/icons/latitude33-logo-white.png" alt="latitude 33 logo" />
+            <img class="w-40" src="/icons/latitude33-logo-white.png" alt="latitude 33 logo" />
         </Link>
     </slot>
     <Link
