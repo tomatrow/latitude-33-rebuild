@@ -10,6 +10,7 @@
     import { trip } from "./stores"
     import type { AcfLink } from "$lib/index.type"
     import type { Trip } from "./index.type"
+    import { browser } from "$app/env"
 
     const DateInput = refine(string(), "DateInput", value => {
         const inputFormat = "yyyy-MM-dd"
@@ -58,6 +59,7 @@
     })
 
     function getTripUrl(trip: Trip) {
+        if (!browser) return
         try {
             const url = new URL(successPageLink.href, window.location.href)
             const rawTrip = JSON.stringify(trip)

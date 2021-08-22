@@ -37,16 +37,15 @@
         Button
     } from "$lib/components"
     import { ChevronRight } from "$lib/svgs"
-    import { cssVars, classes } from "$lib/actions/styles"
+    import { cssVars } from "$lib/actions/styles"
     import Stat from "./_Stat.svelte"
     import { slideDiag } from "$lib/transitions"
-    import { preloadImage } from "$lib/scripts/utility"
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
     let showGallery = false
 
-    const features = _.zip(
+    $: features = _.zip(
         [
             aircraft.aircraftFields.interior,
             aircraft.aircraftFields.amenities,
@@ -81,15 +80,10 @@
         contentHtml: description
     }))
 
-    const { featuredImage } = aircraft.aircraftFields
+    $: ({ featuredImage } = aircraft.aircraftFields)
 
     function idify(key: string) {
         return _.kebabCase(key)
-    }
-
-    function preloadFirstImage() {
-        const src = aircraft.aircraftFields.gallery[0]?.src
-        if (src) preloadImage(src)
     }
 </script>
 

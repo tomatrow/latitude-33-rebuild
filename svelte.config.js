@@ -23,7 +23,8 @@ const config = {
         prerender: {
             enabled: true,
             onError: "continue",
-            pages: ["/preview", ...getResources()]
+            pages: getResources(),
+            crawl: false
         },
         vite() {
             /** @type {import('vite').UserConfig} */

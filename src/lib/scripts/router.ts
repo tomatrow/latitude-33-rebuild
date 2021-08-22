@@ -1,5 +1,6 @@
 import type { Load, LoadInput } from "@sveltejs/kit"
 import { query } from "$lib/scripts/apollo"
+import { browser } from "$app/env"
 
 export const normalizePath = (path: string) =>
     path.endsWith("/") && path !== "/" ? path.slice(0, -1) : path
@@ -29,8 +30,8 @@ export function matchResource<R extends Resource = AnyResource>(
 
 export function previewVariables({ page }: LoadInput) {
     return {
-        isPreview: page.query.has("preview"),
-        nonce: page.query.get("nonce")
+        isPreview: browser ? page.query.has("preview") : false,
+        nonce: browser ? page.query.get("nonce") : false
     }
 }
 
