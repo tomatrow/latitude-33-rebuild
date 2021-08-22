@@ -52,7 +52,7 @@ export function loadResource<R extends Resource = AnyResource>(
 
             return {
                 status: 200,
-                props: data
+                props: { ...data } // get rid of read only props
             }
         } catch (error) {
             console.error(JSON.stringify(error))
@@ -64,12 +64,16 @@ export function loadResource<R extends Resource = AnyResource>(
     }
 }
 
-export function loadPage(templateName: string, graphqlQuery: string) {
-    return loadResource(
-        graphqlQuery,
-        resource =>
-            resource.__typename === ResourceTypes.Page &&
-            resource.template?.templateName === templateName,
-        ({ id }, input) => ({ id, ...previewVariables(input) })
-    )
+export function createPageMatcher(templateName: string) {
+    return (resource: AnyResource) =>
+        resource.__typename === ResourceTypes.Page &&
+        resource.template?.templateName === templateName
+}
+
+export function loadPage(templateName: string, graphqlQuery: string, extraVariables = {}) {
+    return loadResource(graphqlQuery, createPageMatcher(templateName), ({ id }, input) => ({
+        id,
+        ...previewVariables(input),
+        ...extraVariables
+    }))
 }

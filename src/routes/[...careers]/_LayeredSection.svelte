@@ -19,7 +19,7 @@
     <div
         class="space-y-6 lg:mt-18 lg:-ml-18 border-opacity-80 lg:ml-[-18] flex flex-col mt-4 mx-auto lg:mr-0 p-5 sm:p-12 max-w-xl border border-white rounded-lg bg-white"
     >
-        <p class="text-sarcastic-orange font-display text-sm">{subheading}</p>
+        <p class="text-sarcastic-orange font-display text-lg">{subheading}</p>
         <h4 class="font-display text-4.5xl font-bold">{title}</h4>
         <div>{@html contentHtml}</div>
     </div>

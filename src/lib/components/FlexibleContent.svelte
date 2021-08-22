@@ -5,7 +5,8 @@
         BLURBS = "BLURBS",
         OFFERINGS = "OFFERINGS",
         BANNER = "BANNER",
-        CHECKERS = "CHECKERS"
+        CHECKERS = "CHECKERS",
+        CALL = "CALL"
     }
 
     function rowType(fields?: object) {
@@ -32,6 +33,7 @@
                 flexibleContent {
                     ... on ${base}_Genericpagefields_FlexibleContent_OfferingList {
                         ${ContentType.OFFERINGS}: fieldGroupName
+                        anchorId
                         style {
                             backgroundColor
                             hasCorner
@@ -52,9 +54,13 @@
                     }
                     ... on ${base}_Genericpagefields_FlexibleContent_BlurbList {
                         ${ContentType.BLURBS}: fieldGroupName
+                        anchorId
                         blurbs {
                             title
                             contentHtml
+                            link {
+                                ...AcfLinkFragment
+                            }
                             icon {
                                 ...MediaItemFragment
                             }
@@ -62,10 +68,12 @@
                     }
                     ... on ${base}_Genericpagefields_FlexibleContent_Banner {
                         ${ContentType.BANNER}: fieldGroupName
+                        anchorId
                         ${BannerPsudoFragment}
                     }
                     ... on ${base}_Genericpagefields_FlexibleContent_CheckeredList {
                         ${ContentType.CHECKERS}: fieldGroupName
+                        anchorId
                         checkers {
                             title
                             contentHtml
@@ -77,6 +85,14 @@
                             }
                         }
                     }
+                    ...on ${base}_Genericpagefields_FlexibleContent_CallToAction {
+                        ${ContentType.CALL}: fieldGroupName
+                        anchorId
+                        contentHtml
+                        link {
+                            ...AcfLinkFragment
+                        }
+                    }
                 }
             }
         `
@@ -84,23 +100,16 @@
 </script>
 
 <script lang="ts">
+    import Blurbs from "./Blurbs/index.svelte"
+    import Offerings from "./Offerings/index.svelte"
+    import Banner from "./Banner.svelte"
+    import Checkers from "./Checkers/CheckerList.svelte"
+    import CtaBar from "./CtaBar.svelte"
+
     export let content = []
     export let topFlush: boolean = true
     export let bottomFlush: boolean = true
     const rows = content.map(rowType)
-
-    function loadRow(contentType: ContentType) {
-        switch (contentType) {
-            case ContentType.BLURBS:
-                return import("./Blurbs.svelte")
-            case ContentType.OFFERINGS:
-                return import("./Offerings/index.svelte")
-            case ContentType.BANNER:
-                return import("./Banner.svelte")
-            case ContentType.CHECKERS:
-                return import("./Checkers/CheckerList.svelte")
-        }
-    }
 
     function spacing(index: number) {
         const isOffering = (value: string) => ContentType.OFFERINGS === value
@@ -121,29 +130,35 @@
         function top() {
             if (content[index].style.hasCorner) return true
             else if (index === 0) return topFlush
-            else if (sameColorOfferings(index - 1, index)) return false
+            else if (sameColorOfferings(index - 1, index)) return true
             else return true
         }
 
         function bottom() {
             if (index === rows.length - 1) return bottomFlush
-            else if (sameColorOfferings(index, index + 1)) return false
+            else if (sameColorOfferings(index, index + 1)) return true
             else return true
         }
 
         return {
-            isFlush: {
-                top: top(),
-                bottom: bottom()
-            }
+            top: top(),
+            bottom: bottom()
         }
     }
 </script>
 
 {#each content as fields, index}
     <slot name="before" {index} {rows} />
-    {#await loadRow(rows[index]) then module}
-        <svelte:component this={module?.default} {...fields} {...spacing(index)} />
-    {/await}
+    {#if rows[index] === ContentType.BLURBS}
+        <Blurbs isFlush={spacing(index)} {...fields} />
+    {:else if rows[index] === ContentType.OFFERINGS}
+        <Offerings isFlush={spacing(index)} {...fields} />
+    {:else if rows[index] === ContentType.BANNER}
+        <Banner isFlush={spacing(index)} {...fields} />
+    {:else if rows[index] === ContentType.CHECKERS}
+        <Checkers isFlush={spacing(index)} {...fields} />
+    {:else if rows[index] === ContentType.CALL}
+        <CtaBar isFlush={spacing(index)} {...fields} />
+    {/if}
     <slot name="after" {index} {rows} />
 {/each}

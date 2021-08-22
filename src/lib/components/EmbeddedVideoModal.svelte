@@ -1,7 +1,6 @@
 <script lang="ts">
     import ModalWrapper from "./ModalWrapper.svelte"
 
-    export let videoId: string
     export let title: string
     export let src: string
 

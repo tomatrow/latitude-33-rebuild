@@ -24,25 +24,25 @@
 
     export const standardSchemes: Record<string, OfferingColorScheme> = {
         light: {
-            accent: "either-gray-blue",
+            accent: "velours-bleu",
             background: "white",
             foreground: "black",
-            button: "pre-coffee-sky-blue",
-            link: "either-gray-blue"
+            button: "velours-bleu",
+            link: "velours-bleu"
         },
         dark: {
             accent: "white",
-            background: "either-gray-blue",
+            background: "a-stormy-morning",
             foreground: "white",
-            button: "pre-coffee-sky-blue",
-            link: "the-girl-is-looking-at-the-sky"
+            button: "velours-bleu",
+            link: "sarcastic-orange"
         },
         tan: {
-            accent: "either-gray-blue",
+            accent: "a-stormy-morning",
             background: "scorpion-tan",
             foreground: "black",
-            button: "pre-coffee-sky-blue",
-            link: "either-gray-blue"
+            button: "velours-bleu",
+            link: "velours-bleu"
         }
     }
 </script>
@@ -53,10 +53,12 @@
     import CornerOffering from "./Corner.svelte"
     import CenteredOffering from "./Centered.svelte"
     import FlushOffering from "./Flush.svelte"
+    import Anchor from "$lib/components/Anchor.svelte"
 
     export let offerings: OfferingFields[]
     export let style: any
     export let isFlush: any
+    export let anchorId: string = undefined
 
     const verticalPadding =
         style.backgroundColor === "white"
@@ -86,6 +88,7 @@
     }
 </script>
 
+<Anchor id={anchorId} />
 <section
     class="{verticalPadding} bg-{scheme.background} space-y-9 md:space-y-18 px-5 md:px-0"
     class:corner={style.hasCorner}
@@ -97,7 +100,11 @@
 >
     {#each offerings as fields, index}
         {#if index === 0 && style.hasCorner}
-            <CornerOffering full={style.largeCornerImage} {scheme} {...fields} />
+            <CornerOffering
+                full={style.largeCornerImage}
+                schemes={{ mobile: scheme }}
+                {...fields}
+            />
         {:else if style.layout === "centered"}
             <CenteredOffering
                 schemes={{
@@ -107,7 +114,7 @@
                 {...fields}
             />
         {:else if style.layout === "flush"}
-            <FlushOffering {scheme} {...fields} />
+            <FlushOffering schemes={{ mobile: scheme }} {...fields} />
         {/if}
     {/each}
 </section>

@@ -1,17 +1,20 @@
 <script lang="ts">
-    import { tick } from "svelte"
-    import { cubicInOut } from "svelte/easing"
     import _ from "lodash"
     import { scrollTo } from "svelte-scrollto"
     import { Carousel } from "renderless-svelte"
-    import { Gallery, Button } from "$lib/components"
+    import Gallery from "$lib/components/Gallery.svelte"
+    import Button from "$lib/components/Button.svelte"
+    import type { Color } from "$lib/index.type"
+
     import { ChevronLeft, ChevronRight } from "$lib/svgs"
     import type { AcfImage } from "$lib/index.type"
 
     export let gallery: AcfImage[] = []
+    export let dots = true
+    export let dotColor: Color = "black"
 
     let currentIndex: number
-    let container
+    let container: HTMLDivElement
 
     $: if (container) {
         scrollTo({
@@ -40,13 +43,13 @@
         }
     }
 
-    let clazz = "h-96  w-full max-w-xl "
+    let clazz = ""
     export { clazz as class }
 </script>
 
 <Gallery let:show images={gallery}>
     <Carousel bind:currentIndex loop items={gallery} let:controls>
-        <div class="{clazz} space-y-4 flex items-center flex-col justify-center">
+        <div class="{clazz} gap-y-4 flex items-center flex-col justify-center">
             <div class="relative overflow-hidden w-full h-full">
                 <Button
                     pill
@@ -80,24 +83,28 @@
                     {#each gallery as image, index}
                         <!-- svelte-ignore a11y-missing-attribute -->
                         <img
-                            class="snap-center w-full h-full object-cover"
+                            class="snap-center flex-shrink-0 w-full h-full cursor-pointer object-cover"
                             {...image}
                             on:click={() => show(index)}
                         />
                     {/each}
                 </div>
             </div>
-            <div class="space-x-2 flex items-center justify-center mx-auto">
-                {#each gallery as _, index}
-                    <Button
-                        pill
-                        ease
-                        class="{index === currentIndex ? '' : 'opacity-70'} w-3 h-3 bg-black"
-                        aria-label="show image {index}"
-                        on:click={() => (currentIndex = index)}
-                    />
-                {/each}
-            </div>
+            {#if dots}
+                <div class="gap-x-2 flex items-center justify-center mx-auto">
+                    {#each gallery as _, index}
+                        <Button
+                            pill
+                            ease
+                            class="{index === currentIndex
+                                ? ''
+                                : 'opacity-70'} w-3 h-3 bg-{dotColor}"
+                            aria-label="show image {index}"
+                            on:click={() => (currentIndex = index)}
+                        />
+                    {/each}
+                </div>
+            {/if}
         </div>
     </Carousel>
 </Gallery>

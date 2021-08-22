@@ -2,7 +2,9 @@
     export let id: string
 </script>
 
-<div {id} class="relative" />
+{#if id}
+    <div {id} class="relative" />
+{/if}
 
 <style lang="postcss">
     div {

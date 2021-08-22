@@ -4,7 +4,7 @@
 
     export let matterportId: string
     export let youtubeId: string
-    export let matterportLabel: string 
+    export let matterportLabel: string
     export let videoLabel: string
 </script>
 

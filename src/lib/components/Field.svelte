@@ -1,9 +1,9 @@
 <script context="module">
     export const fieldDefaults = {
         text: {
-            class: "mt-1 text-dark-charcoal border border-either-gray-blue text-sm py-2 px-3 ",
+            class: "mt-1 text-dark-charcoal border border-a-stormy-morning text-sm py-2 px-3 ",
             rootProps: {
-                class: "flex flex-col text-base text-either-gray-blue font-bold font-display"
+                class: "flex flex-col text-base text-a-stormy-morning font-light font-display"
             }
         },
         toggle: {
@@ -11,9 +11,9 @@
             rootProps: { class: "flex flex-row-reverse justify-end items-center" }
         },
         select: {
-            class: "h-9 border border-either-gray-blue font-bold",
+            class: "h-9 border border-a-stormy-morning font-light",
             rootProps: {
-                class: "flex flex-col text-base text-either-gray-blue font-bold font-display"
+                class: "flex flex-col text-base text-a-stormy-morning font-light font-display"
             }
         }
     }

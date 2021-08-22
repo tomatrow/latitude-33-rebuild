@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Gallery from "./Gallery.svelte"
+    // import Gallery from "./Gallery.svelte"
     import Colors from "$lib/data/colors"
     import DetailsAccordionGroup from "./DetailsAccordionGroup.svelte"
-    import { Anchor } from "$lib/components"
+    import { Anchor, GalleryCarousel } from "$lib/components"
     import type { AcfImage } from "$lib/index.type"
 
     export let title: string
@@ -12,7 +12,7 @@
     export let gallery: AcfImage[] = []
     export let secondaryImage: AcfImage = undefined
     export let engines: any[] = []
-    export let specsTitle: string 
+    export let specsTitle: string
     export let engineSpecLabels: Record<string, string>
 </script>
 
@@ -24,7 +24,7 @@
         {specsTitle}
         {engineSpecLabels}
         class="bg-sarcastic-orange rounded-xl mx-auto p-3 w-full sm:max-w-md text-white"
-        --injected-link-color={Colors["either-gray-blue"]}
+        --injected-link-color={Colors["a-stormy-morning"]}
     >
         <header class="font-display space-y-2 relative" slot="header">
             <Anchor id="details" --offset="2rem" />
@@ -36,7 +36,7 @@
 
     <div class="space-y-4">
         <Anchor id="gallery" --offset="1rem" />
-        <Gallery {gallery} />
+        <GalleryCarousel class="h-96 w-full max-w-xl" {gallery} />
         {#if secondaryImage}
             <!-- svelte-ignore a11y-missing-attribute  -->
             <img class="rounded-xl" {...secondaryImage} />

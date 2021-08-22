@@ -37,6 +37,9 @@ export const AircraftFragment = graphql`
                     ...MediaItemFragment
                 }
             }
+            gallery {
+                ...MediaItemFragment
+            }
         }
     }
 `

@@ -15,7 +15,7 @@
                         title
                         fullHead
                     }
-                    airportFields {
+                    locationPostFields {
                         coordinates {
                             lat: latitude
                             lng: longitude
@@ -41,7 +41,7 @@
 
     const key = import.meta.env.VITE_RANGE_FINDER_MAPS_API_KEY as string
 
-    const position = airport.airportFields.coordinates
+    const position = airport.locationPostFields.coordinates
 </script>
 
 <Meta title={airport.title} seo={airport.seo} />

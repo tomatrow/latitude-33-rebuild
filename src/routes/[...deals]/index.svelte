@@ -52,6 +52,9 @@
                                             stats {
                                                 maxPassengers
                                             }
+                                            featuredImage {
+                                                ...MediaItemFragment
+                                            }
                                         }
                                     }
                                 }
@@ -72,7 +75,7 @@
             ${AcfLinkFragment}
             fragment AirportDealsFragment on Airport {
                 id
-                airportFields {
+                locationPostFields {
                     coordinates {
                         city
                         stateShort
@@ -84,8 +87,7 @@
 </script>
 
 <script lang="ts">
-    import { Meta, FlexibleContent, Anchor } from "$lib/components"
-    import DealsBanner from "./_DealsBanner.svelte"
+    import { Meta, FlexibleContent, SplitBanner } from "$lib/components"
     import DealsGrid from "./_DealsGrid.svelte"
 
     export let page: any
@@ -94,8 +96,6 @@
 
 <Meta title={page.title} seo={page.seo} />
 
-<DealsBanner {...page.template.dealsPageFields.bannerSection} />
-<Anchor id="deals" />
+<SplitBanner {...page.template.dealsPageFields.bannerSection} />
 <DealsGrid {deals} {...page.template.dealsPageFields.dealsSection} />
-
 <FlexibleContent content={page.template.genericPageFields.flexibleContent} />

@@ -9,7 +9,6 @@
                 subfleet(id: $id) {
                     id
                     name
-                    description
                     seo {
                         title
                         fullHead
@@ -21,6 +20,7 @@
                             srcset: srcSet
                         }
                         gridHeading
+                        contentHtml
                     }
                     fleet {
                         edges {
@@ -59,16 +59,17 @@
 
 <script lang="ts">
     import _ from "lodash"
-    import { Meta, Link, Button, Gallery, RangeFinderCta, CollectionGrid } from "$lib/components"
+    import { Meta, Link, Button, Gallery, CollectionGrid } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
     import { fleetFormat } from "./_FleetFilter.svelte"
+    import { classes } from "$lib/actions/styles"
 
     export let subfleet: any
     export let acfOptionsSubfleets: any
 
     const { subfleetOptions } = acfOptionsSubfleets
-    const images = subfleet.subfleetPageSettings.gallery
-    const fleet = smoothEdges(subfleet.fleet).map(aircraft =>
+    $: images = subfleet.subfleetPageSettings.gallery
+    $: fleet = smoothEdges(subfleet.fleet).map(aircraft =>
         fleetFormat(aircraft, subfleetOptions.fleetGrid.linkLabel)
     )
 
@@ -78,42 +79,42 @@
 <Meta title={subfleet.name} seo={subfleet.seo} />
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-    <section class="space-y-4 flex items-start flex-col px-5">
-        <h5 class="font-display text-either-gray-blue font-bold">
+    <section class="gap-y-4 flex items-start flex-col px-5 md:pl-12">
+        <h5 class="font-display text-a-stormy-morning font-light">
             {subfleetOptions.mainContent.subheading}
         </h5>
-        <h1 class="font-black text-2xl sm:text-6xl">{subfleet.name}</h1>
-        <div class="injected-content injected-content_subfleet">{@html subfleet.description}</div>
+        <h1 class="font-extralight text-2xl sm:text-6xl">{subfleet.name}</h1>
+        <div class="injected-content injected-content_subfleet">
+            {@html subfleet.subfleetPageSettings.contentHtml}
+        </div>
         <Link
             shadow
             blob
+            filled
+            color="a-stormy-morning"
             href="#subfleet-grid"
-            class="bg-either-gray-blue inline-block mx-auto py-4 px-6 text-white font-black"
+            class="inline-block mx-auto py-4 px-6 text-white"
             >{subfleetOptions.mainContent.bookingCtaLabel}</Link
         >
     </section>
 
     <Gallery {images} let:show>
-        <section>
-            <div class="h-72 flex items-end m-4">
+        <section class="mx-auto md:pr-12 max-w-md">
+            <div class="flex items-end m-4" use:classes={images.length === 1 ? "h-96" : "h-72"}>
                 <!-- svelte-ignore a11y-missing-attribute -->
                 <img
-                    class="rounded-xl transition duration-200 transform hover:-translate-y-3 mx-auto mb-4 hover:shadow-lg object-cover"
+                    class="rounded-xl transition duration-200 transform hover:-translate-y-3 mx-auto mb-4 h-full hover:shadow-lg cursor-pointer object-cover"
                     {...images[galleryIndex]}
                     on:click={() => show(galleryIndex)}
                 />
             </div>
             {#if images.length > 1}
-                <div
-                    class="space-y-4 md:space-x-2 md:space-y-0 flex items-center flex-col md:flex-row justify-between px-5"
-                >
-                    <div
-                        class="grid gap-2 grid-cols-3 sm:grid-cols-5 md:grid-cols-3 lg:grid-cols-5"
-                    >
+                <div class="gap-4 flex items-center flex-col lg:flex-row justify-between px-5">
+                    <div class="grid gap-4 grid-cols-3">
                         {#each images.slice(0, 6) as image, index}
                             <!-- svelte-ignore a11y-missing-attribute -->
                             <img
-                                class="w-full h-16 object-cover"
+                                class="w-full h-16 cursor-pointer object-cover"
                                 {...image}
                                 on:click={() => (galleryIndex = index)}
                             />
@@ -122,7 +123,10 @@
                     <Button
                         blob
                         shadow
-                        class="border-either-gray-blue text-either-gray-blue justify-self-end flex-shrink-0 my-auto py-4 px-6 border-2"
+                        filled
+                        border
+                        color="a-stormy-morning"
+                        class="justify-self-end flex-shrink-0 my-auto py-4 px-6 border-2"
                         on:click={() => show(galleryIndex)}
                         >{subfleetOptions.mainContent.galleryLabel}</Button
                     >
@@ -132,13 +136,11 @@
     </Gallery>
 </div>
 
-<RangeFinderCta class="bg-sarcastic-orange my-12 py-6 px-12" />
-
-<div class="my-12 px-5 text-center">
-    <h5 class="font-display text-either-gray-blue font-bold text-xl">
+<div class="my-12 px-5 sm:px-12 text-center">
+    <h5 class="font-display text-a-stormy-morning font-extralight text-xl">
         {subfleetOptions.fleetGrid.subheading}
     </h5>
-    <h4 class="sm:text-5.5xl font-display tracking-px text-black font-black text-4xl">
+    <h4 class="sm:text-5.5xl font-display tracking-px text-black font-light text-4xl">
         {subfleet.subfleetPageSettings.gridHeading}
     </h4>
 </div>
@@ -153,7 +155,7 @@
         h4,
         h5,
         h6 {
-            @apply text-either-gray-blue;
+            @apply text-a-stormy-morning;
         }
     }
 </style>

@@ -51,24 +51,24 @@
 </script>
 
 <script lang="ts">
+    import _ from "lodash"
     import { IconArrowRight } from "$lib/svgs"
     import { Meta, Banner, CheckerItem, Link } from "$lib/components"
     import BioCard from "./_BioCard.svelte"
+    import { AccordionGroup } from "renderless-svelte"
 
     export let page: any
     const { banner, normalEmployees, emphasizedEmployees, footer } = page.template.teamFields
-
-    console.log({ page })
 </script>
 
 <Meta title={page.title} seo={page.seo} />
 
-<Banner smallTitle {...banner} />
+<Banner {...banner} />
 
-{#each emphasizedEmployees.map(normalizeEmployee) as { name, bio, position, image }, index}
+{#each emphasizedEmployees.map(normalizeEmployee) as { name, bio, position, image, quote }, index}
     <CheckerItem
         title={name}
-        {image}
+        image={{ ...image, caption: quote }}
         subheading={position}
         contentHtml={bio}
         expandContent
@@ -79,13 +79,19 @@
 {/each}
 
 <div class="flex justify-center mx-auto">
-    <section class="grid grid-custom gap-6 sm:mx-9 lg:mt-18 mt-24 mx-5 max-w-5xl">
-        {#each normalEmployees.map(normalizeEmployee) as employee}
-            <div>
-                <BioCard {...employee} />
-            </div>
-        {/each}
-    </section>
+    <AccordionGroup>
+        <section class="gap-6 sm:mx-9 lg:mt-18 flex flex-col mt-24 mx-5 max-w-5xl">
+            {#each _.chunk(normalEmployees.map(normalizeEmployee), 3) as employees}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                    {#each employees as employee}
+                        <div>
+                            <BioCard {...employee} />
+                        </div>
+                    {/each}
+                </div>
+            {/each}
+        </section>
+    </AccordionGroup>
 </div>
 
 <div class="space-x-5 flex items-center justify-center mt-8 mb-24 text-lg">

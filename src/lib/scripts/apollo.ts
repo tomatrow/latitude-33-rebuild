@@ -35,7 +35,16 @@ class Client {
         return new ApolloClient({
             link: authLink.concat(httpLink),
             credentials: "include",
-            cache: new InMemoryCache()
+            cache: new InMemoryCache({
+                typePolicies: {
+                    Airport_Locationpostfields: {
+                        merge: false
+                    },
+                    Airport_Airportfields: {
+                        merge: false
+                    }
+                }
+            })
         })
     }
 }

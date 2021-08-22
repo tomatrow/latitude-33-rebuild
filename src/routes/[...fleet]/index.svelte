@@ -35,6 +35,7 @@
                 fleet(first: 500) {
                     edges {
                         node {
+                            id
                             title
                             href: uri
                             aircraftFields {

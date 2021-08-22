@@ -10,7 +10,17 @@ export const ResourcesPsuedoFragment = graphql`
             }
         }
     }
-    
+
+    destinations(first: 500) {
+        edges {
+            node {
+                __typename
+                id
+                href: uri
+            }
+        }
+    }
+
     fleet(first: 500) {
         edges {
             node {

@@ -3,6 +3,7 @@
     import { Link, Button, EmbeddedVideoModal } from "$lib/components"
     import { cssVars } from "$lib/actions/styles"
     import { openModal } from "$lib/components/ModalProvider.svelte"
+    import { dev } from "$app/env"
 
     export let brandName: string
     export let title: string
@@ -11,10 +12,7 @@
     export let backgroundImage: AcfImage
 </script>
 
-<section
-    class="hero flex items-center justify-center"
-    use:cssVars={{ bg: `url(${backgroundImage.src})` }}
->
+<section class="hero relative flex items-center justify-center">
     <div
         class="font-display max-w-screen-xl flex items-center justify-center px-8 w-full text-white"
     >
@@ -32,15 +30,40 @@
                 {...pageLink}
             />
         </div>
-        <Button
-            class="hidden md:block w-1/2"
-            on:click={() =>
-                openModal(EmbeddedVideoModal, {
-                    title: "youtube",
-                    src: `https://www.youtube.com/embed/${youtubeId}?autoplay=1`
-                })}
+    </div>
+    <div class="z-[-1] absolute inset-0">
+        <video
+            autoplay
+            loop
+            muted
+            playsinline
+            class="z-0 w-full h-full object-cover"
+            poster="/videos/hero-poster.webp"
         >
-            <img class="w-14 h-14 mx-auto p-2" alt="play button" src="/icons/play.png" />
-        </Button>
+            {#if !dev}
+                <source
+                    src="/videos/hero-mobile-v9.webm"
+                    type="video/webm"
+                    media="all and (max-width: 640px)"
+                />
+                <source
+                    src="/videos/hero-mobile-v8.webm"
+                    type="video/webm"
+                    media="all and (max-width: 640px)"
+                />
+                <source
+                    src="/videos/hero-mobile.mp4"
+                    type="video/mp4"
+                    media="all and (max-width: 640px)"
+                />
+                <source src="/videos/hero-desktop-v9.webm" type="video/webm" />
+                <source src="/videos/hero-desktop-v8.webm" type="video/webm" />
+                <source src="/videos/hero-desktop.mp4" type="video/mp4" />
+            {/if}
+        </video>
+        <div
+            class="absolute inset-0 z-10 bg-cover bg-no-repeat"
+            style="background-image: linear-gradient(180deg, rgba(16, 16, 16, 0.44), rgba(16, 16, 16, 0.44))"
+        />
     </div>
 </section>

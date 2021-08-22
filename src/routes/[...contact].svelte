@@ -31,11 +31,12 @@
     import reporter from "@felte/reporter-cvapi"
     import { object, string, size } from "superstruct"
     import { fieldDefaults } from "$lib/components/Field.svelte"
-    import { Meta, Button, Link, Field } from "$lib/components"
-    import { Envelope, Phone, IconArrowRight } from "$lib/svgs"
+    import { Meta, Button, Link, Field, Banner } from "$lib/components"
+    import { IconArrowRight } from "$lib/svgs"
     import { icons } from "$lib/data/social"
     import { stripPhone, splitChoices } from "$lib/scripts/utility"
 
+    let submitted = false
     const { form } = createForm({
         extend: [createValidator(() => "Enter a value"), reporter],
         validateStruct: object({
@@ -44,71 +45,75 @@
             phone: size(string(), 1, Infinity),
             service_requested: size(string(), 1, Infinity)
         }),
-        onSubmit() {}
+        onSubmit() {
+            submitted = true
+        }
     })
 
-    export let page
-    const { id, slug, title, template } = page
+    export let page: any
+    const { title, template } = page
 
     const fields = template.contactPageFields.form.contactFormFields
+    // todo: make these non static
+    const submissionMessage = "Thank You!"
+    const backgroundImage = {
+        src: "/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg"
+    }
 </script>
 
 <Meta title={page.title} seo={page.seo} />
 
-<div class="banner mb-12 py-32">
-    <div class="space-y-6 max-w-screen-2xl mx-auto px-6">
-        <h5 class="font-display text-white font-extrabold text-sm">
-            {template.contactPageFields.subHeading}
-        </h5>
-        <h1 class="font-display max-w-xl text-white font-black text-5xl">{title}</h1>
-    </div>
-</div>
+<Banner {title} subheading={template.contactPageFields.subHeading} {backgroundImage} />
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-6 my-12 px-6">
-    <form
-        use:form
-        id="contact_page_form"
-        class="space-y-3 mx-auto w-full max-w-lg"
-        on:submit|preventDefault
-    >
-        <Field {...fieldDefaults.text} name="name">{fields.form.nameLabel}</Field>
-        <Field {...fieldDefaults.text} type="email" name="email">{fields.form.emailLabel}</Field>
-        <Field {...fieldDefaults.text} type="tel" name="phone">{fields.form.phoneLabel}</Field>
-        <Field {...fieldDefaults.select} type="select" name="service_requested">
-            {fields.form.servicesLabel}
-            <svelte:fragment slot="options">
-                <option>Select One</option>
-                {#each splitChoices(fields.form.serviceChoices) as value}
-                    <option {value}>{value}</option>
-                {/each}
-            </svelte:fragment>
-        </Field>
-        <Button
-            ease
-            blob
-            shadow
-            color="either-gray-blue"
-            filled
-            class="py-2 px-4 text"
-            type="submit">Submit</Button
+    {#if submitted}
+        <div class="m-auto text-2xl">{submissionMessage}</div>
+    {:else}
+        <form
+            use:form
+            id="contact_page_form"
+            class="space-y-3 mx-auto w-full max-w-lg"
+            on:submit|preventDefault
         >
-    </form>
+            <Field {...fieldDefaults.text} name="name">{fields.form.nameLabel}</Field>
+            <Field {...fieldDefaults.text} type="email" name="email">{fields.form.emailLabel}</Field
+            >
+            <Field {...fieldDefaults.text} type="tel" name="phone">{fields.form.phoneLabel}</Field>
+            <Field {...fieldDefaults.select} type="select" name="service_requested">
+                {fields.form.servicesLabel}
+                <svelte:fragment slot="options">
+                    {#each splitChoices(fields.form.serviceChoices) as value}
+                        <option {value}>{value}</option>
+                    {/each}
+                </svelte:fragment>
+            </Field>
+            <Button
+                ease
+                blob
+                shadow
+                color="a-stormy-morning"
+                filled
+                class="py-2 px-4 text"
+                type="submit">Submit</Button
+            >
+        </form>
+    {/if}
     <div class="flex items-center justify-center">
-        <section class="bg-either-gray-blue w-96 rounded-md space-y-2 flex flex-col p-2 text-white">
-            <h4 class="font-display font-bold text-lg">{fields.sidebar.title}</h4>
+        <section class="bg-either-gray-blue w-96 rounded-md space-y-2 flex flex-col p-6 text-white">
+            <h4 class="font-display text-lg">{fields.sidebar.title}</h4>
             <p class="airy-copy">
                 {fields.sidebar.blurb}
             </p>
 
             <Link
                 href={fields.sidebar.bookingLink.href}
-                class="arrow-link font-display flex items-center font-bold text-lg"
+                class="arrow-link font-display flex items-center text-lg"
             >
                 {fields.sidebar.bookingLink.title}
                 <IconArrowRight class="arrow-right transition duration-200 w-4 h-4" />
             </Link>
 
-            <h4 class="font-display font-bold text-lg" style="margin-top: 3rem">
+            <h4 class="font-display text-lg" style="margin-top: 3rem">
                 {fields.sidebar.address.title}
             </h4>
             <div class="airy-copy whitespace-pre-line">
@@ -116,18 +121,14 @@
             </div>
 
             {#each [fields.sidebar.email1, fields.sidebar.email2] as email}
-                <Link class="flex items-center font-black text-lg" href="mailto:{email}"
-                    ><Envelope class="mr-4 w-6 h-6" />{email}</Link
-                >
+                <Link class="flex items-center text-lg" href="mailto:{email}">{email}</Link>
             {/each}
-            <Link
-                class="flex items-center font-black text-lg"
-                href="tel:{stripPhone(fields.sidebar.phone)}"
-                ><Phone class="mr-4 w-6 h-6" />{fields.sidebar.phone}</Link
+            <Link class="flex items-center text-lg" href="tel:{stripPhone(fields.sidebar.phone)}"
+                >{fields.sidebar.phone}</Link
             >
 
             {#if fields.sidebar.socialMedia.visibility === "show"}
-                <h4 class="font-display font-bold text-lg" style="margin-top: 3rem">
+                <h4 class="font-display text-lg" style="margin-top: 3rem">
                     {fields.sidebar.socialMedia.heading}
                 </h4>
                 <div class="space-x-2 flex">
@@ -154,12 +155,12 @@
 </div>
 
 <style>
-    .banner {
+    /* .banner {
         background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
             url(/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg);
         background-position: 0px 0px, 50% 76%;
         background-size: auto, cover;
-    }
+    } */
     :global(.arrow-link:hover .arrow-right) {
         transform: translateX(6px);
     }

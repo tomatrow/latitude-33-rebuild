@@ -20,26 +20,26 @@
 <div
     class={clazz}
     use:classes={[
+        "py-6",
         invert
             ? `bg-${bgColor} sm:bg-white lg:bg-${bgColor}`
-            : `bg-white sm:bg-${bgColor} lg:bg-white`,
-        "lg:py-18 py-8 sm:py-12"
+            : `bg-white sm:bg-${bgColor} lg:bg-white`
     ]}
 >
     <div
         class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-5 mx-5 sm:mx-auto h-full sm:max-w-lg"
-        use:classes={expand ? "lg:py-24" : "lg:py-4"}
+        use:classes={expand ? "lg:py-18" : "lg:py-4"}
     >
         <div class="space-y-3 font-display sm:col-span-full mt-auto sm:text-center">
-            <h3 class="{textColor} font-display text-3.5xl lg:mt-auto sm:text-center font-black">
+            <h3 class="{textColor} font-display lg:mt-auto sm:text-center font-semibold text-2xl">
                 {title}
             </h3>
             {#if subheading}
                 <h5
-                    class="font-extrabold text-sm"
+                    class="text-sm"
                     use:classes={invert
-                        ? "text-white sm:text-either-gray-blue lg:text-white"
-                        : "text-either-gray-blue sm:text-white lg:text-either-gray-blue"}
+                        ? "text-white sm:text-a-stormy-morning lg:text-white"
+                        : "text-a-stormy-morning sm:text-white lg:text-a-stormy-morning"}
                 >
                     {subheading}
                 </h5>
@@ -57,7 +57,7 @@
         {/if}
         <div
             use:classes={icon ? "sm:col-start-2 sm:col-span-4 lg:py-18" : "col-span-full"}
-            class="{textColor} injected-content font-thin text-lg"
+            class="{textColor} injected-content lg:px-4 font-thin text-lg"
         >
             {@html contentHtml}
         </div>

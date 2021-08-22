@@ -5,6 +5,8 @@
 
     let clazz = ""
     export { clazz as class }
+
+    // todo: make editable
 </script>
 
 <nav class="{clazz} flex items-center flex-col sm:flex-row justify-between" {style}>
@@ -21,7 +23,7 @@
         sveltekit:prefetch
         class="space-x-10 flex items-center py-4 px-5 border border-white"
     >
-        <span class="font-display text-white font-black text-xl">Range Finder</span>
+        <span class="font-display text-white text-xl">Range Map</span>
         <img class="h-14 filter brightness-200" src="/icons/blue-plane.png" alt="toy plane" />
     </Link>
 </nav>

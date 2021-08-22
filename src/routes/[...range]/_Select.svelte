@@ -1,41 +1,41 @@
 <script lang="ts">
     import { prefetch } from "$app/navigation"
     import { onMount } from "svelte"
-    import { ChevronDown } from "$lib/svgs"
     import { Link, Arrow } from "$lib/components"
     import { delay } from "$lib/scripts/utility"
+    import { slide } from "svelte/transition"
 
-    export let label: string
+    export let detailsText: string
     export let value: { href: string }
     let ready = false
+
+    let clazz = ""
+    export { clazz as class }
 
     onMount(async () => {
         await delay(100)
         ready = true // the initial value is auto selected, so we wait to prefetch
     })
 
-    $: if (ready && value) {
+    $: if (ready && value?.href) {
         prefetch(value.href).then(() => {
             console.log("fetched", value.href)
         })
     }
 </script>
 
-<!-- svelte-ignore a11y-label-has-associated-control -->
-<label class="space-y-1">
-    <h5 class="font-display text-either-gray-blue flex-grow font-bold text-xl">
-        {label}
-    </h5>
-    <div class="space-x-4 border-either-gray-blue flex items-center p-2 border-2">
-        <select class="text-either-gray-blue font-semibold appearance-none" bind:value>
+<div class="{clazz} space-y-1">
+    <div>
+        <select class="text-a-stormy-morning p-2 pr-8 font-light appearance-none" bind:value>
             <slot />
         </select>
-        <ChevronDown class="w-auto h-4" />
     </div>
-    {#if value}
-        <Link class="space-x-2 flex items-center self-start" href={value.href}>
-            <span class="font-semibold">View More Info</span>
-            <Arrow class="inline w-4 h-4" />
-        </Link>
+    {#if value?.href}
+        <div transition:slide>
+            <Link target="_blank" class="gap-x-2 flex items-center self-start" href={value.href}>
+                <span class="font-light">{detailsText}</span>
+                <Arrow class="inline w-4 h-4" />
+            </Link>
+        </div>
     {/if}
-</label>
+</div>

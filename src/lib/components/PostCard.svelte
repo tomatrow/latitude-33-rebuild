@@ -23,9 +23,9 @@
         aria-label={title}
         class="rounded-2xl relative block mb-4 h-full {layered
             ? ''
-            : 'transition duration-200 ease-in-out transform sm:hover:-translate-y-3 '}"
+            : 'transition duration-200 ease-in-out transform sm:hover:-translate-y-3  '}"
     >
-        {#if postFields.class.postClassFields.isMedia && !layered}
+        {#if postFields.class?.postClassFields.isMedia && !layered}
             <YouTube
                 class="transition-none stroke-0 bg-opacity-10 h-1/6 absolute inset-0 m-auto z-10 w-1/6 rounded-lg bg-black text-white fill-current"
             />
@@ -45,7 +45,11 @@
         >
             <PostInfo {dateGmt} {postFields} />
             <Link {href} class={layered ? "mb-7" : "mt-7"}>
-                <h3 class="text-tinted-rear-windowfont-display font-bold text-2xl">{title}</h3>
+                <h3
+                    class="text-tinted-rear-window font-display min-h-16 sm:min-h-auto sm:h-16 font-light text-2xl"
+                >
+                    {title}
+                </h3>
             </Link>
         </div>
     </div>

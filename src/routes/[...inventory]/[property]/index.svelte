@@ -125,9 +125,10 @@
     export let property: any
     export let acfOptionsProperties: any
 
-    const { bannerSection, overviewSection, detailsSection, filesSection } = acfOptionsProperties.propertyOptions
+    const { bannerSection, overviewSection, detailsSection, filesSection } =
+        acfOptionsProperties.propertyOptions
     const { info, stats, details, media, files } = property.propertyFields
-    
+
     const linkProps = {
         blob: true,
         filled: true,
@@ -142,15 +143,19 @@
 <Meta title={property.title} seo={property.seo} />
 
 <Banner title={info.name} contentHtml={info.descriptionHtml} backgroundImage={info.featuredImage}>
-    <Link class="inline-block mr-4 py-2 px-4" href="#details" {...linkProps}>{bannerSection.detailsLinkLabel}</Link>
-    <Link class="inline-block py-2 px-4" href="#gallery" {...linkProps}>{bannerSection.galleryLinkLabel}</Link>
+    <Link class="inline-block mr-4 py-2 px-4" href="#details" {...linkProps}
+        >{bannerSection.detailsLinkLabel}</Link
+    >
+    <Link class="inline-block py-2 px-4" href="#gallery" {...linkProps}
+        >{bannerSection.galleryLinkLabel}</Link
+    >
 </Banner>
 
 <Overview {stats} {...overviewSection} />
 
 <Details {details} {...media} {...detailsSection} engines={info.engines}>
     <div slot="accordionFooter" class="space-x-4 flex">
-        <ModalButtons {...{...media, ...detailsSection.modalButtonLabels}} />
+        <ModalButtons {...{ ...media, ...detailsSection.modalButtonLabels }} />
     </div>
 </Details>
 

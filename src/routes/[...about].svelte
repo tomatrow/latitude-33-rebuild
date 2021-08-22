@@ -37,8 +37,7 @@
 </script>
 
 <script lang="ts">
-    import { Button, EmbeddedVideoModal, Meta, Banner } from "$lib/components"
-    import { openModal } from "$lib/components/ModalProvider.svelte"
+    import { Meta, Banner } from "$lib/components"
 
     export let page: any
 
@@ -47,31 +46,21 @@
 
 <Meta title={page.title} seo={page.seo} />
 
-<Banner {...banner}>
-    <Button
-        aria-label="open vimeo video modal"
-        filled
-        color="white"
-        class="flex items-center flex-col sm:flex-row mx-auto sm:mx-0 rounded-lg"
-        on:click={() =>
-            openModal(EmbeddedVideoModal, {
-                title: "vimeo",
-                src: `https://player.vimeo.com/video/${vimeo.vimeoId}?autoplay=1&title=0&byline=0&portrait=0`
-            })}
-    >
-        <div class="relative flex items-center justify-center">
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <img
-                class="sm:w-36 w-full rounded-t-lg sm:rounded-l-lg sm:rounded-tr-none object-cover"
-                {...vimeo.previewImage}
-            />
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <img
-                class="transform hover:scale-125 transition-transform duration-200 absolute w-12 h-12"
-                src="/icons/play.png"
-                alt="play icon"
-            />
+<div class="relative">
+    <Banner class="" {...banner}>
+        <div class="lg:absolute lg:inset-0 flex items-center justify-end pointer-events-none">
+            <div class="w-full lg:w-5/12 xl:w-1/2">
+                <div class="aspect-w-16 aspect-h-9 mr-4 ml-auto w-full rounded bg-black">
+                    <iframe
+                        title="Vimeo"
+                        src={`https://player.vimeo.com/video/${vimeo.vimeoId}?autoplay=0&title=0&byline=0&portrait=false&transparent=true&pip=true`}
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        class="pointer-events-auto"
+                    />
+                </div>
+            </div>
         </div>
-        <div class="text-tinted-rear-window p-6 sm:py-0 font-bold text-sm">{vimeo.title}</div>
-    </Button>
-</Banner>
+    </Banner>
+</div>

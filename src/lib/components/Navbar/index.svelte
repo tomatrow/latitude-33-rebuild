@@ -3,6 +3,7 @@
     import { session } from "$app/stores"
     import Link from "$lib/components/Link.svelte"
     import { MobileMenu, Menu } from "$lib/svelte-stripe-menu"
+    import Colors from "$lib/data/colors"
 
     export let height = "6.25rem"
     let active: boolean
@@ -67,7 +68,7 @@
         {...attributes}
     >
         <Link
-            line
+            line={{ color: Colors["ripe-blueberry-indentation"] }}
             href={item.url}
             style="line-height: 1.4rem"
             class="text-ripe-blueberry-indentation hover:text-ripe-blueberry-indentation"
@@ -76,27 +77,41 @@
         </Link>
     </div>
 
-    <MobileMenu slot="after-nav" bind:active>
-        <div class="divide-a-taste-of-blueberries divide-y-2 bg-sadly-not-white flex flex-col px-5">
-            {#each menu as { label, target, url, childItems }}
-                <div class="p-6" class:space-y-4={childItems.length}>
-                    <Link sveltekit:prefetch class="font-black text-lg" {target} href={url}
-                        >{label}</Link
-                    >
-                    <div class="grid gap-2 grind-cols-1 sm:grid-cols-2 pl-2">
-                        {#each childItems as { label, target, url }}
-                            <Link
-                                sveltekit:prefetch
-                                class="text-dark-charcoal font-bold"
-                                {target}
-                                href={url}>{label}</Link
-                            >
-                        {/each}
+    <span slot="after-nav">
+        <MobileMenu bind:active>
+            <div
+                class="divide-a-taste-of-blueberries divide-y-2 bg-sadly-not-white flex flex-col px-5"
+            >
+                {#each menu as { label, target, url, childItems }}
+                    <div class="p-6" class:space-y-4={childItems.length}>
+                        <Link sveltekit:prefetch class="font-black text-lg" {target} href={url}
+                            >{label}</Link
+                        >
+                        <div class="grid gap-2 grind-cols-1 sm:grid-cols-2 pl-2">
+                            {#each childItems as { label, target, url }}
+                                <Link
+                                    sveltekit:prefetch
+                                    class="text-dark-charcoal font-bold"
+                                    {target}
+                                    href={url}>{label}</Link
+                                >
+                            {/each}
+                        </div>
                     </div>
-                </div>
-            {/each}
-        </div>
-    </MobileMenu>
+                {/each}
+            </div>
+        </MobileMenu>
+        <Link
+            ease
+            shadow
+            blob
+            filled
+            sveltekit:prefetch
+            color="ripe-blueberry-indentaion"
+            class="full-nav:block hidden p-2 text-center text-sm"
+            href="/contact">Request a Quote</Link
+        >
+    </span>
 </Menu>
 
 <style global lang="postcss">
@@ -109,8 +124,8 @@
     }
 
     :root {
-        --vsm-mob-hamburger-color: white;
-        --vsm-mob-hamburger-color-hover: rgba(255, 255, 255, 0.75);
+        --vsm-mob-hamburger-color: theme("colors.dark-charcoal");
+        --vsm-mob-hamburger-color-hover: theme("colors.deep-post-blue");
         --vsm-mob-close-color: theme("colors.dark-charcoal");
         --vsm-mob-close-color-hover: theme("colors.dark-charcoal");
         --vsm-mob-dropdown-offset: 0;

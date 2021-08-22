@@ -14,7 +14,7 @@
     <div
         class="py-9 rounded-3xl lg:justify-self-end md:px-14 md:py-24 px-6 max-w-xl border border-white"
     >
-        <h5 class="font-display font-bold text-xl">{socialProofSummary.title}</h5>
+        <h5 class="font-display font-semibold text-xl">{socialProofSummary.title}</h5>
         <div class="font-display" style="font-size: 3.375rem">{socialProofSummary.rating}</div>
         <p class="mb-4">{socialProofSummary.blurb}</p>
         <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row">
@@ -28,7 +28,7 @@
     </div>
 
     <div class="lg:justify-self-start max-w-lg">
-        <h4 class="font-display leading-9 text-3.5xl font-black">{testimonialProof.title}</h4>
+        <h4 class="font-display leading-9 text-3.5xl font-bold">{testimonialProof.title}</h4>
         <p>{testimonialProof.blurb}</p>
         <div
             class="border-the-girl-is-looking-at-the-sky rounded-xl mt-11 relative p-6 pt-12 border bg-white"
@@ -41,7 +41,7 @@
             <p class="text-tinted-rear-window text-xl">
                 {testimonialProof.proof.testimonialPostFields.quote}
             </p>
-            <div class="mt-4 text-black text-sm">
+            <div class="text-bold mt-4 text-sm">
                 {testimonialProof.proof.testimonialPostFields.name}, {testimonialProof.proof
                     .testimonialPostFields.position}
             </div>

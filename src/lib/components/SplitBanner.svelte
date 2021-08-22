@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { Link, Arrow } from "$lib/components"
+    import Link from "$lib/components/Link.svelte"
+    import Arrow from "$lib/components/Arrow.svelte"
     import Colors from "$lib/data/colors"
     import type { AcfImage } from "$lib/index.type"
-    
-    export let title: string 
+
+    export let title: string
     export let contentHtml: string
-    export let dealsLinkLabel: string
     export let image: AcfImage
 </script>
 
@@ -21,13 +21,6 @@
         >
             {@html contentHtml}
         </div>
-
-        <Link
-            class="space-x-4 flex items-center my-4 text-black font-light text-xl"
-            arrow="sarcastic-orange"
-            href="#deals"
-            >{dealsLinkLabel}<Arrow class="text-sarcastic-orange ml-2 w-4 h-4" /></Link
-        >
     </div>
 
     <!-- svelte-ignore a11y-missing-attribute -->

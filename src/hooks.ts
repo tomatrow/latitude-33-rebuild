@@ -1,4 +1,4 @@
-import type { Handle, GetSession, Request, Response } from "@sveltejs/kit"
+import type { Handle, GetSession, Request, Response, HandleError } from "@sveltejs/kit"
 import UrlPattern from "url-pattern"
 import { ResourcesPsuedoFragment } from "$lib/queries/resources"
 import { MenuItemFragment, MenuFragment, MenusPsuedoFragment } from "$lib/queries/menus"
@@ -96,8 +96,35 @@ function injectionMiddleware(request: Request, response: Response) {
         .replace("%wordpress.footer%", footer ?? "")
 }
 
+export function urlFromLocation(request: Request) {
+    const url = new URL(request.host)
+    url.pathname = request.path
+    url.search = request.query.toString()
+    return url
+}
+
+function hostProxyMiddleware(request: Request) {
+    if (request.path.startsWith("/wp-json")) {
+        const url = urlFromLocation(request)
+        url.host = process.env["BACKEND_HOST"]
+
+        return {
+            status: 302,
+            headers: {
+                location: url.toString()
+            }
+        }
+    }
+}
+
 export const handle: Handle = async ({ request, resolve }) => {
     console.log("A request for " + request.path)
+
+    const proxy = hostProxyMiddleware(request)
+    if (proxy) {
+        console.log({ proxy })
+        return proxy
+    }
 
     await coreQueryMiddleware(request)
 
@@ -109,6 +136,10 @@ export const handle: Handle = async ({ request, resolve }) => {
     injectionMiddleware(request, response)
 
     return response
+}
+
+export const handleError: HandleError = ({ error }) => {
+    console.error(error.stack)
 }
 
 export const getSession: GetSession = async ({ locals }) => {
@@ -127,7 +158,8 @@ export const getSession: GetSession = async ({ locals }) => {
         categories,
         tags,
         classes,
-        pages
+        pages,
+        destinations
     } = coreGraph
 
     function formatMenu(menu) {
@@ -158,19 +190,22 @@ export const getSession: GetSession = async ({ locals }) => {
     return {
         resources: Object.fromEntries(
             [
-                ...smoothEdges(posts),
-                ...smoothEdges(pages),
-                ...smoothEdges(fleet),
-                ...smoothEdges(subfleets),
-                ...smoothEdges(properties),
-                ...smoothEdges(airports),
-                ...smoothEdges(classes),
-                ...smoothEdges(categories),
-                ...smoothEdges(tags)
-            ].map(
-                // @ts-ignore
-                resource => [normalizePath(resource.href), resource]
-            )
+                posts,
+                pages,
+                fleet,
+                subfleets,
+                properties,
+                airports,
+                classes,
+                categories,
+                tags,
+                destinations
+            ]
+                .flatMap(smoothEdges)
+                .map(
+                    // @ts-ignore
+                    resource => [normalizePath(resource.href), resource]
+                )
         ),
         // @ts-expect-error
         postsPage: smoothEdges(pages).find(page => page.isPostsPage),

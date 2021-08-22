@@ -7,7 +7,7 @@
     export let ctaBar: any
     export let gridLinkLabel: string
     export let noResultsLabel: string
-    export let landingsLabel: string 
+    export let landingsLabel: string
     export let ttafLabel: string
 
     function filter(filterSettings: any, items: any[]) {
@@ -34,7 +34,6 @@
         <NumberFieldset name="ttaf">{ttafLabel}</NumberFieldset>
     </svelte:fragment>
 
-    <CtaBar {...ctaBar} on:click={show} />
     <CollectionGrid items={filtered}>
         <div
             class="sm:py-18 font-display py-8 px-5 text-black text-center font-bold text-2xl"
@@ -43,4 +42,5 @@
             {noResultsLabel}
         </div>
     </CollectionGrid>
+    <CtaBar {...ctaBar} on:click={show} />
 </Filter>

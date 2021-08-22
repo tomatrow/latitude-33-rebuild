@@ -34,7 +34,7 @@
             pill && "rounded-full",
             hollow && "border-white border",
             filled && `bg-${color} text-white`,
-            border && `border-${color} border-2`,
+            border && `border-${color} border`,
             "font-display"
         ]
             .filter(Boolean)

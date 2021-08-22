@@ -4,20 +4,21 @@
     import { graphql } from "$lib/scripts/apollo"
     import { options, createTaxonomyPsuedoFragment, PostFragment } from "./_common"
 
-    export const load = loadResource(({ __typename }) => {
-        let plural: string 
-        switch (__typename) {
-            case ResourceTypes.Tag:
-                plural = "tags"
-                break
-            case ResourceTypes.Category:
-                plural = "categories"
-                break            
-            case ResourceTypes.Class:
-                plural = "classes"
-                break
-        }
-        return graphql`
+    export const load = loadResource(
+        ({ __typename }) => {
+            let plural: string
+            switch (__typename) {
+                case ResourceTypes.Tag:
+                    plural = "tags"
+                    break
+                case ResourceTypes.Category:
+                    plural = "categories"
+                    break
+                case ResourceTypes.Class:
+                    plural = "classes"
+                    break
+            }
+            return graphql`
             query ${__typename}TaxonomyQuery($id: ID!) {
                 ${options}
                 taxonomy: ${__typename.toLowerCase()}(id: $id) {
@@ -37,10 +38,12 @@
             ${MediaItemFragment}
             ${PostFragment}
         `
-    }, ({ __typename }) =>  {
-        const taxonomies = [ResourceTypes.Tag, ResourceTypes.Class, ResourceTypes.Category]
-        return taxonomies.includes(__typename as ResourceTypes)
-    })
+        },
+        ({ __typename }) => {
+            const taxonomies = [ResourceTypes.Tag, ResourceTypes.Class, ResourceTypes.Category]
+            return taxonomies.includes(__typename as ResourceTypes)
+        }
+    )
 </script>
 
 <script lang="ts">
@@ -50,7 +53,7 @@
     import TaxonomyNav from "./_TaxonomyNav.svelte"
 
     export let acfOptionsTaxonomies: any
-    export let others : any
+    export let others: any
     export let taxonomy: any
 </script>
 
@@ -58,13 +61,23 @@
 
 <div class="flex items-center px-4">
     {#if $session.postsPage}
-        <Link sveltekit:prefetch shadow pill ease filled border color="either-gray-blue" class="px-4 py-2 font-extrabold" href={$session.postsPage.href}>{acfOptionsTaxonomies.postsTaxonomyFields.allPostsLabel}</Link>
+        <Link
+            sveltekit:prefetch
+            shadow
+            pill
+            ease
+            filled
+            border
+            color="either-gray-blue"
+            class="py-2 px-4 font-extrabold"
+            href={$session.postsPage.href}
+            >{acfOptionsTaxonomies.postsTaxonomyFields.allPostsLabel}</Link
+        >
     {/if}
-    
+
     <TaxonomyNav taxonomies={others} class="m-6" />
 </div>
 
 {#key taxonomy.posts}
     <Body posts={taxonomy.posts} {others} {...acfOptionsTaxonomies.postsTaxonomyFields} />
 {/key}
- 

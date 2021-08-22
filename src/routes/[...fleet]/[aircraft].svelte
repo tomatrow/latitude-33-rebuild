@@ -26,13 +26,25 @@
 
 <script lang="ts">
     import _ from "lodash"
-    import { Link, Meta, CheckerItem, TestimonialExpose, Anchor } from "$lib/components"
+    import {
+        Link,
+        Meta,
+        CheckerItem,
+        TestimonialExpose,
+        Anchor,
+        CtaBar,
+        GalleryCarousel,
+        Button
+    } from "$lib/components"
     import { ChevronRight } from "$lib/svgs"
-    import { cssVars } from "$lib/actions/styles"
+    import { cssVars, classes } from "$lib/actions/styles"
     import Stat from "./_Stat.svelte"
+    import { slideDiag } from "$lib/transitions"
+    import { preloadImage } from "$lib/scripts/utility"
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
+    let showGallery = false
 
     const features = _.zip(
         [
@@ -42,21 +54,21 @@
         ],
         [
             {
-                title: "Interior",
+                title: aircraft.title + " Interior",
                 icon: {
                     src: "/icons/blue-chair.png",
                     alt: "blue chair icon"
                 }
             },
             {
-                title: "Amenities",
+                title: aircraft.title + " Amenities",
                 icon: {
                     src: "/icons/blue-tv.png",
                     alt: "blue tv icon"
                 }
             },
             {
-                title: "Avionics",
+                title: aircraft.title + " Avionics",
                 icon: {
                     src: "/icons/blue-jet.png",
                     alt: "blue jet icon"
@@ -74,12 +86,17 @@
     function idify(key: string) {
         return _.kebabCase(key)
     }
+
+    function preloadFirstImage() {
+        const src = aircraft.aircraftFields.gallery[0]?.src
+        if (src) preloadImage(src)
+    }
 </script>
 
 <Meta title={aircraft.title} seo={aircraft.seo} />
 
 <div
-    class="stats sm:bg-either-gray-blue sm:pb-44 sm:pt-8 sm:pl-5 bg-black bg-white sm:bg-center sm:bg-cover sm:bg-no-repeat"
+    class="stats sm:bg-a-stormy-morning sm:pt-8 sm:pb-24 sm:pl-5 bg-white sm:bg-center sm:bg-cover sm:bg-no-repeat"
     use:cssVars={{
         bg: featuredImage ? `url(${featuredImage.src})` : ""
     }}
@@ -90,9 +107,9 @@
     {/if}
 
     <section
-        class="bg-opacity-70 sm:rounded-xl sm:px-9 relative sm:p-0 py-6 sm:py-16 px-5 sm:max-w-sm bg-white"
+        class="bg-opacity-70 sm:rounded-xl sm:px-9 transition-all duration-200 relative sm:p-0 py-6 sm:py-16 px-5 sm:max-w-sm bg-white"
     >
-        <h1 class="font-display text-3.5xl leading-9 w-3/4 text-black font-black">
+        <h1 class="font-display text-3.5xl leading-9 font-extralight w-3/4 text-black">
             {aircraft.title}
         </h1>
 
@@ -102,6 +119,8 @@
         <Stat label="Baggage Capacity"
             >{aircraft.aircraftFields.stats.baggageCapacity} FT<sup>3</sup></Stat
         >
+        <!-- todo: use real stat -->
+        <Stat label="WiFi">Yes</Stat>
 
         {#each features as { title }}
             <Link
@@ -111,24 +130,63 @@
                 class="feature-link flex items-center justify-between my-3 py-4 px-6 bg-white"
                 href={`#${idify(title)}`}
             >
-                <span
-                    class="font-display feature-link-title ease-in-out transition duration-200 font-black"
+                <span class="font-display feature-link-title ease-in-out transition duration-200"
                     >{title}</span
                 >
                 <ChevronRight class="ml-auto w-6 h-6" />
             </Link>
         {/each}
-        <Link raise ease pill class="bg-either-gray-blue flex my-3 py-4 px-6 text-white" href="#">
+        {#if aircraft.aircraftFields.gallery}
+            <Button
+                raise
+                ease
+                pill
+                color="a-stormy-morning"
+                filled
+                class="flex my-3 py-4 px-6 w-full text-white"
+                on:click={() => (showGallery = true)}
+                >Show Gallery <ChevronRight class="ml-auto w-6 h-6" /></Button
+            >
+        {/if}
+        <Link
+            raise
+            ease
+            pill
+            color="a-stormy-morning"
+            filled
+            class="flex my-3 py-4 px-6 text-white"
+            href="/contact"
+        >
             Book Your Flight Today
             <ChevronRight class="ml-auto w-6 h-6" />
         </Link>
     </section>
+    {#if showGallery}
+        <div
+            transition:slideDiag
+            class="h-96 sm:mt-12 mx-auto sm:mx-0 py-4 px-4 sm:px-0 max-w-xl sm:w-auto"
+        >
+            <GalleryCarousel class="h-full" gallery={aircraft.aircraftFields.gallery ?? []} />
+        </div>
+    {/if}
 </div>
 
 {#each features as item, index}
     <Anchor id={idify(item.title)} />
     <CheckerItem invert={index % 2 === 1} swap={index % 2 === 1} {...item} />
 {/each}
+
+<!-- todo: make editable  -->
+<CtaBar heading="FLY WITH LATITUDE 33" link={{ title: "Book this Aircraft", href: "/contact" }}>
+    <p class="mb-4 text-center">
+        Latitude 33 Aviation impeccably manages one of the newest and largest fleets of over 30
+        light, midsize, super-midsize, and heavy jets in North America.
+        <br />
+        With a variety of <a href="/experiences">experiences</a>
+        and <a href="/one-ways">one-way flights</a> available, Latitude 33 Aviation is sure to elevate
+        your private travels.
+    </p>
+</CtaBar>
 
 <TestimonialExpose {...acfOptionsDrillDown.fleetPostTypeFields} />
 

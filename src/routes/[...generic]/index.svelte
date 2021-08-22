@@ -34,10 +34,5 @@
 <Meta title={page.title} seo={page.seo} />
 
 {#key page}
-    <FlexibleContent
-        topFlush={false}
-        bottomFlush={false}
-        content={page.template.genericPageFields.flexibleContent}
-    />
+    <FlexibleContent content={page.template.genericPageFields.flexibleContent} />
 {/key}
-

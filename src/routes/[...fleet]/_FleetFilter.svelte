@@ -44,20 +44,22 @@
 
 <Filter {filter} items={fleet} let:filtered let:show>
     <svelte:fragment slot="fields">
+        <!-- todo: make these prefixes editable -->
         <NumberFieldset name="maxPassengers">Passenger Capacity</NumberFieldset>
         <NumberFieldset name="baggageCapacity">
             Baggage Capacity FT<sup>3</sup>
         </NumberFieldset>
     </svelte:fragment>
 
-    <CtaBar {...ctaBar} on:click={show} />
-    <Anchor id="#fleet" />
+    <Anchor id="fleet" />
     <CollectionGrid items={filtered}>
         <div
             class="sm:py-18 font-display py-8 px-5 text-black text-center font-bold text-2xl"
             slot="empty"
         >
+            <!-- todo: make this message editable -->
             We have “0” aircraft matching your filters
         </div>
     </CollectionGrid>
+    <CtaBar {...ctaBar} on:click={show} />
 </Filter>

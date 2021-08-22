@@ -5,7 +5,7 @@
 </script>
 
 <section class="py-18 space-y-18 max-w-screen-xl mx-auto px-5">
-    <h3 class="text-either-gray-blue text-center font-bol text-xl">{title}</h3>
+    <h3 class="text-either-gray-blue text-center font-light text-3xl">{title}</h3>
     <div class="grid grid-custom gap-6">
         {#each testimonies as { testimonialPostFields }}
             <TestimonialCard {...testimonialPostFields} />

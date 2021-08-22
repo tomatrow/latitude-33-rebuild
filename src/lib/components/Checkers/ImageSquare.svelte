@@ -3,12 +3,13 @@
     export let float = false
     export let full = false
     export let image: any
+    export let invert = false
 
     export { clazz as class }
     let clazz = ""
 </script>
 
-<div class="{clazz} flex items-center justify-center sm:pt-8 lg:pt-0">
+<div class="{clazz} relative flex items-center flex-col justify-center sm:pt-8 lg:pt-0">
     <!-- svelte-ignore a11y-missing-attribute -->
     <img
         class="sm:rounded-3xl sm:max-h-64 sm:max-w-[26rem] w-full lg:max-h-full sm:w-auto"
@@ -20,4 +21,11 @@
         ]}
         {...image}
     />
+    {#if image?.caption}
+        <span
+            use:classes={invert ? "text-white bg-a-stormy-morning" : "bg-white text-black"}
+            class="bg-opacity-80 max-w-[26rem] absolute sm:static right-0 bottom-0 left-0 m-2 sm:my-4 mx-auto p-2 sm:p-4 rounded text-sm"
+            >{'"'}{@html image.caption}{'"'}</span
+        >
+    {/if}
 </div>

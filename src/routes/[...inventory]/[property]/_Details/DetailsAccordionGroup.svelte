@@ -9,8 +9,8 @@
     export let engines: any[] = []
     let clazz = ""
     export { clazz as class }
-    
-    export let specsTitle: string 
+
+    export let specsTitle: string
     export let engineSpecLabels: Record<string, string>
 
     const orderedKeys = [
@@ -36,7 +36,10 @@
                                 <details class="transition">
                                     <summary>{name}</summary>
                                     <ul>
-                                        <EngineSpec label={engineSpecLabels.serialNumber} value={serialNumber} />
+                                        <EngineSpec
+                                            label={engineSpecLabels.serialNumber}
+                                            value={serialNumber}
+                                        />
                                         <EngineSpec
                                             label={engineSpecLabels.hoursSinceNew}
                                             value={numeral(hoursSinceNew).format("0,0")}

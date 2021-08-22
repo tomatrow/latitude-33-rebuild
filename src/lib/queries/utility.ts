@@ -47,6 +47,7 @@ fragment EmployeeFragment on Employee {
   employeeFields {
     bio
     position
+    quote
     image: featuredImage {
       ...MediaItemFragment
     }

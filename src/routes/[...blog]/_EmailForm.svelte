@@ -17,14 +17,14 @@
         {subheading}
     </h5>
     <h4
-        class="font-display text-3.5xl leading-9 sm:leading-12 md:text-4.5xl text-center font-black"
+        class="font-display text-2.5xl leading-9 sm:leading-12 md:text-3.5xl font-extralight max-w-2xl text-center"
     >
         {heading}
     </h4>
-    <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row w-full">
+    <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row w-full max-w-lg">
         <input
             required
-            class="transition duration-200 focus:border-opacity-100 border-opacity-20 py-5 px-6 w-full outline-none border border-black rounded text-lg"
+            class="transition duration-200 focus:border-opacity-100 border-opacity-20 py-2 px-4 w-full outline-none border border-black rounded text-lg"
             {placeholder}
             name="email"
             type="email"

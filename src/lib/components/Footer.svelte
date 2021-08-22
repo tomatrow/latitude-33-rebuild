@@ -18,13 +18,13 @@
         corporateInfo: `Latitude 33 Aviation, LLC 2006-2020 – Air Carrier Certificate #2PIA602N`
     }
     const text = {
-        class: "mt-1 text-black border border-velours-bleu text-sm py-2 px-3",
+        class: "mt-1 text-black w-full   border border-velours-bleu text-sm py-2 px-3",
         rootProps: {
             class: "flex flex-col text-base font-display"
         }
     }
     const select = {
-        class: "h-9 border border-velours-bleu text-velours-bleu ",
+        class: "h-9 border w-full  border-velours-bleu text-velours-bleu ",
         rootProps: {
             class: "flex flex-col text-base font-display"
         }
@@ -37,7 +37,6 @@
     import Link from "./Link.svelte"
     import Field from "./Field.svelte"
     import Button from "./Button.svelte"
-    import RangeFinderCta from "./RangeFinderCta.svelte"
     import { icons } from "$lib/data/social"
 
     const { brandName, brandTagLine, phone, emails, physicalAddress, corporateInfo } = footerFields
@@ -50,39 +49,40 @@
         opacity: 0.4
     }}
 >
-    <RangeFinderCta class="p-5 border-b border-white" style="margin-bottom: 4.5rem">
-        <img
-            slot="logo"
-            class="my-4 sm:my-0 h-full"
-            src="/icons/safety-certification-logos.png"
-            alt="safety certification logos from NBAA/WYVERN/ARGUS"
-        />
-    </RangeFinderCta>
-    <nav class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 px-5">
-        <Link class="col-span-full" href="/" sveltekit:prefetch>
+    <nav class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 pt-4 px-5">
+        <div class="col-span-full gap-4 flex items-center flex-col sm:flex-row justify-between">
+            <Link href="/" sveltekit:prefetch>
+                <img
+                    class="w-44 object-contain"
+                    src="/icons/latitude33-logo-white.png"
+                    alt="latitude 33 logo"
+                />
+            </Link>
             <img
-                class="w-32 object-contain"
-                src="/icons/latitude33-logo-white.png"
-                alt="latitude 33 logo"
+                class="w-auto h-full"
+                src="/icons/safety-certification-logos.png"
+                alt="safety certification logos from NBAA/WYVERN/ARGUS"
             />
-        </Link>
+        </div>
+
         <div class="font-display space-y-3 flex flex-col text-xl">
             <h6>
                 {brandTagLine}
                 <br />
                 {brandName}
             </h6>
+            <Link class="sm:space-x-2 flex flex-col sm:flex-row" href="tel:{phone}">
+                <span>Phone:</span>
+                <span>{phone}</span>
+            </Link>
             {#each emails as { email, label }}
-                <div class="space-x-2 flex">
-                    <span>{label}:</span>
+                <div class="sm:space-x-2 flex flex-col sm:flex-row">
+                    <span class="">{label}:</span>
                     <Link class="space-x-2 flex items-center" href="mailto:{email}">{email}</Link>
                 </div>
             {/each}
-            <Link class="space-x-2 flex items-center" href="tel:{phone}">
-                {phone}</Link
-            >
-            <h6 class="whitespace-pre-line">{physicalAddress}</h6>
-            <h6 class="whitespace-pre-line">{corporateInfo}</h6>
+            <h6 class="whitespace-pre-line font-light">{physicalAddress}</h6>
+            <h6 class="whitespace-pre-line font-light">{corporateInfo}</h6>
         </div>
 
         <div class="grid grid-rows-6 grid-cols-2">
@@ -93,20 +93,25 @@
             {/each}
         </div>
 
-        <form id="footer_form" class="space-y-2" on:submit|preventDefault>
+        <form
+            id="footer_form"
+            class="gap-y-2 flex items-stretch flex-col mx-auto w-full max-w-md"
+            on:submit|preventDefault
+        >
             <Field {...text} name="name">Name</Field>
             <Field {...text} type="email" name="email">Email</Field>
             <Field {...text} type="tel" name="phone">Phone</Field>
             <Field {...select} type="select" name="service_requested">
                 Services
                 <svelte:fragment slot="options">
-                    <option>Select One</option>
                     {#each ["Charter", "Management", "Sales", "Other"] as value}
                         <option {value}>{value}</option>
                     {/each}
                 </svelte:fragment>
             </Field>
-            <Button border class="py-2 px-4" type="submit">Submit</Button>
+            <Button shadow ease border class="self-center sm:self-start py-2 px-4" type="submit"
+                >Submit</Button
+            >
         </form>
     </nav>
     <nav

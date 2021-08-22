@@ -4,13 +4,18 @@ export type PrimaryColor = keyof typeof Colors
 
 export type ColorScheme = Record<string, PrimaryColor>
 
-export interface AcfImage { 
+export interface AcfImage {
     src: string
-    alt: string 
+    alt: string
 }
 
 export interface AcfLink {
-    href: string 
-    title: string 
+    href: string
+    title: string
     target: string
+}
+
+export enum VideoService {
+    youtube = "youtube",
+    vimeo = "vimeo"
 }

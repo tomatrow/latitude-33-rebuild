@@ -5,7 +5,9 @@
     import { graphql } from "$lib/scripts/apollo"
     import { options, PostFragment } from "./_common"
 
-    export const load = loadPage("Blog", graphql`
+    export const load = loadPage(
+        "Blog",
+        graphql`
         query BlogPageQuery($id: ID!, $isPreview: Boolean!) {
             page(id: $id, asPreview: $isPreview) {
                 ...PageFragment
@@ -50,7 +52,8 @@
         ${PageFragment}
         ${MediaItemFragment}
         ${PostFragment}
-    `)
+    `
+    )
 </script>
 
 <script lang="ts">
@@ -61,29 +64,34 @@
     import { ChevronDown } from "$lib/svgs"
     import TaxonomyNav from "./_TaxonomyNav.svelte"
 
-
     export let page: any
     export let acfOptionsTaxonomies: any
     export let classes: any
     export let tags: any
     export let categories: any
     export let posts: any
-    
+
     const postsPageLabel = "All"
     const missingPostsBlurb = "No posts yet!"
-    
+
     let setTab: any
 </script>
 
 <Meta title={page.title} seo={page.seo} />
 
-<div class="pt-8 flex-col m-4 min-h-[2rem]">
+<div class="min-h-[2rem] flex-col m-4 pt-8">
     <TabControl bind:setTab>
-        <div slot="tabs" let:tabs class="space-x-6 flex">        
+        <div slot="tabs" let:tabs class="space-x-6 flex">
             {#each tabs as { active, payload, select }}
-                <Button class="font-display font-black flex items-center text-either-gray-blue" on:click={() => active ?  setTab(null) : select()}>
-                    {payload} 
-                    <ChevronDown class="{active ? 'rotate-180' : ''} transition duration-400 w-6 h-6" strokeWidth={4} />
+                <Button
+                    class="font-display text-either-gray-blue flex items-center font-black"
+                    on:click={() => (active ? setTab(null) : select())}
+                >
+                    {payload}
+                    <ChevronDown
+                        class="{active ? 'rotate-180' : ''} transition duration-400 w-6 h-6"
+                        strokeWidth={4}
+                    />
                 </Button>
             {/each}
         </div>
@@ -94,17 +102,22 @@
         </TabControlItem>
         <TabControlItem id="tags" payload="Tags">
             <div transition:slide class="p-4">
-                <TaxonomyNav taxonomies={tags}  />
+                <TaxonomyNav taxonomies={tags} />
             </div>
         </TabControlItem>
         <TabControlItem id="categories" payload="Categories">
             <div transition:slide class="p-4">
-                <TaxonomyNav taxonomies={categories}  />
+                <TaxonomyNav taxonomies={categories} />
             </div>
         </TabControlItem>
     </TabControl>
 </div>
 
 {#key posts}
-    <Body {posts} {missingPostsBlurb} {postsPageLabel} {...acfOptionsTaxonomies.postsTaxonomyFields} />
+    <Body
+        {posts}
+        {missingPostsBlurb}
+        {postsPageLabel}
+        {...acfOptionsTaxonomies.postsTaxonomyFields}
+    />
 {/key}
