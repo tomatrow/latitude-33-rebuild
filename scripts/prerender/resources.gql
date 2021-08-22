@@ -6,6 +6,14 @@ query Resources {
             }
         }
     }
+    
+    destinations(first: 500) {
+        edges {
+            node {
+                uri
+            }
+        }
+    }
 
     fleet(first: 500) {
         edges {
