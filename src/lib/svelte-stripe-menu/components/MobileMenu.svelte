@@ -1,10 +1,6 @@
 <script lang="ts">
-    import { fade } from "svelte/transition"
-
     export let active = false
     let element
-    let clazz = ""
-    export { clazz as class }
 
     function toggle() {
         active = !active

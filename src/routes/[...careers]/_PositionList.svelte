@@ -25,7 +25,7 @@
 
 <section class={clazz}>
     <div class="space-y-6 my-6">
-        <h2 class="font-display sm:text-4.5xl text-white font-bold text-3xl">{title}</h2>
+        <h2 class="font-display sm:text-4.5xl text-white font-light text-3xl">{title}</h2>
         <p class="font-display text-white text-lg sm:text-xl">{subheading}</p>
     </div>
     <div class="space-y-4">

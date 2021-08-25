@@ -11,14 +11,14 @@
 </script>
 
 <section class="rounded-xl border-pre-coffee-sky-blue relative md:static border">
-    <div class="aspect-w-1 aspect-h-1">
+    <div class="aspect-w-1 aspect-h-1 rounded-t-xl overflow-hidden">
         <!-- svelte-ignore a11y-missing-attribute -->
         <img {...image} class="w-full" />
     </div>
     <Accordion>
         <div class="px-2" slot="header" let:isOpen let:toggle>
             <div class="mt-14 h-12">
-                <h5 class="font-display text-center font-bold text-lg">{name}</h5>
+                <h5 class="font-display text-center font-light text-lg">{name}</h5>
                 <h6
                     class="font-display text-tinted-rear-window tracking-px text-center font-light text-sm"
                 >

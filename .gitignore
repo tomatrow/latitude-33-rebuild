@@ -6,3 +6,4 @@ node_modules
 *.local
 /.vercel_build_output
 /scripts/prerender/pages.json
+/scripts/compression/*.webp

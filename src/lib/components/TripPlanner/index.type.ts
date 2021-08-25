@@ -1,10 +1,10 @@
-export interface TripPoint {
-    airportId: string
-    date: string
-}
-
 export interface Trip extends Record<string, any> {
-    departure: TripPoint
-    arrival: TripPoint
+    name: string
+    email: string
+    phone: string
     passengers: number
+    departureAirportId: string 
+    departureDate: string
+    arrivalAirportId: string
 }
+ 

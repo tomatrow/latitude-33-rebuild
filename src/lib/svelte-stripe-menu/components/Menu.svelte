@@ -113,7 +113,7 @@
         resizeDropdown()
     }
 
-    function closeDropdown() {
+    export function closeDropdown() {
         if (!_activeDropdown) return
 
         dispatch("close-dropdown", _activeDropdown)

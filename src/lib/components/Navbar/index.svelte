@@ -7,6 +7,7 @@
 
     export let height = "6.25rem"
     let active: boolean
+    let closeDropdown: () => void
 
     const menu = $session.menus.primary.menuItems.map((item, index) => ({
         title: item.label,
@@ -15,14 +16,19 @@
     }))
 
     $: browser && document.body.classList[active ? "add" : "remove"]("lock-scroll")
+    function handleNavigation() {
+        closeDropdown?.()
+        active = false
+    }
 </script>
 
-<svelte:window on:sveltekit:navigation-start={() => (active = false)} />
+<svelte:window on:sveltekit:navigation-start={handleNavigation} />
 
 <Menu
     class="bg-sadly-not-white absolute md:fixed top-0 right-0 left-0 z-40 flex items-center justify-center"
     {menu}
     style="height: {height}"
+    bind:closeDropdown
 >
     <li slot="before-nav" class="mr-auto">
         <a href="/" sveltekit:prefetch>

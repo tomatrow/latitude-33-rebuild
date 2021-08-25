@@ -43,8 +43,9 @@
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
-    let showGallery = false
+    let showGallery
 
+    // todo: make this more editable
     $: features = _.zip(
         [
             aircraft.aircraftFields.interior,
@@ -137,8 +138,8 @@
                 pill
                 color="a-stormy-morning"
                 filled
-                class="flex my-3 py-4 px-6 w-full text-white"
-                on:click={() => (showGallery = true)}
+                class="hidden sm:flex my-3 py-4 px-6 w-full text-white"
+                on:click={() => showGallery(0)}
                 >Show Gallery <ChevronRight class="ml-auto w-6 h-6" /></Button
             >
         {/if}
@@ -155,17 +156,18 @@
             <ChevronRight class="ml-auto w-6 h-6" />
         </Link>
     </section>
-    {#if showGallery}
-        <div
-            transition:slideDiag
-            class="h-96 sm:mt-12 mx-auto sm:mx-0 py-4 px-4 sm:px-0 max-w-xl sm:w-auto"
-        >
-            <GalleryCarousel class="h-full" gallery={aircraft.aircraftFields.gallery ?? []} />
+    {#if aircraft.aircraftFields.gallery}
+        <div transition:slideDiag class="h-96 sm:hidden mx-auto py-4 px-4">
+            <GalleryCarousel
+                bind:show={showGallery}
+                class="h-full"
+                gallery={aircraft.aircraftFields.gallery}
+            />
         </div>
     {/if}
 </div>
 
-{#each features as item, index}
+{#each features as item, index (idify(item.title))}
     <Anchor id={idify(item.title)} />
     <CheckerItem invert={index % 2 === 1} swap={index % 2 === 1} {...item} />
 {/each}

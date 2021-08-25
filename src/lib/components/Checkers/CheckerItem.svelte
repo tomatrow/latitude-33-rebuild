@@ -11,8 +11,6 @@
     export let invert = false
     export let bgColor = "a-stormy-morning"
 
-    export let float = undefined
-
     export let fullImage = true
     export let image: AcfImage
 
@@ -22,8 +20,6 @@
     export let icon: any = undefined
     export let contentHtml: string
 </script>
-
-<!-- float ? "sm:relative lg:static sm:py-44" : "sm:py-18", -->
 
 <section
     class="lg:grid lg:grid-cols-2"

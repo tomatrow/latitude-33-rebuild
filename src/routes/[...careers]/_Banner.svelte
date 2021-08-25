@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { AcfImage } from "$lib/index.type"
 
-    export let pill: { title: string; icon: AcfImage }
     export let featuredImage: AcfImage
     export let contentHtml: string
     export let title: string

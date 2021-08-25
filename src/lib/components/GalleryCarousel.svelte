@@ -45,9 +45,10 @@
 
     let clazz = ""
     export { clazz as class }
+    export let show
 </script>
 
-<Gallery let:show images={gallery}>
+<Gallery bind:show images={gallery}>
     <Carousel bind:currentIndex loop items={gallery} let:controls>
         <div class="{clazz} gap-y-4 flex items-center flex-col justify-center">
             <div class="relative overflow-hidden w-full h-full">

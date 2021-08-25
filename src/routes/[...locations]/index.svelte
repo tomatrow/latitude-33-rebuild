@@ -112,8 +112,6 @@
     }
 
     $: ({ airportItems, destinationItems } = getItems(featured))
-
-    $: console.log({ airportItems, destinationItems, page })
 </script>
 
 <Meta title={page.title} seo={page.seo} />

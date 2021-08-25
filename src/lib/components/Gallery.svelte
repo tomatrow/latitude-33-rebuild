@@ -3,6 +3,7 @@
     import GalleryModal from "./GalleryModal.svelte"
 
     export let images = []
+    export const show = index => openModal(GalleryModal, { images, index })
 </script>
 
-<slot {...$$restProps} show={index => openModal(GalleryModal, { images, index })} />
+<slot {...$$restProps} {show} />

@@ -1,11 +1,13 @@
 <script context="module" lang="ts">
     import { graphql } from "$lib/scripts/apollo"
-    import { AcfLinkFragment, MediaItemFragment } from "$lib/queries/utility"
+    import { MediaItemFragment } from "$lib/queries/utility"
     import { PageFragment } from "$lib/queries/pages"
     import { loadPage } from "$lib/scripts/router"
     import type { Load } from "@sveltejs/kit"
     import type { Trip } from "$lib/components/TripPlanner/index.type"
-    import { previewVariables, matchResource, createPageMatcher } from "$lib/scripts/router"
+    import { matchResource, createPageMatcher } from "$lib/scripts/router"
+    import { DealsPseduoFragment, AirportDealsFragment } from "$lib/queries/deals"
+    import { browser } from "$app/env"
 
     const TripPlannerAirportFragment = `
         fragment TripPlannerAirportFragment on Airport {
@@ -37,16 +39,20 @@
 
         let trip: Trip
         exit: try {
+            if (!browser) break exit
             const rawTrip = input.page.query.get("trip")
             if (!rawTrip) break exit
             trip = JSON.parse(rawTrip)
-            if (!trip?.departure?.airportId || !trip?.arrival?.airportId) break exit
-            variables.departureAirportId = trip.departure.airportId
-            variables.arrivalAirportId = trip.arrival.airportId
+
+            if (!trip?.departureAirportId || !trip?.arrivalAirportId) break exit
+            variables.departureAirportId = trip.departureAirportId
+            variables.arrivalAirportId = trip.arrivalAirportId
             variables.skip = false
         } catch (error) {
             console.error(error)
         }
+
+        console.log({ trip })
 
         const _load = loadPage(
             "Planner",
@@ -85,10 +91,12 @@
                     page(id: $id, asPreview: $isPreview) {
                         ...PageFragment
                     }
+                    ${DealsPseduoFragment}
                 }
                 ${PageFragment}
                 ${MediaItemFragment}
                 ${TripPlannerAirportFragment}
+                ${AirportDealsFragment}
             `,
             variables
         )
@@ -101,7 +109,8 @@
     }
 
     function getDistance(lat1, lon1, lat2, lon2) {
-        console.log({ lat1, lon1, lat2, lon2 })
+        if ([lat1, lon1, lat2, lon2].some(x => !x && x !== 0)) return undefined
+
         const p = 0.017453292519943295 // Math.PI / 180
         const c = Math.cos
         const a =
@@ -114,8 +123,7 @@
 </script>
 
 <script lang="ts">
-    import { CollectionGrid, CtaBar } from "$lib/components"
-    import { Meta, FlexibleContent } from "$lib/components"
+    import { CollectionGrid, Meta, DealsGrid } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
     import { METERS_PER_NAUTICAL_MILE } from "$lib/data/constants"
 
@@ -124,13 +132,14 @@
     export let departure: any
     export let arrival: any
     export let trip: Trip
+    export let deals: any[]
+    let items: any[]
+    let notFound: boolean
 
     function getCoords(airport) {
         const { latitude, longitude } = airport.locationPostFields.coordinates
         return [latitude, longitude]
     }
-
-    let notFound = false
 
     function mapAircraft({ title, aircraftFields, href }) {
         return {
@@ -144,13 +153,17 @@
     }
 
     function filterFleet(departure, arrival, fleet) {
-        const distance = getDistance(...getCoords(departure), ...getCoords(arrival))
-        const all = smoothEdges(fleet)
-        const filtered = all.filter(
-            ({ aircraftFields }) =>
-                distance < aircraftFields.stats.maxRange * METERS_PER_NAUTICAL_MILE &&
-                trip.passengers <= aircraftFields.stats.maxPassengers
-        )
+        console.log({ TTT: trip })
+        const all = fleet ? smoothEdges(fleet) : []
+        let filtered = []
+        if (departure && arrival && trip) {
+            const distance = getDistance(...getCoords(departure), ...getCoords(arrival))
+            filtered = all.filter(
+                ({ aircraftFields }) =>
+                    distance < aircraftFields.stats.maxRange * METERS_PER_NAUTICAL_MILE &&
+                    trip.passengers <= aircraftFields.stats.maxPassengers
+            )
+        }
 
         return {
             all: all.map(mapAircraft),
@@ -158,23 +171,38 @@
         }
     }
 
-    let items: any[]
     $: {
         const { all, filtered } = filterFleet(departure, arrival, fleet)
         notFound = filtered.length === 0
         items = notFound ? all : filtered
     }
+
+    const labels = {
+        title: "Featured One-Way Deals",
+        subheading:
+            "Thank you for submitting your request, our team will reach out to you shortly.",
+        dealLabels: {
+            passengersPrefix: "Seats",
+            costPostfix: "(+tax)",
+            phone: {
+                number: "100",
+                labelHtml: "Call 1-800-840-0310 to Reserve Your Flight"
+            }
+        }
+    }
 </script>
 
 <Meta title={page.title} seo={page.seo} />
 
-<h1 class="font-display my-4 text-center text-2xl">
-    {#if notFound}
-        Browse our collection:
-        <!-- todo: something better  -->
-    {:else}
-        Here's what we found:
-    {/if}
-</h1>
+{#if trip}
+    <DealsGrid {deals} {...labels} />
+{/if}
+
+<strong class="font-display text-tinted-rear-window block mt-8 text-center text-base"
+    >Here's what we found:</strong
+>
+<h2 class="font-display text-a-stormy-morning mt-8 mb-12 text-center font-light text-5xl">
+    Featured Aircraft with capacity for at least {trip?.passengers ?? 1} passengers
+</h2>
 
 <CollectionGrid {items} />

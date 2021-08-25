@@ -1,7 +1,7 @@
 import preprocess from "svelte-preprocess"
 import adapter from "@sveltejs/adapter-static"
 import { getResources } from "./scripts/prerender/index.js"
-// import format from "@tomatrow/zen-format"
+import format from "@tomatrow/zen-format"
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -23,7 +23,7 @@ const config = {
         prerender: {
             enabled: true,
             onError: "continue",
-            pages: getResources(),
+            pages: ["/404", ...getResources()],
             crawl: false
         },
         vite() {
@@ -33,7 +33,7 @@ const config = {
             if (process.env.NODE_ENV === "development") {
                 // @ts-ignore
                 // const { default: format } = await import("@tomatrow/zen-format")
-                // result.plugins = [format({ load: true })]
+                result.plugins = [format({ load: true })]
             }
 
             return result

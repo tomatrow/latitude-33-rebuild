@@ -96,7 +96,6 @@
 <Hero {...page.template.frontPage.hero} />
 <Grid items={page.template.frontPage.grid} />
 <CtaBar>
-    <span class="text-xl">Trip Planner</span>
     <Bar
         class="w-full"
         successPageLink={page.template.frontPage.tripPlanner.successPageLink}

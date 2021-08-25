@@ -117,6 +117,7 @@ function hostProxyMiddleware(request: Request) {
     }
 }
 
+// todo: use sequence helper
 export const handle: Handle = async ({ request, resolve }) => {
     console.log("A request for " + request.path)
 

@@ -3,7 +3,6 @@
     import { PageFragment } from "$lib/queries/pages"
     import { AcfLinkFragment, MediaItemFragment } from "$lib/queries/utility"
     import { loadPage } from "$lib/scripts/router"
-    import { BannerPsudoFragment } from "$lib/components/FlexibleContent.svelte"
 
     export const load = loadPage(
         "Careers",
@@ -68,11 +67,13 @@
 <script lang="ts">
     import { Meta } from "$lib/components"
     import Banner from "./_Banner.svelte"
-    import LayeredSection from "./_LayeredSection.svelte"
+    // import LayeredSection from "./_LayeredSection.svelte"
+    import LayeredCard from "$lib/components/LayeredCard.svelte"
     import PositionList from "./_PositionList.svelte"
 
     export let page: any
-    const { banner, layeredSection, positionList } = page.template.careersFields
+
+    $: ({ banner, layeredSection, positionList } = page.template.careersFields)
 </script>
 
 <Meta title={page.title} seo={page.seo} />
@@ -82,7 +83,7 @@
 </div>
 
 <div class="bg-sarcastic-orange py-18 px-4.5">
-    <LayeredSection class="mx-auto" {...layeredSection} />
+    <LayeredCard class="mx-auto" {...layeredSection} />
 </div>
 
 <div class="bg-pre-coffee-sky-blue py-18 lg:py-24 px-5 lg:px-16">

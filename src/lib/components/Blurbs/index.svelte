@@ -36,9 +36,9 @@
                     {/if}
                     <Title {title} />
                 {/if}
-                <p class="injected-content text-white tracking-wide font-light">
+                <div class="injected-content text-white tracking-wide font-light">
                     {@html contentHtml}
-                </p>
+                </div>
             </div>
         {/each}
     </div>

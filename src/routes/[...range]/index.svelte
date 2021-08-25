@@ -110,8 +110,6 @@
 
     const key = import.meta.env.VITE_RANGE_FINDER_MAPS_API_KEY as string
 
-    $: console.log({ selectedLocation })
-
     $: if (selectedLocation) {
         map?.setCenter({
             lat: selectedLocation.latitude,
@@ -240,7 +238,6 @@
 </section>
 
 <CtaBar>
-    <span class="text-xl">Trip Planner</span>
     <Bar
         class="w-full"
         successPageLink={page.template.rangeMapPageFields.tripPlannerPage}
