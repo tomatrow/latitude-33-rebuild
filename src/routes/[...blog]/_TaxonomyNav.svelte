@@ -17,7 +17,7 @@
             border
             filled
             color="pre-coffee-sky-blue"
-            class="p-2 font-bold"
+            class="p-2 font-light"
             {href}>{name}</Link
         >
     {/each}

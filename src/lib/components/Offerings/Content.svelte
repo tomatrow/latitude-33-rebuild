@@ -11,13 +11,13 @@
 
 {#if subheading}
     <h5
-        class="text-{schemes.mobile.accent} font-display font-semibold md:text-2xl"
+        class="text-{schemes.mobile.accent} font-display text-lg"
         use:classes={schemes.desktop && `md:text-${schemes.desktop.accent}`}
     >
         {subheading}
     </h5>
 {/if}
-<h4 class="font-display md:pr-18 mt-2 mb-6 font-semibold text-2xl md:text-4xl">
+<h4 class="font-display md:pr-18 mt-2 mb-6 text-3.5xl font-light">
     {title}
 </h4>
 <div

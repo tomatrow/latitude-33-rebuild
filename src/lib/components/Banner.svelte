@@ -39,7 +39,7 @@
     </div>
     {#if footer?.link || footer?.blurb}
         <div
-            class="space-y-4 md:space-x-12 md:space-y-0 flex items-center flex-col md:flex-row justify-start py-12 px-10"
+            class="gap-y-4 md:gap-y-6 flex items-center flex-col md:items-start py-12 px-10"
         >
             {#if footer.blurb}
                 <span class="airy-copy text-center md:text-left">{footer.blurb}</span>

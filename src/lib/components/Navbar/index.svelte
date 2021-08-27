@@ -4,6 +4,7 @@
     import Link from "$lib/components/Link.svelte"
     import { MobileMenu, Menu } from "$lib/svelte-stripe-menu"
     import Colors from "$lib/data/colors"
+    import _ from "lodash"
 
     export let height = "6.25rem"
     let active: boolean
@@ -39,29 +40,32 @@
         slot="nav-item"
         let:item
         let:active
-        class="grid gap-8 grid-cols-2 md:grid-cols-3 bg-sadly-not-white p-8"
-        style="width: 1000px"
+        class="flex flex-col gap-y-4 bg-sadly-not-white p-8"
     >
-        {#each item.childItems as { label, target, url, childItems }}
-            <div class="flex flex-col">
-                <Link
-                    sveltekit:prefetch
-                    class="block h-8 font-bold"
-                    {target}
-                    href={url}
-                    tabindex={active ? 0 : -1}>{label}</Link
-                >
-                <div class="flex flex-col pl-4">
-                    {#each childItems as { label, target, url }}
+        {#each _.chunk(item.childItems, 3) as chunk}
+            <div class="flex gap-x-12">
+                {#each chunk as { label, target, url, childItems }}
+                    <div class="flex flex-col">
                         <Link
                             sveltekit:prefetch
-                            class="text-dark-charcoal font-bold"
+                            class="block font-bold whitespace-nowrap"
                             {target}
                             href={url}
                             tabindex={active ? 0 : -1}>{label}</Link
                         >
-                    {/each}
-                </div>
+                        <div class="flex flex-col pl-2">
+                            {#each childItems as { label, target, url }}
+                                <Link
+                                    sveltekit:prefetch
+                                    class="text-dark-charcoal font-bold whitespace-nowrap"
+                                    {target}
+                                    href={url}
+                                    tabindex={active ? 0 : -1}>{label}</Link
+                                >
+                            {/each}
+                        </div>
+                    </div>
+                {/each}
             </div>
         {/each}
     </div>
@@ -70,7 +74,7 @@
         let:item
         let:classes
         let:attributes
-        class="{classes} flex items-center"
+        class="{classes} flex items-center "
         {...attributes}
     >
         <Link

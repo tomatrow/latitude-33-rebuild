@@ -23,7 +23,7 @@
     "@sveltejs/adapter-node": "^1.0.0-next.43",
     "@sveltejs/adapter-static": "^1.0.0-next.17",
     "@sveltejs/adapter-vercel": "next",
-    "@sveltejs/kit": "^1.0.0-next.156",
+    "@sveltejs/kit": "^1.0.0-next.157",
     "@sveltejs/svelte-scroller": "^2.0.7",
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tomatrow/zen-format": "^1.0.2",

@@ -21,7 +21,7 @@
 <section class="font-display bg-sarcastic-orange gap-y-4 flex flex-col py-10 px-12 text-white">
     <Anchor id={anchorId} />
     {#if heading}
-        <h5 class="tracking-px mx-auto text-xl">{heading}</h5>
+        <h5 class="tracking-px text-center mx-auto text-xl">{heading}</h5>
     {/if}
     {#if contentHtml}
         <div class="injected-content injected-content__large">

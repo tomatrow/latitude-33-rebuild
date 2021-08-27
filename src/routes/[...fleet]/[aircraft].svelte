@@ -3,6 +3,7 @@
     import { FleetTypeOptionsFragment, AircraftFragment } from "$lib/queries/aircraft"
     import { AcfLinkFragment, MediaItemFragment } from "$lib/queries/utility"
     import { loadResource, previewVariables } from "$lib/scripts/router"
+    import { TripPlannerPsuedoFragment } from "$lib/components/TripPlanner/utility"
 
     export const load = loadResource(
         graphql`
@@ -13,6 +14,7 @@
                 acfOptionsDrillDown {
                     ...FleetTypeOptionsFragment
                 }
+                ${TripPlannerPsuedoFragment}
             }
             ${FleetTypeOptionsFragment}
             ${AircraftFragment}
@@ -40,9 +42,13 @@
     import { cssVars } from "$lib/actions/styles"
     import Stat from "./_Stat.svelte"
     import { slideDiag } from "$lib/transitions"
+    import { openModal } from "$lib/components/ModalProvider.svelte"
+    import BookingModal from "./_BookingModal.svelte"
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
+    export let tripFleet: any
+    export let tripAirports: any
     let showGallery
 
     // todo: make this more editable
@@ -86,6 +92,14 @@
     function idify(key: string) {
         return _.kebabCase(key)
     }
+    
+    function handleBooking() {
+        openModal(BookingModal, {
+            tripFleet, 
+            tripAirports,
+            aircraft
+        })
+    }
 </script>
 
 <Meta title={aircraft.title} seo={aircraft.seo} />
@@ -122,7 +136,7 @@
                 raise
                 ease
                 pill
-                class="feature-link flex items-center justify-between my-3 py-4 px-6 bg-white"
+                class="feature-link flex items-center justify-between my-3 py-4 px-6 bg-white shadow"
                 href={`#${idify(title)}`}
             >
                 <span class="font-display feature-link-title ease-in-out transition duration-200"
@@ -138,23 +152,23 @@
                 pill
                 color="a-stormy-morning"
                 filled
-                class="hidden sm:flex my-3 py-4 px-6 w-full text-white"
+                class="hidden sm:flex my-3 py-4 px-6 w-full  text-white"
                 on:click={() => showGallery(0)}
                 >Show Gallery <ChevronRight class="ml-auto w-6 h-6" /></Button
             >
         {/if}
-        <Link
+        <Button
             raise
             ease
             pill
             color="a-stormy-morning"
             filled
-            class="flex my-3 py-4 px-6 text-white"
-            href="/contact"
+            class="flex my-3 py-4 px-6 text-white w-full"
+            on:click={handleBooking}
         >
             Book Your Flight Today
             <ChevronRight class="ml-auto w-6 h-6" />
-        </Link>
+        </Button>
     </section>
     {#if aircraft.aircraftFields.gallery}
         <div transition:slideDiag class="h-96 sm:hidden mx-auto py-4 px-4">

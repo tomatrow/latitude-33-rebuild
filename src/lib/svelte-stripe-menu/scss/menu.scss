@@ -148,8 +148,7 @@
 
 .vsm-dropdown-container {
   overflow: hidden;
-  // width: 500px; // will be overridden
-  width: 1000px;
+  width: 500px; // will be overridden
   top: 0;
   transform: translateX(0);
   will-change: transform, width, height;

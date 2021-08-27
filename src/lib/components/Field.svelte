@@ -1,4 +1,10 @@
 <script context="module">
+    const date =  {
+        class: "mt-1 text-dark-charcoal border border-a-stormy-morning text-sm py-2 px-3 ",
+        rootProps: {
+            class: "flex flex-col items-start text-base text-a-stormy-morning font-light font-display"
+        }
+    }
     export const fieldDefaults = {
         text: {
             class: "mt-1 text-dark-charcoal border border-a-stormy-morning text-sm py-2 px-3 ",
@@ -6,6 +12,8 @@
                 class: "flex flex-col text-base text-a-stormy-morning font-light font-display"
             }
         },
+        date,
+        number: date,
         toggle: {
             class: "mr-2 flex-shrink-0",
             rootProps: { class: "flex flex-row-reverse justify-end items-center" }
@@ -29,14 +37,21 @@
 <label {...rootProps}>
     <slot />
     {#if type === "checkbox"}
-        <input bind:checked type="checkbox" {...$$restProps} />
+        <input  bind:checked type="checkbox" {...$$restProps} />
     {:else if type === "radio"}
-        <input type="radio" {...$$restProps} />
+        <input   type="radio" {...$$restProps} />
     {:else if type === "select"}
-        <select {...$$restProps}>
+        <select  {...$$restProps}>
             <slot name="options" />
         </select>
     {:else}
-        <input {type} {...$$restProps} />
+        <input   {type} {...$$restProps} />
     {/if}
 </label>
+
+<style>
+    /* white calendar icon on chrome */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+</style>

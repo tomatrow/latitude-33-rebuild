@@ -4,11 +4,13 @@
     import { PageFragment, ContactPageFragment } from "$lib/queries/pages"
     import { AcfLinkFragment } from "$lib/queries/utility"
     import { loadPage } from "$lib/scripts/router"
+    import { TripPlannerPsuedoFragment } from "$lib/components/TripPlanner/utility"
 
     export const load = loadPage(
         "Contact",
         graphql`
             query ContactPageQuery($id: ID!, $isPreview: Boolean!) {
+                ${TripPlannerPsuedoFragment}
                 page(id: $id, asPreview: $isPreview) {
                     ...PageFragment
                     template {
@@ -29,36 +31,52 @@
     import { createForm } from "felte"
     import { createValidator } from "@felte/validator-superstruct"
     import reporter from "@felte/reporter-cvapi"
-    import { object, string, size } from "superstruct"
+    import { object, number, size } from "superstruct"
     import { fieldDefaults } from "$lib/components/Field.svelte"
     import { Meta, Button, Link, Field, Banner } from "$lib/components"
     import { IconArrowRight } from "$lib/svgs"
     import { icons } from "$lib/data/social"
-    import { stripPhone, splitChoices } from "$lib/scripts/utility"
+    import { stripPhone, smoothEdges } from "$lib/scripts/utility"
+    import { format } from "date-fns"
+    import AirportSelects from "$lib/components/TripPlanner/AirportSelects.svelte"
+    import { DateInput, nonEmptyString } from "$lib/components/TripPlanner/felte"
+    import { getTripUrl, getMaxPassengers } from "$lib/components/TripPlanner/utility"
+    import { goto } from "$app/navigation"
+    
+    export let tripFleet: any
+    export let tripAirports: any
+    export let page: any
+    
+    const maxPassengers = getMaxPassengers(tripFleet)
 
-    let submitted = false
-    const { form } = createForm({
+    const { form, data } = createForm({
         extend: [createValidator(() => "Enter a value"), reporter],
         validateStruct: object({
-            name: size(string(), 1, Infinity),
-            email: size(string(), 1, Infinity),
-            phone: size(string(), 1, Infinity),
-            service_requested: size(string(), 1, Infinity)
+            departureAirportId: nonEmptyString,
+            arrivalAirportId: nonEmptyString,
+            departureDate: DateInput,
+            passengers: size(number(), 1, maxPassengers),
+            name: nonEmptyString,
+            email: nonEmptyString,
+            phone: nonEmptyString
         }),
-        onSubmit() {
-            submitted = true
+        async onSubmit(submission) {
+            try {
+                const urlString = getTripUrl(submission, "/trip-planner-success")
+                if (urlString) await goto(urlString)
+            } catch (error) {
+                console.error(error)
+            }
         }
     })
+    
+    $: console.log({ data: $data })
 
-    export let page: any
     const { title, template } = page
 
     const fields = template.contactPageFields.form.contactFormFields
-    // todo: make these non static
-    const submissionMessage = "Thank You!"
-    const backgroundImage = {
-        src: "/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg"
-    }
+    // todo: make this non static
+    const backgroundImage = { src: "/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg" }
 </script>
 
 <Meta title={page.title} seo={page.seo} />
@@ -66,40 +84,63 @@
 <Banner {title} subheading={template.contactPageFields.subHeading} {backgroundImage} />
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-6 my-12 px-6">
-    {#if submitted}
-        <div class="m-auto text-2xl">{submissionMessage}</div>
-    {:else}
-        <form
-            use:form
-            id="contact_page_form"
-            class="space-y-3 mx-auto w-full max-w-lg"
-            on:submit|preventDefault
+    <form
+        use:form
+        id="contact_page_form"
+        class="space-y-3 mx-auto w-full max-w-lg"
+        on:submit|preventDefault
+    >
+        <Field {...fieldDefaults.text} name="name">{fields.form.nameLabel}</Field>
+        <Field {...fieldDefaults.text} type="email" name="email">{fields.form.emailLabel}</Field
         >
-            <Field {...fieldDefaults.text} name="name">{fields.form.nameLabel}</Field>
-            <Field {...fieldDefaults.text} type="email" name="email">{fields.form.emailLabel}</Field
-            >
-            <Field {...fieldDefaults.text} type="tel" name="phone">{fields.form.phoneLabel}</Field>
-            <Field {...fieldDefaults.select} type="select" name="service_requested">
-                {fields.form.servicesLabel}
-                <svelte:fragment slot="options">
-                    {#each splitChoices(fields.form.serviceChoices) as value}
-                        <option {value}>{value}</option>
-                    {/each}
-                </svelte:fragment>
-            </Field>
-            <Button
-                ease
-                blob
-                shadow
-                color="a-stormy-morning"
-                filled
-                class="py-2 px-4 text"
-                type="submit">Submit</Button
-            >
-        </form>
-    {/if}
+        <Field {...fieldDefaults.text} type="tel" name="phone">{fields.form.phoneLabel}</Field>
+        
+        <h4 class="text-lg">Trip Details</h4>
+    
+        <Field
+            required
+            type="number"
+            name="passengers"
+            min={1}
+            value={1}
+            placeholder="Passengers"
+            {...fieldDefaults.number}
+            max={getMaxPassengers(tripFleet)}
+        >
+            Passengers
+        </Field>
+    
+        <Field
+            required
+            type="date"
+            name="departureDate"
+            placeholder="YYYY-MM-DD"
+            {...fieldDefaults.date}
+            value={format(new Date(), "yyyy-MM-dd")}
+            
+        >
+            Departure Date
+        </Field>
+        
+        <AirportSelects airports={smoothEdges(tripAirports)}
+            bind:departureAirportId={$data.departureAirportId}
+            bind:arrivalAirportId={$data.arrivalAirportId}
+            selectProps={{ selectClass: fieldDefaults.select.class,
+            rootClass: fieldDefaults.select.rootProps.class,
+            labelClass: "" }} />
+
+        <Button
+            ease
+            blob
+            shadow
+            color="a-stormy-morning"
+            filled
+            class="py-2 px-4 text"
+            type="submit">Submit</Button
+        >
+    </form>
     <div class="flex items-center justify-center">
-        <section class="bg-either-gray-blue w-96 rounded-md space-y-2 flex flex-col p-6 text-white">
+        <section class="bg-a-stormy-morning w-96 rounded-md space-y-2 flex flex-col p-6 text-white">
             <h4 class="font-display text-lg">{fields.sidebar.title}</h4>
             <p class="airy-copy">
                 {fields.sidebar.blurb}
@@ -155,12 +196,6 @@
 </div>
 
 <style>
-    /* .banner {
-        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-            url(/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg);
-        background-position: 0px 0px, 50% 76%;
-        background-size: auto, cover;
-    } */
     :global(.arrow-link:hover .arrow-right) {
         transform: translateX(6px);
     }

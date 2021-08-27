@@ -1,22 +1,11 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
     import type { AcfLink } from "$lib/index.type"
     import { Link } from "$lib/components"
     import { dev, browser } from "$app/env"
-    import { beforeUpdate, afterUpdate } from "svelte"
 
     export let brandName: string
     export let title: string
     export let pageLink: AcfLink
-
-    beforeUpdate(() => {
-        console.log("beforeUpdate()")
-    })
-
-    afterUpdate(() => {
-        console.log("afterUpdate()")
-    })
 </script>
 
 <section class="hero relative flex items-center justify-center">

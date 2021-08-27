@@ -4,36 +4,13 @@
     import { PageFragment } from "$lib/queries/pages"
     import { loadPage } from "$lib/scripts/router"
     import { createFlexiblePsudoFragment } from "$lib/components/FlexibleContent.svelte"
+    import { TripPlannerPsuedoFragment } from "$lib/components/TripPlanner/utility"
 
     export const load = loadPage(
         "Home",
         graphql`
             query HomePageQuery($id: ID!, $isPreview: Boolean!) {
-                fleet(first:500, where: { status: PUBLISH}) {
-                    edges {
-                        node {
-                            aircraftFields {
-                                stats {
-                                    maxPassengers
-                                }
-                            }
-                        }
-                    }
-                }
-                airports(first: 250, where: { status: PUBLISH }) {
-                    edges {
-                        node {
-                            id
-                            href: uri
-                            locationPostFields {
-                                name
-                            }
-                            airportFields {
-                               code
-                            }
-                        }
-                    }
-                }
+                ${TripPlannerPsuedoFragment}
                 page(id: $id, asPreview: $isPreview) {
                     ...PageFragment
                     template {
@@ -87,20 +64,18 @@
     import { Bar } from "$lib/components/TripPlanner"
 
     export let page: any
-    export let airports: any
-    export let fleet: any
+    export let tripFleet: any
+    export let tripAirports: any
 </script>
 
 <Meta title={page.title} seo={page.seo} />
 
 <Hero {...page.template.frontPage.hero} />
 <Grid items={page.template.frontPage.grid} />
-<CtaBar>
-    <Bar
-        class="w-full"
-        successPageLink={page.template.frontPage.tripPlanner.successPageLink}
-        airports={smoothEdges(airports)}
-        {fleet}
-    />
-</CtaBar>
+<Bar
+    class="bg-sarcastic-orange p-4 md:p-0   "
+    successPageLink={page.template.frontPage.tripPlanner.successPageLink}
+    airports={smoothEdges(tripAirports)}
+    fleet={tripFleet}
+/>
 <FlexibleContent content={page.template.genericPageFields.flexibleContent} />

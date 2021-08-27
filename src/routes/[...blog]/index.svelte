@@ -84,13 +84,13 @@
         <div slot="tabs" let:tabs class="space-x-6 flex">
             {#each tabs as { active, payload, select }}
                 <Button
-                    class="font-display text-either-gray-blue flex items-center font-black"
+                    class="font-display text-a-stormy-morning flex items-center font-light"
                     on:click={() => (active ? setTab(null) : select())}
                 >
                     {payload}
                     <ChevronDown
                         class="{active ? 'rotate-180' : ''} transition duration-400 w-6 h-6"
-                        strokeWidth={4}
+                        strokeWidth={2}
                     />
                 </Button>
             {/each}

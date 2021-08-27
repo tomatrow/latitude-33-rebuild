@@ -18,13 +18,13 @@
         corporateInfo: `Latitude 33 Aviation, LLC 2006-2020 – Air Carrier Certificate #2PIA602N`
     }
     const text = {
-        class: "mt-1 text-black w-full   border border-velours-bleu text-sm py-2 px-3",
+        class: "mt-1 text-black w-full text-sm py-2 px-3",
         rootProps: {
             class: "flex flex-col text-base font-display"
         }
     }
     const select = {
-        class: "h-9 border w-full  border-velours-bleu text-velours-bleu ",
+        class: "h-9 w-full text-velours-bleu ",
         rootProps: {
             class: "flex flex-col text-base font-display"
         }

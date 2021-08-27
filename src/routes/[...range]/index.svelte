@@ -237,11 +237,10 @@
     {/if}
 </section>
 
-<CtaBar>
-    <Bar
-        class="w-full"
-        successPageLink={page.template.rangeMapPageFields.tripPlannerPage}
-        airports={smoothEdges(airports)}
-        {fleet}
-    />
-</CtaBar>
+<Bar
+        class="bg-sarcastic-orange p-4 md:p-0"
+
+    successPageLink={page.template.rangeMapPageFields.tripPlannerPage}
+    airports={smoothEdges(airports)}
+    {fleet}
+/>
