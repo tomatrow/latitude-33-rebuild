@@ -22,6 +22,7 @@
             query ${__typename}TaxonomyQuery($id: ID!) {
                 ${options}
                 taxonomy: ${__typename.toLowerCase()}(id: $id) {
+                    name
                     seo {
                         fullHead
                     }
