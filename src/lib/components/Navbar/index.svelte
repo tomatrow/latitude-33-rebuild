@@ -3,7 +3,7 @@
     import { session } from "$app/stores"
     import Link from "$lib/components/Link.svelte"
     import { MobileMenu, Menu } from "$lib/svelte-stripe-menu"
-    import Colors from "$lib/data/colors"
+    import Colors from "$lib/data/colors.json"
     import _ from "lodash"
 
     export let height = "6.25rem"
