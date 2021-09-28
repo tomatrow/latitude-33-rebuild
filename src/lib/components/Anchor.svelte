@@ -12,7 +12,7 @@
     }
     @screen full-nav {
         div {
-            top: calc(-1 * (var(--nav-h) + var(--offset, 0rem)));
+            top: calc(-1 * (var(--nav-h, 0rem) + var(--offset, 0rem)));
         }
     }
 </style>
