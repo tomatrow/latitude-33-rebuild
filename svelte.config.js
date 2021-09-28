@@ -23,7 +23,7 @@ const config = {
         prerender: {
             enabled: true,
             onError: "continue",
-            pages: ["/404", ...getResources()],
+            entries: ["/404", ...getResources()],
             crawl: false
         },
         vite() {
