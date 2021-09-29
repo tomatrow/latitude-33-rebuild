@@ -2,8 +2,7 @@
     import Anchor from "$lib/components/Anchor.svelte"
     import Colors from "$lib/data/colors.json"
     import { cssVars } from "$lib/actions/styles"
-    import Image from "./Image.svelte"
-    import Title from "./Title.svelte"
+    import Heading from "./Heading.svelte"
 
     export let anchorId: string = undefined
     export let blurbs: any[]
@@ -14,32 +13,43 @@
 <section class="{clazz} bg-a-stormy-morning">
     <Anchor id={anchorId} />
     <div
-        class="grid grid-custom gap-6 max-w-7xl mx-auto py-12 md:py-24 px-5"
+        class="grid grid-custom gap-y-6 py-[10px] mx-auto px-[20px] md:divide-x"
         use:cssVars={{
             injectedLinkColor: Colors["calm-summer-horizon"]
         }}
     >
         {#each blurbs as { icon, title, link, contentHtml }}
-            <div>
-                {#if link}
-                    {#if icon}
-                        <!-- svelte-ignore a11y-missing-attribute -->
-                        <a {...link}>
-                            <Image {icon} />
-                        </a>
+            <div class="px-[20px] py-[10px] space-y-[10px]">
+                <div class="h-20 flex items-end">
+                    {#if link}
+                        <Link {...link}>
+                            <Heading {title} {icon} />
+                        </Link>
+                    {:else}
+                        <Heading {title} {icon} />
                     {/if}
-                    <!-- svelte-ignore a11y-missing-attribute -->
-                    <Title {link} {title} />
-                {:else}
-                    {#if icon}
-                        <Image {icon} />
-                    {/if}
-                    <Title {title} />
-                {/if}
-                <div class="injected-content text-white tracking-wide font-light">
+                </div>
+
+                <div class="injected-content  text-white tracking-wide font-light">
                     {@html contentHtml}
                 </div>
             </div>
         {/each}
     </div>
 </section>
+
+<style lang="postcss">
+    @screen md {
+        .grid-custom > :nth-child(2n + 1) {
+            border-left-style: none;
+        }
+    }
+    @screen lg {
+        .grid-custom > :nth-child(2n + 1) {
+            border-left-style: solid;
+        }
+        .grid-custom > :nth-child(3n + 1) {
+            border-left: none;
+        }
+    }
+</style>
