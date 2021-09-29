@@ -44,6 +44,7 @@ specifiers:
   svelte-preprocess: ^4.9.5
   svelte-scrollto: ^0.2.0
   svelte-sitemap: ^2.1.1
+  svelte-typed-context: ^1.0.1
   tailwindcss: ^2.2.16
   tailwindcss-scroll-snap: ^1.1.0
   tslib: ^2.3.1
@@ -97,6 +98,7 @@ devDependencies:
   svelte-portal: 2.1.2
   svelte-preprocess: 4.9.5_6d12036e1adfbbd7b49509da697ce501
   svelte-sitemap: 2.1.1
+  svelte-typed-context: 1.0.1_svelte@3.43.0
   tailwindcss: 2.2.16_d90402d1bb3b165c9c83046beac13a8b
   tailwindcss-scroll-snap: 1.1.0
   tslib: 2.3.1
@@ -2282,6 +2284,14 @@ packages:
       fast-glob: 3.2.7
       minimist: 1.2.5
       xmlbuilder2: 3.0.2
+    dev: true
+
+  /svelte-typed-context/1.0.1_svelte@3.43.0:
+    resolution: {integrity: sha512-JX0XOntE0JGKh5rldnKwIQVHXVB15RcwTg7Al/nyLjX+2NSt4Y+hoZ3+apnBjX5K8ge0tklJMqZLCVD7bYZE9g==}
+    peerDependencies:
+      svelte: ^3.38.2
+    dependencies:
+      svelte: 3.43.0
     dev: true
 
   /svelte/3.38.3:

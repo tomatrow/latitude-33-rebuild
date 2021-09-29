@@ -8,6 +8,7 @@ function prefixColors(prefix) {
 
 const safelist = [
     ...prefixColors("hover:bg-"),
+    ...prefixColors("hover:text-"),
     ...prefixColors("bg-"),
     ...prefixColors("sm:bg-"),
     ...prefixColors("md:bg-"),
@@ -42,10 +43,16 @@ module.exports = {
                 lg: ['1.25rem', '1.875rem'], 
                 "3.5xl": ["2rem", "2.375rem"], 
                 "4.5xl": "2.5rem",
-                "5.5xl": ["3.375rem", '3.75rem']
+                "5.5xl": ["3.375rem", '3.75rem'],
+                // only for titles so far 
+                large: ["2.375rem", "2.75rem"],
+                normal: ["2rem", "2.25rem"],
+                small: ["1.5rem", "2rem"],
+                tiny: ["1.125rem", "1.75rem"]
             },
             letterSpacing: {
-                "px": "0.0625rem"
+                "px": "0.0625rem",
+                "2px": "0.125rem"
             },
             spacing: {
                 "18": "4.5rem",

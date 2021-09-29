@@ -4,7 +4,10 @@
     import Colors from "$lib/data/colors.json"
     import Link from "./Link.svelte"
     import Anchor from "$lib/components/Anchor.svelte"
-
+    import Heading, { increment } from "$lib/components/typography/Heading.svelte"
+    
+    increment()
+    
     export let title: string
     export let subheading = ""
     export let contentHtml = ""
@@ -14,54 +17,39 @@
 </script>
 
 <section
-    class="bg-cover bg-no-repeat text-white"
+    class="text-white bg-fixed bg-cover bg-center"
+    style="background-image: var(--url)"
     use:cssVars={{
         url: `url(${backgroundImage.src})`
     }}
 >
     <Anchor id={anchorId} />
-    <div class="space-y-6 py-14 mx-5 md:mx-10 max-w-lg">
-        {#if subheading}
-            <h5 class="font-display mb-2.5 text-white text-lg">{subheading}</h5>
-        {/if}
-        <h1 class="text-3.5xl font-display font-light">
-            {title}
-        </h1>
-        <div
-            class="injected-content injected-content_large mt-6"
-            use:cssVars={{
-                injectedLinkColor: Colors["pre-coffee-sky-blue"]
-            }}
-        >
-            {@html contentHtml}
-        </div>
-        <slot />
-    </div>
-    {#if footer?.link || footer?.blurb}
-        <div
-            class="gap-y-4 md:gap-y-6 flex items-center flex-col md:items-start py-12 px-10"
-        >
-            {#if footer.blurb}
-                <span class="airy-copy text-center md:text-left">{footer.blurb}</span>
-            {/if}
+    <div class="gradient px-5 md:px-[3.75rem] flex items-center justify-start w-full min-h-[500px]">
+        <div class="space-y-6">
+            <Heading large {subheading}>
+                {title}
+            </Heading>
             {#if footer.link}
                 <Link
-                    class="flex-shrink-0 py-4 px-6 border-2"
-                    blob
-                    shadow
+                    class="flex-shrink-0 py-2 px-4 font-extralight uppercase inline-block"
                     ease
-                    filled
+                    fill="black"
                     border
-                    color="velours-bleu"
+                    color="white"
                     {...footer.link}
                 />
             {/if}
+            <slot />
         </div>
-    {/if}
+    </div>
 </section>
 
 <style lang="postcss">
-    section {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--url);
+    .gradient {
+        background-size: auto;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: auto;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32));
     }
 </style>

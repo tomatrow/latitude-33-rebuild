@@ -55,6 +55,7 @@
     "svelte-portal": "^2.1.2",
     "svelte-preprocess": "^4.9.5",
     "svelte-sitemap": "^2.1.1",
+    "svelte-typed-context": "^1.0.1",
     "tailwindcss": "^2.2.16",
     "tailwindcss-scroll-snap": "^1.1.0",
     "tslib": "^2.3.1",

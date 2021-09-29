@@ -1,11 +1,12 @@
 <script context="module" lang="ts">
+    import Colors from "$lib/data/colors.json"
     import type { PrimaryColor } from "$lib/index.type"
 
     export interface ClassesConfig {
         hollow?: boolean
         filled?: boolean
         shadow?: boolean
-        fill?: boolean
+        fill?: boolean|PrimaryColor
         blob?: boolean
         pill?: boolean
         raise?: boolean
@@ -26,10 +27,11 @@
         color
     }: ClassesConfig) {
         return [
-            ease && "duration-200 ease-in-out transition",
+            ease && "duration-[425ms] ease-in-out transition",
             raise && "hover:-translate-y-1.5 hover:shadow-md transform",
             shadow && "hover:shadow-inner-10xl",
             fill && `hover:bg-${color}`,
+            Colors[fill] && `hover:text-${fill}`,
             blob && "rounded",
             pill && "rounded-full",
             hollow && "border-white border",
@@ -56,7 +58,7 @@
     export let line: LineActionConfig = false
     export let color: PrimaryColor = undefined
     export let border: boolean = undefined
-    export let fill: boolean = undefined
+    export let fill: boolean|PrimaryColor = undefined
 
     export let title: string = undefined
 
