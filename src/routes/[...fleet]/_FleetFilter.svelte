@@ -6,7 +6,8 @@
             link: {
                 title: gridLinkLabel,
                 href
-            }
+            },
+            stats: aircraftFields.stats
         }
     }
 
@@ -25,6 +26,7 @@
 <script lang="ts">
     import { smoothEdges } from "$lib/scripts/utility"
     import { CollectionGrid, CtaBar, Filter, NumberFieldset, Anchor } from "$lib/components"
+    import AircraftInfo from "./_AircraftInfo.svelte"
 
     export let fleet = []
     export let ctaBar: any
@@ -52,7 +54,8 @@
     </svelte:fragment>
 
     <Anchor id="fleet" />
-    <CollectionGrid items={filtered}>
+    <CollectionGrid items={filtered} let:item>
+        <AircraftInfo {...item} />
         <div
             class="sm:py-18 font-display py-8 px-5 text-black text-center font-bold text-2xl"
             slot="empty"

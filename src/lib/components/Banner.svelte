@@ -29,7 +29,7 @@
             <Heading large {subheading}>
                 {title}
             </Heading>
-            {#if footer.link}
+            {#if footer?.link}
                 <Link
                     class="flex-shrink-0 py-2 px-4 font-extralight uppercase inline-block"
                     ease

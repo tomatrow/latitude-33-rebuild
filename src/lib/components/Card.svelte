@@ -13,6 +13,7 @@
 
 <div
     on:mouseover
+    on:focus
     style="background-image: url({src}); {style}"
     class="{clazz} flex flex-col justify-end bg-center bg-cover bg-no-repeat"
 >

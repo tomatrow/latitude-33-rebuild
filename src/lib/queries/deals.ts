@@ -35,6 +35,11 @@ export const DealsPseduoFragment = `
 export const AirportDealsFragment = `
     fragment AirportDealsFragment on Airport {
         id
+        airportFields {
+            featuredImage {
+                ...MediaItemFragment
+            }
+        }
         locationPostFields {
             coordinates {
                 city

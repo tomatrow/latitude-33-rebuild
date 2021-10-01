@@ -14,7 +14,7 @@
         {title}
     </h2>
 
-    <div class="grid grid-custom gap-6">
+    <div class="grid grid-custom gap-4 w-full">
         {#each smoothEdges(deals) as { dealFields }}
             <DealCard {...{ ...dealFields, ...dealLabels }} />
         {/each}

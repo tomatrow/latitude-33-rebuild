@@ -7,6 +7,28 @@
         createFlexiblePsudoFragment,
         BannerPsudoFragment
     } from "$lib/components/FlexibleContent.svelte"
+    
+    export const AircraftFragment = `
+        fragment AircraftFragment on Aircraft {
+            id
+            title
+            href: uri
+            aircraftFields {
+                featuredImage {
+                    ...MediaItemFragment
+                }
+                stats {
+                    baggageCapacity
+                    maxCruiseSpeed
+                    maxPassengers
+                    maxRange
+                    height 
+                    width 
+                    length
+                }
+            }
+        }
+    `
 
     export const load = loadPage(
         "Fleet",
@@ -35,20 +57,7 @@
                 fleet(first: 500) {
                     edges {
                         node {
-                            id
-                            title
-                            href: uri
-                            aircraftFields {
-                                featuredImage {
-                                    ...MediaItemFragment
-                                }
-                                stats {
-                                    baggageCapacity
-                                    maxCruiseSpeed
-                                    maxPassengers
-                                    maxRange
-                                }
-                            }
+                           ...AircraftFragment
                         }
                     }
                 }
@@ -56,6 +65,7 @@
             ${PageFragment}
             ${AcfLinkFragment}
             ${MediaItemFragment}
+            ${AircraftFragment}
         `
     )
 </script>

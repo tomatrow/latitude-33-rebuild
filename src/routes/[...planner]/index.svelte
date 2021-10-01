@@ -8,6 +8,7 @@
     import { matchResource, createPageMatcher } from "$lib/scripts/router"
     import { DealsPseduoFragment, AirportDealsFragment } from "$lib/queries/deals"
     import { browser } from "$app/env"
+    import { AircraftFragment } from "../[...fleet]/index.svelte"
 
     const TripPlannerAirportFragment = `
         fragment TripPlannerAirportFragment on Airport {
@@ -67,18 +68,7 @@
                     fleet(first: 500, where: { status: PUBLISH }) {
                         edges {
                             node {
-                                id
-                                title
-                                href: uri
-                                aircraftFields {
-                                    featuredImage {
-                                        ...MediaItemFragment
-                                    }
-                                    stats {
-                                        maxRange
-                                        maxPassengers
-                                    }
-                                }
+                                ...AircraftFragment
                             }
                         }
                     }
@@ -97,6 +87,7 @@
                 ${MediaItemFragment}
                 ${TripPlannerAirportFragment}
                 ${AirportDealsFragment}
+                ${AircraftFragment}
             `,
             variables
         )
@@ -108,7 +99,7 @@
         return result
     }
 
-    function getDistance(lat1, lon1, lat2, lon2) {
+    function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
         if ([lat1, lon1, lat2, lon2].some(x => !x && x !== 0)) return undefined
 
         const p = 0.017453292519943295 // Math.PI / 180
@@ -126,6 +117,7 @@
     import { CollectionGrid, Meta, DealsGrid } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
     import { METERS_PER_NAUTICAL_MILE } from "$lib/data/constants"
+    import AircraftInfo from "../[...fleet]/_AircraftInfo.svelte"
 
     export let page: any
     export let fleet: any
@@ -145,6 +137,7 @@
         return {
             title,
             image: aircraftFields.featuredImage,
+            stats: aircraftFields.stats,
             link: {
                 title: "View Now",
                 href
@@ -205,4 +198,6 @@
     Featured Aircraft with capacity for at least {trip?.passengers ?? 1} passengers
 </h2>
 
-<CollectionGrid {items} />
+<CollectionGrid {items} let:item>
+    <AircraftInfo {...item} />
+</CollectionGrid>

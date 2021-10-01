@@ -3,6 +3,7 @@
     import Colors from "$lib/data/colors.json"
     import { cssVars } from "$lib/actions/styles"
     import Heading from "./Heading.svelte"
+    import Link from "$lib/components/Link.svelte"
 
     export let anchorId: string = undefined
     export let blurbs: any[]
@@ -20,7 +21,7 @@
     >
         {#each blurbs as { icon, title, link, contentHtml }}
             <div class="px-[20px] py-[10px] space-y-[10px]">
-                <div class="h-20 flex items-end">
+                <div class="h-20 flex items-end text-white">
                     {#if link}
                         <Link {...link}>
                             <Heading {title} {icon} />
@@ -30,7 +31,7 @@
                     {/if}
                 </div>
 
-                <div class="injected-content  text-white tracking-wide font-light">
+                <div class="injected-content text-white tracking-wide font-light">
                     {@html contentHtml}
                 </div>
             </div>

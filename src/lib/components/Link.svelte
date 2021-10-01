@@ -82,9 +82,9 @@
 </script>
 
 <a {href} class="{clazz} {classes}" use:lineAction={line} on:click {...$$restProps}>
-    {#if title}
-        {title}
-    {:else}
+    {#if $$slots.default}
         <slot />
+    {:else}
+        {title}
     {/if}
 </a>

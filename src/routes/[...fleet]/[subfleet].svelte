@@ -2,6 +2,7 @@
     import { graphql } from "$lib/scripts/apollo"
     import { MediaItemFragment } from "$lib/queries/utility"
     import { loadResource } from "$lib/scripts/router"
+    import { AircraftFragment } from "./index.svelte"
 
     export const load = loadResource(
         graphql`
@@ -25,14 +26,7 @@
                     fleet {
                         edges {
                             node {
-                                id
-                                title
-                                href: uri
-                                aircraftFields {
-                                    featuredImage {
-                                        ...MediaItemFragment
-                                    }
-                                }
+                                ...AircraftFragment
                             }
                         }
                     }
@@ -52,6 +46,7 @@
                 }
             }
             ${MediaItemFragment}
+            ${AircraftFragment}
         `,
         ({ __typename }) => __typename === "Subfleet"
     )
@@ -63,6 +58,7 @@
     import { smoothEdges } from "$lib/scripts/utility"
     import { fleetFormat } from "./_FleetFilter.svelte"
     import { classes } from "$lib/actions/styles"
+    import AircraftInfo from "./_AircraftInfo.svelte"
 
     export let subfleet: any
     export let acfOptionsSubfleets: any
@@ -145,7 +141,9 @@
     </h4>
 </div>
 
-<CollectionGrid items={fleet} />
+<CollectionGrid items={fleet} let:item>
+    <AircraftInfo {...item} />
+</CollectionGrid>
 
 <style global lang="postcss">
     .injected-content_subfleet {

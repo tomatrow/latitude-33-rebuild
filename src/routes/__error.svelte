@@ -1,6 +1,8 @@
 <script context="module" lang="ts">
-    export function load({ error }) {
-        console.error(error)
+    export function load({ error, status }) {
+
+        console.error(`${status}: ${error.message}`)
+
         return {}
     }
 </script>

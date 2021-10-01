@@ -36,7 +36,7 @@ module.exports = {
             colors,
             boxShadow: {
                 "inner-10xl": "inset 0 200px 200px 200px rgba(0, 0, 0, 0.1)",
-                "card": "0 8px 16px 0 rgba(0, 0, 0, 0.1)"
+                "card": "2px 2px 5px 0 rgba(240, 240, 237, 0.47)"
             },
             fontSize: {
                 base: ['1rem', '1.5rem'],

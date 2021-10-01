@@ -1,6 +1,6 @@
 <script lang="ts">
     import numeral from "numeral"
-    import { Link } from "$lib/components"
+    import ContentCard from "$lib/components/ContentCard/index.svelte"
 
     export let cost: number
     export let craft: any
@@ -18,27 +18,20 @@
     }
 </script>
 
-<div class="sm:p-9 space-y-2 flex items-start flex-col p-4 rounded-lg bg-white shadow-xl">
-    <div class="bg-a-stormy-morning inline-flex items-center justify-center rounded-full">
-        <!-- svelte-ignore a11y-missing-attribute -->
-        <img class="w-18 h-18 rounded-full object-cover" {...craft.aircraftFields.featuredImage} />
+<ContentCard class="min-h-[500px]" image={end.airportFields.featuredImage} link={{ href: "tel:{phone.number}", title: `${phone.labelHtml}` }}>
+    <svelte:fragment slot="heading">
+        {formatAirport(start)} — <br /> 
+        {formatAirport(end)}
+    </svelte:fragment>
+    <div class="flex flex-col text-tiny font-display uppercase tracking-2px gap-[10px]">
+        <span>{"$" + numeral(cost).format("0,0")} {costPostfix}</span>
+        <span class="font-extralight">
+            {date} <br />
+            {craft.title} — <br />
+            {passengersPrefix} {craft.aircraftFields.stats.maxPassengers}
+        </span>
     </div>
-    <h2 class="font-display text-a-stormy-morning text-3xl">
-        {date} <br />
-        {formatAirport(start)} — {formatAirport(end)}
-    </h2>
-    <span class="text-sm"
-        >{craft.title} - {passengersPrefix} {craft.aircraftFields.stats.maxPassengers}</span
-    >
-    <span style="margin-bottom: 2rem" class="font-display text-lg"
-        >{"$" + numeral(cost).format("0,0")} {costPostfix}</span
-    >
-    <Link
-        filled
-        pill
-        style="margin-top: auto"
-        class="font-display inline-block mx-auto py-3 px-6 text-center text-sm"
-        color="velours-bleu"
-        href="tel:{phone.number}">{@html phone.labelHtml}</Link
-    >
-</div>
+    <svelte:fragment slot="link">
+        {@html phone.labelHtml}
+    </svelte:fragment>
+</ContentCard>
