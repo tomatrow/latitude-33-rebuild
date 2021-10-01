@@ -52,10 +52,11 @@
     import { cssVars } from "$lib/actions/styles"
     import Colors from "$lib/data/colors.json"
     import Link from "$lib/components/Link.svelte"
+    import GalleryCarousel from "$lib/components/GalleryCarousel.svelte"
     
     increment()
 
-    export let heading: string 
+    export let heading: string = undefined
     export let subheading: string = undefined
     export let contentHtml: string = undefined
     export let gallery: AcfImage[] = []
@@ -73,9 +74,13 @@
 
 <section class="relative px-5 py-4 sm:px-[60px] sm:py-[30px]">
     <div class="z-[-1] absolute left-0 top-0 bottom-0 sm:w-[70%] {descheme({ 'bg': 'midground' })}"/>
-    <div class="flex flex-col-reverse sm:flex-row gap-4">
+    <div class="flex flex-col-reverse md:flex-row gap-4">
         <div class="mt-[20px] space-y-[10px]">
-            <Heading {subheading}>{heading}</Heading>
+            <Heading {subheading}>
+                <slot name="heading">
+                    {heading}
+                </slot>
+            </Heading>
             <div class="w-full sm:w-[60%] space-y-4">
                 <slot>
                     {#if contentHtml}
@@ -92,8 +97,7 @@
             </div>
         </div>
         {#if gallery.length > 0}
-            <!-- svelte-ignore a11y-missing-attribute -->
-            <img class="sm:max-w-[31%] max-h-full w-full object-contain self-start" {...gallery[0]} />
+            <GalleryCarousel class="md:max-w-[31%] h-44 w-full self-start flex-shrink-0" {gallery} />
         {/if}
     </div>
     {#if line}

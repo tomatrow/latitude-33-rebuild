@@ -12,9 +12,9 @@
 
     const props = {
         ease: true,
-        shadow: true,
-        blob: true,
-        class: "py-4 px-16 border-2 border-white text-2xl"
+        border: true, 
+        color:"either-gray-blue",
+        class:"uppercase text-sm font-extralight bg-either-gray-blue hover:bg-white text-white hover:text-either-gray-blue px-4 py-2 font-display" 
     }
 </script>
 

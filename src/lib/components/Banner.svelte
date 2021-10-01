@@ -14,14 +14,14 @@
     export let backgroundImage: AcfImage
     export let footer: any = undefined
     export let anchorId: string = undefined
+    
+    let clazz = ""
+    export { clazz as class }
 </script>
 
 <section
-    class="text-white bg-fixed bg-cover bg-center"
+    class="text-white bg-fixed bg-cover bg-center {clazz}"
     style="background-image: var(--url)"
-    use:cssVars={{
-        url: `url(${backgroundImage.src})`
-    }}
 >
     <Anchor id={anchorId} />
     <div class="gradient px-5 md:px-[3.75rem] flex items-center justify-start w-full min-h-[500px]">

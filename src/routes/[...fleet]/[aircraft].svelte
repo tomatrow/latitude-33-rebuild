@@ -44,6 +44,7 @@
     import { slideDiag } from "$lib/transitions"
     import { openModal } from "$lib/components/ModalProvider.svelte"
     import BookingModal from "./_BookingModal.svelte"
+    import ContentRow from "$lib/components/ContentRow/index.svelte"
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
@@ -105,7 +106,7 @@
 <Meta title={aircraft.title} seo={aircraft.seo} />
 
 <div
-    class="stats sm:bg-a-stormy-morning sm:pt-8 sm:pb-24 sm:pl-5 bg-white sm:bg-center sm:bg-cover sm:bg-no-repeat"
+    class="stats sm:bg-a-stormy-morning sm:pt-8 sm:pb-24 sm:pl-5 bg-white sm:bg-center sm:bg-fixed sm:bg-cover sm:bg-no-repeat"
     use:cssVars={{
         bg: featuredImage ? `url(${featuredImage.src})` : ""
     }}
@@ -116,7 +117,7 @@
     {/if}
 
     <section
-        class="bg-opacity-70 sm:rounded-xl sm:px-9 transition-all duration-200 relative sm:p-0 py-6 sm:py-16 px-5 sm:max-w-sm bg-white"
+        class="bg-opacity-70 sm:px-9 transition-all duration-200 relative sm:p-0 py-6 sm:py-16 px-5 sm:max-w-sm bg-white"
     >
         <h1 class="font-display text-3.5xl leading-9 font-extralight w-3/4 text-black">
             {aircraft.title}
@@ -135,11 +136,10 @@
             <Link
                 raise
                 ease
-                pill
                 class="feature-link flex items-center justify-between my-3 py-4 px-6 bg-white shadow"
                 href={`#${idify(title)}`}
             >
-                <span class="font-display feature-link-title ease-in-out transition duration-200"
+                <span class="uppercase font-display feature-link-title ease-in-out transition duration-200"
                     >{title}</span
                 >
                 <ChevronRight class="ml-auto w-6 h-6" />
@@ -149,10 +149,9 @@
             <Button
                 raise
                 ease
-                pill
                 color="a-stormy-morning"
                 filled
-                class="hidden sm:flex my-3 py-4 px-6 w-full  text-white"
+                class="uppercase hidden sm:flex my-3 py-4 px-6 w-full  text-white"
                 on:click={() => showGallery(0)}
                 >Show Gallery <ChevronRight class="ml-auto w-6 h-6" /></Button
             >
@@ -160,10 +159,9 @@
         <Button
             raise
             ease
-            pill
             color="a-stormy-morning"
             filled
-            class="flex my-3 py-4 px-6 text-white w-full"
+            class="uppercase flex my-3 py-4 px-6 text-white w-full"
             on:click={handleBooking}
         >
             Book Your Flight Today
@@ -181,9 +179,15 @@
     {/if}
 </div>
 
-{#each features as item, index (idify(item.title))}
-    <Anchor id={idify(item.title)} />
-    <CheckerItem invert={index % 2 === 1} swap={index % 2 === 1} {...item} />
+{#each features as {image, contentHtml, title, icon}, index (idify(title))}
+    <Anchor id={idify(title)} />
+    <!-- todo: remove fill that shows off the gallery -->
+    <ContentRow gallery={_.fill(Array(index + 1), image)} {contentHtml}>
+        <div class="flex gap-4 items-center" slot="heading">
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <img {...icon} class="h-8 brightness-[100] invert" /> {title} 
+        </div>
+    </ContentRow>
 {/each}
 
 <!-- todo: make editable  -->

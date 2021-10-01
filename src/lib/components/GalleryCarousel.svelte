@@ -52,34 +52,36 @@
     <Carousel bind:currentIndex loop items={gallery} let:controls>
         <div class="{clazz} gap-y-4 flex items-center flex-col justify-center">
             <div class="relative overflow-hidden w-full h-full">
-                <Button
-                    pill
-                    filled
-                    shadow
-                    ease
-                    border
-                    aria-label="left"
-                    color="sarcastic-orange"
-                    class="-translate-y-1/2 top-1/2 left-8 h-9 absolute z-10 flex items-center justify-center w-9"
-                    on:click={controls.previous}><ChevronLeft class="w-6 h-6 text-white" /></Button
-                >
-                <Button
-                    pill
-                    filled
-                    shadow
-                    ease
-                    border
-                    aria-label="right"
-                    color="sarcastic-orange"
-                    class="h-9 -translate-y-1/2 top-1/2 right-8 absolute z-10 flex items-center justify-center w-9"
-                    on:click={controls.next}><ChevronRight class="w-6 h-6 text-white" /></Button
-                >
+                {#if gallery.length > 1}
+                    <Button
+                        pill
+                        filled
+                        shadow
+                        ease
+                        border
+                        aria-label="left"
+                        color="sarcastic-orange"
+                        class="-translate-y-1/2 top-1/2 left-8 h-9 absolute z-10 flex items-center justify-center w-9"
+                        on:click={controls.previous}><ChevronLeft class="w-6 h-6 text-white" /></Button
+                    >
+                    <Button
+                        pill
+                        filled
+                        shadow
+                        ease
+                        border
+                        aria-label="right"
+                        color="sarcastic-orange"
+                        class="h-9 -translate-y-1/2 top-1/2 right-8 absolute z-10 flex items-center justify-center w-9"
+                        on:click={controls.next}><ChevronRight class="w-6 h-6 text-white" /></Button
+                    >
+                {/if}
 
                 <div
                     id="container"
                     bind:this={container}
                     use:snap
-                    class="snap rounded-xl always-stop snap-x snap-mandatory absolute inset-0 z-0 block flex overflow-x-scroll"
+                    class="snap always-stop snap-x snap-mandatory absolute inset-0 z-0 block flex overflow-x-scroll"
                 >
                     {#each gallery as image, index}
                         <!-- svelte-ignore a11y-missing-attribute -->
@@ -91,7 +93,7 @@
                     {/each}
                 </div>
             </div>
-            {#if dots}
+            {#if dots && gallery.length > 1}
                 <div class="gap-x-2 flex items-center justify-center mx-auto">
                     {#each gallery as _, index}
                         <Button
