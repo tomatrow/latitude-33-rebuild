@@ -4,6 +4,8 @@
 
     export let dateGmt: string
     export let postFields: any
+    let clazz = ""
+    export { clazz as class }
 
     function formatDate(rawDate: string) {
         const date = parseISO(rawDate)
@@ -11,17 +13,16 @@
     }
 </script>
 
-<div class="space-x-4 font-display flex items-center font-light text-sm">
+<div class="{clazz} space-x-4 font-display flex items-center font-light text-sm">
     {#if postFields.class}
         <Link
             href={postFields.class.href}
-            blob
             filled
             color={postFields.class.postClassFields.color}
-            class="py-2 px-3"
+            class="py-2 px-3 uppercase font-extralight"
         >
             {postFields.class.postClassFields.singularLabel}
         </Link>
     {/if}
-    <h6 class="font-bold">{formatDate(dateGmt)}</h6>
+    <h6 class="font-thin">{formatDate(dateGmt)}</h6>
 </div>

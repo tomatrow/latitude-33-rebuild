@@ -4,7 +4,6 @@
     export let items = []
 
     const regularLink = {
-        pill: true,
         ease: true,
         color: "white" as PrimaryColor,
         border: true,
@@ -33,7 +32,6 @@
             {...link}
             shadow
             filled
-            pill
             ease
             color="ripe-blueberry-indentation"
             class="leading-3 font-extralight flex-shrink-0 py-2 px-3 text-white text-center text-xs sm:text-sm"

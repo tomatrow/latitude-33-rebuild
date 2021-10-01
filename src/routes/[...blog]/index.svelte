@@ -84,7 +84,7 @@
         <div slot="tabs" let:tabs class="space-x-6 flex">
             {#each tabs as { active, payload, select }}
                 <Button
-                    class="font-display text-a-stormy-morning flex items-center font-light"
+                    class="uppercase font-display text-black flex items-center font-light"
                     on:click={() => (active ? setTab(null) : select())}
                 >
                     {payload}

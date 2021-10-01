@@ -57,7 +57,7 @@
 
 <style lang="postcss">
     .gradient-overlay {
-        background-size: auto, auto;
+        background-size: auto, cover;
         background-position: center, center;
         background-repeat: no-repeat, no-repeat;
         background-image: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)), var(--bg, var(--pixel-white));

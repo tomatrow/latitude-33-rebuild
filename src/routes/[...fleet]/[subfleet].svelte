@@ -59,6 +59,7 @@
     import { fleetFormat } from "./_FleetFilter.svelte"
     import { classes } from "$lib/actions/styles"
     import AircraftInfo from "./_AircraftInfo.svelte"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let subfleet: any
     export let acfOptionsSubfleets: any
@@ -76,20 +77,18 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
     <section class="gap-y-4 flex items-start flex-col px-5 md:pl-12">
-        <h5 class="font-display text-a-stormy-morning font-light">
-            {subfleetOptions.mainContent.subheading}
-        </h5>
-        <h1 class="font-extralight text-2xl sm:text-6xl">{subfleet.name}</h1>
+        <Heading reverse large subheading={subfleetOptions.mainContent.subheading}>{subfleet.name}</Heading>
+
         <div class="injected-content injected-content_subfleet">
             {@html subfleet.subfleetPageSettings.contentHtml}
         </div>
         <Link
             shadow
-            blob
             filled
             color="a-stormy-morning"
             href="#subfleet-grid"
-            class="inline-block mx-auto py-4 px-6 text-white"
+            ease
+            class="uppercase font-extralight inline-block mx-auto py-4 px-6 text-white"
             >{subfleetOptions.mainContent.bookingCtaLabel}</Link
         >
     </section>
@@ -99,7 +98,7 @@
             <div class="flex items-end m-4" use:classes={images.length === 1 ? "h-96" : "h-72"}>
                 <!-- svelte-ignore a11y-missing-attribute -->
                 <img
-                    class="rounded-xl transition duration-200 transform hover:-translate-y-3 mx-auto mb-4 h-full hover:shadow-lg cursor-pointer object-cover"
+                    class="transition duration-200 transform hover:-translate-y-3 mx-auto mb-4 h-full hover:shadow-lg cursor-pointer object-cover"
                     {...images[galleryIndex]}
                     on:click={() => show(galleryIndex)}
                 />
@@ -117,12 +116,12 @@
                         {/each}
                     </div>
                     <Button
-                        blob
                         shadow
                         filled
                         border
+                        ease
                         color="a-stormy-morning"
-                        class="justify-self-end flex-shrink-0 my-auto py-4 px-6 border-2"
+                        class="uppercase font-extralight justify-self-end flex-shrink-0 my-auto py-4 px-6 border-2"
                         on:click={() => show(galleryIndex)}
                         >{subfleetOptions.mainContent.galleryLabel}</Button
                     >
@@ -133,12 +132,7 @@
 </div>
 
 <div class="my-12 px-5 sm:px-12 text-center">
-    <h5 class="font-display text-a-stormy-morning font-extralight text-xl">
-        {subfleetOptions.fleetGrid.subheading}
-    </h5>
-    <h4 class="sm:text-5.5xl font-display tracking-px text-black font-light text-4xl">
-        {subfleet.subfleetPageSettings.gridHeading}
-    </h4>
+    <Heading large reverse subheading={subfleetOptions.fleetGrid.subheading}>{subfleet.subfleetPageSettings.gridHeading}</Heading>
 </div>
 
 <CollectionGrid items={fleet} let:item>

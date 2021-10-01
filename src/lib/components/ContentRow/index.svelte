@@ -96,7 +96,10 @@
                 {/if}
             </div>
         </div>
-        {#if gallery.length > 0}
+        {#if gallery.length === 1}
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <img class="md:max-w-[31%] w-full self-start flex-shrink-0" {...gallery[0]} />
+        {:else if gallery.length > 1}
             <GalleryCarousel class="md:max-w-[31%] h-44 w-full self-start flex-shrink-0" {gallery} />
         {/if}
     </div>

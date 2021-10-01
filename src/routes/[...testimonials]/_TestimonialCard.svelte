@@ -7,10 +7,10 @@
 <div
     class="gap-y-3 p-9 border-pre-coffee-sky-blue rounded-xl flex flex-col justify-between border text-sm"
 >
-    <div class="leading-6 font-light">
+    <div class="leading-6 font-thin">
         {'"'}{quote}{'"'}
     </div>
-    <div class="text-tinted-rear-window flex flex-col font-semibold text-lg">
+    <div class="text-tinted-rear-window flex flex-col font-light text-lg">
         <span class="h-8">
             {#if name}
                 {"—"}

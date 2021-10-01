@@ -71,6 +71,7 @@
     import { Meta, Link, PostInfo, Anchor, EmbeddedVideoModal } from "$lib/components"
     import Colors from "$lib/data/colors.json"
     import { cssVars, classes } from "$lib/actions/styles"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let post: any
     export let acfOptionsPosts: any
@@ -92,14 +93,13 @@
 <Meta title={post.title} seo={post.seo} />
 
 <div class="space-y-3 md:space-y-6 flex items-start flex-col mt-8 mx-auto px-5 max-w-4xl">
-    <h1 class="font-display tracking-px md:text-3.5xl font-light text-2xl">
+    <Heading large>
         {post.title}
-    </h1>
+    </Heading>
     <div class="tracking-px font-light">
         {@html post.excerpt}
     </div>
     <Link
-        blob
         ease
         border
         filled
@@ -125,7 +125,7 @@
         />
     {/if}
     <!-- svelte-ignore a11y-missing-attribute -->
-    <img class="rounded-2xl w-full h-full object-cover" {...post.postFields.featuredImage} />
+    <img class="w-full h-full object-cover" {...post.postFields.featuredImage} />
 </div>
 
 <Anchor id="post" />

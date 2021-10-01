@@ -47,10 +47,10 @@
 <Meta title={page.title} seo={page.seo} />
 
 <div class="relative">
-    <Banner class="" {...banner}>
+    <Banner {...banner}>
         <div class="lg:absolute lg:inset-0 flex items-center justify-end pointer-events-none">
             <div class="w-full lg:w-5/12 xl:w-1/2">
-                <div class="aspect-w-16 aspect-h-9 mr-4 ml-auto w-full rounded bg-black">
+                <div class="aspect-w-16 aspect-h-9 my-4 mr-4 ml-auto w-full bg-black">
                     <iframe
                         title="Vimeo"
                         src={`https://player.vimeo.com/video/${vimeo.vimeoId}?autoplay=0&title=0&byline=0&portrait=false&transparent=true&pip=true`}

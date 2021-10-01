@@ -21,32 +21,32 @@
     <Link
         {href}
         aria-label={title}
-        class="rounded-2xl relative block mb-4 h-full {layered
+        class="relative block mb-4 h-full {layered
             ? ''
             : 'transition duration-200 ease-in-out transform sm:hover:-translate-y-3  '}"
     >
         {#if postFields.class?.postClassFields.isMedia && !layered}
             <YouTube
-                class="transition-none stroke-0 bg-opacity-10 h-1/6 absolute inset-0 m-auto z-10 w-1/6 rounded-lg bg-black text-white fill-current"
+                class="transition-none stroke-0 bg-opacity-10 h-1/6 absolute inset-0 m-auto z-10 w-1/6  bg-black text-white fill-current"
             />
         {/if}
         <!-- svelte-ignore a11y-missing-attribute -->
         <img
             class:shadow-xl={layered}
-            class="rounded-2xl w-full h-full object-cover"
+            class="w-full h-full object-cover"
             {...postFields.featuredImage}
         />
     </Link>
     <div class="{layered ? 'px-4' : ''} mt-auto">
         <div
             class="flex {layered
-                ? 'flex-col-reverse bg-white rounded-lg p-6 sm:p-9 border border-black border-opacity-10 sm:max-w-sm w-full mx-auto transition duration-200 ease-in-out transform sm:hover:-translate-y-12 md:transform-none hover:-translate-y-9 sm:-translate-y-9 md:absolute md:bottom-0 md:left-0 md:m-8'
+                ? 'flex-col-reverse bg-white p-6 sm:p-9 border border-black border-opacity-10 sm:max-w-sm w-full mx-auto transition duration-200 ease-in-out transform sm:hover:-translate-y-12 md:transform-none hover:-translate-y-9 sm:-translate-y-9 md:absolute md:bottom-0 md:left-0 md:m-8'
                 : 'flex-col'}"
         >
-            <PostInfo {dateGmt} {postFields} />
+            <PostInfo class="mt-2" {dateGmt} {postFields} />
             <Link {href} class={layered ? "mb-7" : "mt-7"}>
                 <h3
-                    class="text-tinted-rear-window font-display min-h-16 sm:min-h-auto sm:h-16 font-light text-2xl"
+                    class="uppercase text-tinted-rear-window font-display min-h-16 sm:min-h-auto sm:h-16 font-light text-2xl"
                 >
                     {title}
                 </h3>

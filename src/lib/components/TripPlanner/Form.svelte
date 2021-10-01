@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
     const baseStyle = {
-        class: "bg-opacity-20 p-2 rounded bg-white text-white placeholder-white placeholder-opacity-50"
+        class: "bg-opacity-20 p-2 bg-white text-white placeholder-white placeholder-opacity-50"
     }
     const textStyle = {
         ...baseStyle,
@@ -117,7 +117,6 @@
         shadow
         border
         ease
-        pill
         class="col-span-full justify-self-center py-2 px-4 font-light"
         type="submit"
         title="Submit"

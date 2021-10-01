@@ -14,6 +14,9 @@
 <script lang="ts">
     import { AccordionGroup } from "renderless-svelte"
     import PositionCard from "./_PositionCard.svelte"
+    import Heading, { increment } from "$lib/components/typography/Heading.svelte"
+
+    increment()
 
     export let title: string
     export let subheading: string
@@ -24,10 +27,7 @@
 </script>
 
 <section class={clazz}>
-    <div class="space-y-6 my-6">
-        <h2 class="font-display sm:text-4.5xl text-white font-light text-3xl">{title}</h2>
-        <p class="font-display text-white text-lg sm:text-xl">{subheading}</p>
-    </div>
+    <Heading class="my-6 text-white" {subheading}>{title}</Heading>
     <div class="space-y-4">
         <AccordionGroup>
             {#each positions as { title, positionFields }}

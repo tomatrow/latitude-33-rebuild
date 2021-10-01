@@ -45,6 +45,7 @@
     import { openModal } from "$lib/components/ModalProvider.svelte"
     import BookingModal from "./_BookingModal.svelte"
     import ContentRow from "$lib/components/ContentRow/index.svelte"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let aircraft: any
     export let acfOptionsDrillDown: any
@@ -119,9 +120,7 @@
     <section
         class="bg-opacity-70 sm:px-9 transition-all duration-200 relative sm:p-0 py-6 sm:py-16 px-5 sm:max-w-sm bg-white"
     >
-        <h1 class="font-display text-3.5xl leading-9 font-extralight w-3/4 text-black">
-            {aircraft.title}
-        </h1>
+        <Heading>{aircraft.title}</Heading>
 
         <Stat label="Max Range">{aircraft.aircraftFields.stats.maxRange} NM</Stat>
         <Stat label="Max Cruise Speed">{aircraft.aircraftFields.stats.maxCruiseSpeed} MPH</Stat>

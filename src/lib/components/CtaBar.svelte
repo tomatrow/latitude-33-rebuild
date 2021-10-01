@@ -13,15 +13,16 @@
     const props = {
         ease: true,
         border: true, 
-        color:"either-gray-blue",
-        class:"uppercase text-sm font-extralight bg-either-gray-blue hover:bg-white text-white hover:text-either-gray-blue px-4 py-2 font-display" 
+        color: "white",
+        fill: "sarcastic-orange",
+        class:"uppercase text-sm font-extralight px-4 py-2 font-display" 
     }
 </script>
 
 <section class="font-display bg-sarcastic-orange gap-y-4 flex flex-col py-10 px-12 text-white">
     <Anchor id={anchorId} />
     {#if heading}
-        <h5 class="tracking-px text-center mx-auto text-xl">{heading}</h5>
+        <h5 class="tracking-px font-extralight text-center mx-auto text-xl">{heading}</h5>
     {/if}
     {#if contentHtml}
         <div class="injected-content injected-content__large">

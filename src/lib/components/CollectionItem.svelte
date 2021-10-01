@@ -30,7 +30,6 @@
     <slot name="link" {link}>
         <Link
             ease
-            pill
             shadow
             sveltekit:prefetch
             color="white"

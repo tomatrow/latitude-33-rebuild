@@ -42,6 +42,7 @@
     import { DateInput, nonEmptyString } from "$lib/components/TripPlanner/felte"
     import { getTripUrl, getMaxPassengers } from "$lib/components/TripPlanner/utility"
     import { goto } from "$app/navigation"
+    import Heading from "$lib/components/typography/Heading.svelte"
     
     export let tripFleet: any
     export let tripAirports: any
@@ -95,8 +96,8 @@
         >
         <Field {...fieldDefaults.text} type="tel" name="phone">{fields.form.phoneLabel}</Field>
         
-        <h4 class="text-lg">Trip Details</h4>
-    
+        <Heading small>Trip Details</Heading>
+
         <Field
             required
             type="number"
@@ -140,7 +141,7 @@
         >
     </form>
     <div class="flex items-center justify-center">
-        <section class="bg-a-stormy-morning w-96 rounded-md space-y-2 flex flex-col p-6 text-white">
+        <section class="bg-a-stormy-morning w-96  space-y-2 flex flex-col p-6 text-white">
             <h4 class="font-display text-lg">{fields.sidebar.title}</h4>
             <p class="airy-copy">
                 {fields.sidebar.blurb}

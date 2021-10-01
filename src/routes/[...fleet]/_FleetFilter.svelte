@@ -57,7 +57,7 @@
     <CollectionGrid items={filtered} let:item>
         <AircraftInfo {...item} />
         <div
-            class="sm:py-18 font-display py-8 px-5 text-black text-center font-bold text-2xl"
+            class="sm:py-18 font-display py-8 px-5 text-thin text-center font-bold text-2xl"
             slot="empty"
         >
             <!-- todo: make this message editable -->

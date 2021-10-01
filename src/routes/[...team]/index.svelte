@@ -95,9 +95,9 @@
 </div>
 
 <div class="space-x-5 flex items-center justify-center mt-8 mb-24 text-lg">
-    <h6 class="">{footer.blurb}</h6>
+    <h6 class="font-light">{footer.blurb}</h6>
     <Link
-        class="text-sarcastic-orange tracking-px space-x-2 flex items-center font-light"
+        class="uppercase text-sarcastic-orange tracking-px space-x-2 flex items-center font-light"
         href={footer.link.href}
         target={footer.link.target}
     >

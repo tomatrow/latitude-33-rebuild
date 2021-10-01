@@ -13,6 +13,7 @@
     export let small: boolean = undefined
     export let tiny: boolean = undefined
     export let subheading: string = undefined
+    export let reverse = false
 
     // 38px, 44px  large
     // "large": ["2.375rem", "2.75rem"]
@@ -27,14 +28,16 @@
     const level = large ? 3 : small ? 1 : tiny ? 0 : 2
 </script>
 
-<div class="uppercase tracking-2px flex flex-col items-start gap-[10px] {clazz} {text[level]}" {style}>
+<div class="uppercase tracking-2px flex {reverse ? 'flex-col-reverse' : 'flex-col'} gap-[10px] {clazz} {text[level]}" {style}>
     <Heading class="font-display font-extralight">
         <slot />
     </Heading>
 
-    {#if subheading}
+    {#if subheading || $$slots.subheading}
         <div class="font-sans font-thin text-small">
-            {subheading}
+            <slot name="subheading" {subheading}>
+                {subheading}
+            </slot>
         </div>
     {/if}
 </div>

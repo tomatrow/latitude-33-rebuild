@@ -3,6 +3,9 @@
     import Arrow from "$lib/components/Arrow.svelte"
     import Colors from "$lib/data/colors"
     import type { AcfImage } from "$lib/index.type"
+    import Heading, { increment } from "$lib/components/typography/Heading.svelte"
+
+    increment()
 
     export let title: string
     export let contentHtml: string
@@ -11,9 +14,7 @@
 
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-screen-xl py-18 mx-auto px-5">
     <div class="max-w-lg">
-        <h1 class="text-3.5xl lg:text-5.5xl font-display my-6 font-bold">
-            {title}
-        </h1>
+        <Heading class="mb-[10px]">{title}</Heading>
 
         <div
             class="injected-content text-tinted-rear-window"
@@ -24,5 +25,5 @@
     </div>
 
     <!-- svelte-ignore a11y-missing-attribute -->
-    <img class="rounded-xl" {...image} />
+    <img {...image} />
 </section>

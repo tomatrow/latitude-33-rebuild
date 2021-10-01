@@ -1,6 +1,9 @@
 <script lang="ts">
     import { smoothEdges } from "$lib/scripts/utility"
     import DealCard from "./DealCard.svelte"
+    import Heading, { increment } from "$lib/components/typography/Heading.svelte"
+
+    increment()
 
     export let title: string
     export let subheading: string
@@ -9,10 +12,8 @@
 </script>
 
 <section class="flex items-center flex-col py-8 sm:py-12 px-5 sm:px-6">
-    <strong class="font-display text-tinted-rear-window text-base">{subheading}</strong>
-    <h2 class="font-display text-a-stormy-morning mt-8 mb-12 text-center font-light text-5xl">
-        {title}
-    </h2>
+    <span class="font-display text-tinted-rear-window text-base">{subheading}</span>
+    <Heading large class="text-a-stormy-morning my-[10px]">{title}</Heading>
 
     <div class="grid grid-custom gap-4 w-full">
         {#each smoothEdges(deals) as { dealFields }}

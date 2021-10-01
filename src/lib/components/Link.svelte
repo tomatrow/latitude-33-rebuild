@@ -31,7 +31,7 @@
             raise && "hover:-translate-y-1.5 hover:shadow-md transform",
             shadow && "hover:shadow-inner-10xl",
             fill && `hover:bg-${color}`,
-            Colors[fill] && `hover:text-${fill}`,
+            Colors[fill] && `hover:text-${fill} hover:border-${fill} hover:bg-${color}`,
             blob && "rounded",
             pill && "rounded-full",
             hollow && "border-white border",

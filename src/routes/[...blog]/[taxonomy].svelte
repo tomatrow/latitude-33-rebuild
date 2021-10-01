@@ -65,12 +65,11 @@
         <Link
             sveltekit:prefetch
             shadow
-            pill
             ease
             filled
             border
             color="either-gray-blue"
-            class="py-2 px-4 font-extrabold"
+            class="py-2 px-4 font-thin uppercase"
             href={$session.postsPage.href}
             >{acfOptionsTaxonomies.postsTaxonomyFields.allPostsLabel}</Link
         >

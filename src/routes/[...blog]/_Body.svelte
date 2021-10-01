@@ -2,6 +2,7 @@
     import { PostCard, PostGrid } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
     import EmailForm from "./_EmailForm.svelte"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let noPostsMessage: string
     export let gridHeading: string
@@ -14,9 +15,9 @@
 {#if firstPost}
     <PostCard layered {...firstPost} class="my-12 mx-auto px-5 max-w-5xl" />
 
-    <h4 class="font-display text-3.5xl mt-18 font-extralight my-5 mx-5 text-center">
+    <Heading class="mt-18 my-5 mx-5 text-center">
         {gridHeading}
-    </h4>
+    </Heading>
 
     <PostGrid class="mb-36 mt-18 px-5" {posts} />
 {:else}

@@ -14,17 +14,19 @@
             {...images[index]}
             style="max-height: 75%"
         />
-        <div
-            class="inline-grid gap-1 justify-self-end grid-cols-3 sm:grid-cols-6 md:grid-cols-12 h-1/4 bottom-0 left-0 z-20 overflow-y-scroll text-center"
-        >
-            {#each images as image, imageIndex}
-                <!-- svelte-ignore  a11y-missing-attribute -->
-                <img
-                    class="transition-opacity duration-400 w-full h-16 object-cover darken-10 {index === imageIndex ? 'opacity-100' : 'opacity-50'}"
-                    {...image}
-                    on:click={() => (index = imageIndex)}
-                />
-            {/each}
-        </div>
+        {#if images.length > 1}
+            <div
+                class="inline-grid gap-1 justify-self-end grid-cols-3 sm:grid-cols-6 md:grid-cols-12 h-1/4 bottom-0 left-0 z-20 overflow-y-scroll text-center"
+            >
+                {#each images as image, imageIndex}
+                    <!-- svelte-ignore  a11y-missing-attribute -->
+                    <img
+                        class="transition-opacity duration-400 w-full h-16 object-cover darken-10 {index === imageIndex ? 'opacity-100' : 'opacity-50'}"
+                        {...image}
+                        on:click={() => (index = imageIndex)}
+                    />
+                {/each}
+            </div>
+        {/if}
     </div>
 </ModalWrapper>

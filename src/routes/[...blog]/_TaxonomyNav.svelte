@@ -12,12 +12,11 @@
         <Link
             sveltekit:prefetch
             shadow
-            blob
             ease
             border
             filled
             color="pre-coffee-sky-blue"
-            class="p-2 font-light"
+            class="uppercase p-2 font-thin"
             {href}>{name}</Link
         >
     {/each}
