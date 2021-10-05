@@ -53,6 +53,7 @@
     import Colors from "$lib/data/colors.json"
     import Link from "$lib/components/Link.svelte"
     import GalleryCarousel from "$lib/components/GalleryCarousel.svelte"
+    import Content from "./Content.svelte"
 
     increment()
 
@@ -87,17 +88,7 @@
             </Heading>
             <div class="w-full sm:w-[60%] space-y-4">
                 <slot>
-                    {#if contentHtml}
-                        <div
-                            class="injected-content"
-                            use:cssVars={{
-                                mobile: Colors[scheme.mobile.link],
-                                desktop: Colors[scheme.desktop?.link] ?? Colors[scheme.mobile.link]
-                            }}
-                        >
-                            {@html contentHtml}
-                        </div>
-                    {/if}
+                    <Content class="content-row-injection" {contentHtml} --mobile={Colors[scheme.mobile.link]} --desktop={Colors[scheme.desktop?.link] ?? Colors[scheme.mobile.link]} />
                 </slot>
                 {#if links.length > 0}
                     {#each links as link}
@@ -133,12 +124,12 @@
     {/if}
 </section>
 
-<style lang="postcss">
-    .injected-content {
+<style lang="postcss" global>
+    .content-row-injection {
         --injected-link-color: var(--mobile);
     }
     @screen md {
-        .injected-content {
+        .content-row-injection {
             --injected-link-color: var(--desktop);
         }
     }
