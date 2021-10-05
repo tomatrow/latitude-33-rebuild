@@ -7,16 +7,16 @@
  */
 
 .vsm-mob-container {
-  display: none;
-  margin-left: $vsm-mob-link-offset;
-  &.vsm-open {
-    .vsm-mob {
-      pointer-events: none;
+    display: none;
+    margin-left: $vsm-mob-link-offset;
+    &.vsm-open {
+        .vsm-mob {
+            pointer-events: none;
+        }
+        .vsm-mob-content {
+            display: flex;
+        }
     }
-    .vsm-mob-content {
-      display: flex;
-    }
-  }
 }
 
 /* -----------------------------------------------------------------------------
@@ -25,29 +25,29 @@
  */
 
 .vsm-mob__hamburger {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: $vsm-mob-hamburger-size;
-  height: $vsm-mob-hamburger-size;
-  cursor: pointer;
-  &:hover {
-    .vsm-mob-line {
-      background: $vsm-mob-hamburger-color-hover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: $vsm-mob-hamburger-size;
+    height: $vsm-mob-hamburger-size;
+    cursor: pointer;
+    &:hover {
+        .vsm-mob-line {
+            background: $vsm-mob-hamburger-color-hover;
+        }
     }
-  }
 }
 
 .vsm-mob-line {
-  width: $vsm-mob-hamburger-width;
-  height: $vsm-mob-hamburger-height;
-  background: $vsm-mob-hamburger-color;
-  transition: background $vsm-mob-transition-link;
-  &:nth-child(2) {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
+    width: $vsm-mob-hamburger-width;
+    height: $vsm-mob-hamburger-height;
+    background: $vsm-mob-hamburger-color;
+    transition: background $vsm-mob-transition-link;
+    &:nth-child(2) {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
 }
 
 /* -----------------------------------------------------------------------------
@@ -56,57 +56,57 @@
  */
 
 .vsm-mob-content {
-  position: absolute;
-  left: $vsm-mob-dropdown-offset;
-  top: $vsm-mob-dropdown-offset;
-  right: $vsm-mob-dropdown-offset;
-  justify-content: flex-end;
-  perspective: 2000px;
+    position: absolute;
+    left: $vsm-mob-dropdown-offset;
+    top: $vsm-mob-dropdown-offset;
+    right: $vsm-mob-dropdown-offset;
+    justify-content: flex-end;
+    perspective: 2000px;
 }
 
 .vsm-mob-content__wrap {
-  background: $vsm-mob-background;
-  box-shadow: $vsm-mob-shadow;
-  border-radius: $vsm-mob-dropdown-border-radius;
-  overflow: hidden;
-  position: relative;
-  white-space: nowrap;
-  flex-grow: 1;
-  transform-origin: 100% 0;
-  will-change: transform, opacity;
-  transition-property: transform, opacity;
-  transition-duration: $vsm-mob-transition;
+    background: $vsm-mob-background;
+    box-shadow: $vsm-mob-shadow;
+    border-radius: $vsm-mob-dropdown-border-radius;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    flex-grow: 1;
+    transform-origin: 100% 0;
+    will-change: transform, opacity;
+    transition-property: transform, opacity;
+    transition-duration: $vsm-mob-transition;
 }
 
 .vsm-mob-close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: $vsm-mob-close-size;
-  height: $vsm-mob-close-size;
-  cursor: pointer;
-  &:hover {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: $vsm-mob-close-size;
+    height: $vsm-mob-close-size;
+    cursor: pointer;
+    &:hover {
+        &:before,
+        &:after {
+            background: $vsm-mob-close-color-hover;
+        }
+    }
     &:before,
     &:after {
-      background: $vsm-mob-close-color-hover;
+        content: "";
+        position: absolute;
+        background: $vsm-mob-close-color;
+        border-radius: 1px;
+        left: math.div($vsm-mob-close-size, 4);
+        right: math.div($vsm-mob-close-size, 4);
+        top: math.div($vsm-mob-close-size, 2);
+        height: $vsm-mob-close-weight;
+        transform: rotate(45deg);
+        transition: background $vsm-mob-transition-link;
     }
-  }
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    background: $vsm-mob-close-color;
-    border-radius: 1px;
-    left: math.div($vsm-mob-close-size , 4);
-    right: math.div($vsm-mob-close-size , 4);
-    top: math.div($vsm-mob-close-size, 2);
-    height: $vsm-mob-close-weight;
-    transform: rotate(45deg);
-    transition: background $vsm-mob-transition-link;
-  }
-  &:after {
-    transform: rotate(-45deg);
-  }
+    &:after {
+        transform: rotate(-45deg);
+    }
 }
 
 /* -----------------------------------------------------------------------------

@@ -77,7 +77,9 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
     <section class="gap-y-4 flex items-start flex-col px-5 md:pl-12">
-        <Heading reverse large subheading={subfleetOptions.mainContent.subheading}>{subfleet.name}</Heading>
+        <Heading reverse large subheading={subfleetOptions.mainContent.subheading}
+            >{subfleet.name}</Heading
+        >
 
         <div class="injected-content injected-content_subfleet">
             {@html subfleet.subfleetPageSettings.contentHtml}
@@ -132,7 +134,9 @@
 </div>
 
 <div class="my-12 px-5 sm:px-12 text-center">
-    <Heading large reverse subheading={subfleetOptions.fleetGrid.subheading}>{subfleet.subfleetPageSettings.gridHeading}</Heading>
+    <Heading large reverse subheading={subfleetOptions.fleetGrid.subheading}
+        >{subfleet.subfleetPageSettings.gridHeading}</Heading
+    >
 </div>
 
 <CollectionGrid items={fleet} let:item>

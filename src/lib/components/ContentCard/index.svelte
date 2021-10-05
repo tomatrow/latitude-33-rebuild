@@ -5,7 +5,7 @@
     import Colors from "$lib/data/colors.json"
     import Link from "$lib/components/Link.svelte"
     import { prefetch } from "$app/navigation"
-    
+
     export let heading: string = undefined
     export let image: AcfImage = undefined
     export let contentHtml: string = undefined
@@ -13,15 +13,22 @@
     let clazz: string = ""
     export { clazz as class }
 
-    heading && increment()    
+    heading && increment()
 
     function prefetchLink() {
         prefetch(link.href)
     }
 </script>
 
-<section class="shadow-card bg-white border border-new-farah-hotel {clazz}" on:mouseover={prefetchLink} on:focus={prefetchLink}>
-    <div class="gradient-overlay px-[10px] pt-[10px] h-44 flex items-end justify-start" style={image?.src ? `--bg: url(${image.src})` : ''}>
+<section
+    class="shadow-card bg-white border border-new-farah-hotel {clazz}"
+    on:mouseover={prefetchLink}
+    on:focus={prefetchLink}
+>
+    <div
+        class="gradient-overlay px-[10px] pt-[10px] h-44 flex items-end justify-start"
+        style={image?.src ? `--bg: url(${image.src})` : ""}
+    >
         {#if heading || $$slots.heading}
             <Heading class="text-white font-semibold" tiny>
                 <span class="contents font-semibold">
@@ -43,7 +50,13 @@
             </slot>
             {#if link}
                 <div class="mt-[10px]">
-                    <Link border ease class="uppercase text-sm font-extralight bg-either-gray-blue hover:bg-white text-white hover:text-either-gray-blue px-4 py-2 font-display" color="either-gray-blue"  {...link}>
+                    <Link
+                        border
+                        ease
+                        class="uppercase text-sm font-extralight bg-either-gray-blue hover:bg-white text-white hover:text-either-gray-blue px-4 py-2 font-display"
+                        color="either-gray-blue"
+                        {...link}
+                    >
                         <slot name="link">
                             {link.title}
                         </slot>
@@ -54,12 +67,12 @@
     {/if}
 </section>
 
-
 <style lang="postcss">
     .gradient-overlay {
         background-size: auto, cover;
         background-position: center, center;
         background-repeat: no-repeat, no-repeat;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)), var(--bg, var(--pixel-white));
+        background-image: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)),
+            var(--bg, var(--pixel-white));
     }
 </style>

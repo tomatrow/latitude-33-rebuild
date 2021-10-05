@@ -1,5 +1,5 @@
 <script context="module">
-    const date =  {
+    const date = {
         class: "mt-1 text-dark-charcoal border border-a-stormy-morning text-sm py-2 px-3 ",
         rootProps: {
             class: "flex flex-col items-start text-base text-a-stormy-morning font-light font-display"
@@ -37,15 +37,15 @@
 <label {...rootProps}>
     <slot />
     {#if type === "checkbox"}
-        <input  bind:checked type="checkbox" {...$$restProps} />
+        <input bind:checked type="checkbox" {...$$restProps} />
     {:else if type === "radio"}
-        <input   type="radio" {...$$restProps} />
+        <input type="radio" {...$$restProps} />
     {:else if type === "select"}
-        <select  {...$$restProps}>
+        <select {...$$restProps}>
             <slot name="options" />
         </select>
     {:else}
-        <input   {type} {...$$restProps} />
+        <input {type} {...$$restProps} />
     {/if}
 </label>
 

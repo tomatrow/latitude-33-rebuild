@@ -12,10 +12,10 @@
 
     const props = {
         ease: true,
-        border: true, 
+        border: true,
         color: "white",
         fill: "sarcastic-orange",
-        class:"uppercase text-sm font-extralight px-4 py-2 font-display" 
+        class: "uppercase text-sm font-extralight px-4 py-2 font-display"
     }
 </script>
 

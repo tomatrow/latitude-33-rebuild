@@ -10,15 +10,13 @@
 <div
     class="{clazz} grid grid-cols-1 place-content-center md:grid-cols-2 gap-8 md:gap-0 items-center justify-center"
 >
-    <div class="flex flex-col gap-y-8 relative md:h-full trip-text-card w-full h-full" >
+    <div class="flex flex-col gap-y-8 relative md:h-full trip-text-card w-full h-full">
         <!-- svelte-ignore a11y-missing-attribute -->
         <img
             class="  md:hidden  rounded-2xl h-full object-top   object-cover   border-opacity-80 mx-auto   w-full border border-white"
             src="/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg"
         />
-        <div
-            class="font-display flex items-center justify-center  h-full px-8  w-full text-white"
-        >
+        <div class="font-display flex items-center justify-center  h-full px-8  w-full text-white">
             <div class="flex items-start flex-col my-auto  max-w-md">
                 <h2 class="uppercase" style="letter-spacing: 2px;font-size: 1.75rem">Tristique</h2>
                 <h1
@@ -27,12 +25,21 @@
                 >
                     Pellentesque Etiam
                 </h1>
-                Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                Sed posuere consectetur est at lobortis. Cras justo odio, dapibus ac facilisis in, egestas
+                eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus
+                ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                Cras justo odio, dapibus ac facilisis in, egestas eget quam.
             </div>
         </div>
     </div>
 
-    <Form {airports} {fleet} {successPageLink} id="trip-planner-form" class="mx-auto my-4 md:my-12" />
+    <Form
+        {airports}
+        {fleet}
+        {successPageLink}
+        id="trip-planner-form"
+        class="mx-auto my-4 md:my-12"
+    />
 </div>
 
 <style lang="postcss">
@@ -41,7 +48,8 @@
             background-position: center, center;
             background-repeat: no-repeat, no-repeat;
             background-size: cover, cover;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg");
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url("/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg");
         }
     }
 </style>

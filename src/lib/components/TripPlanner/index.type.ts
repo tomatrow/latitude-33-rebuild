@@ -3,8 +3,7 @@ export interface Trip extends Record<string, any> {
     email: string
     phone: string
     passengers: number
-    departureAirportId: string 
+    departureAirportId: string
     departureDate: string
     arrivalAirportId: string
 }
- 

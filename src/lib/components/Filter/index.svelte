@@ -55,8 +55,22 @@
         </Button>
         <form use:form class="space-y-4">
             <slot name="fields" />
-            <Button ease border color="white" fill="either-gray-blue" class="font-thin py-2 px-4" on:click={reset}>Reset</Button>
-            <Button ease border color="white" fill="either-gray-blue" type="submit" class="font-thin py-2 px-4">Submit</Button>
+            <Button
+                ease
+                border
+                color="white"
+                fill="either-gray-blue"
+                class="font-thin py-2 px-4"
+                on:click={reset}>Reset</Button
+            >
+            <Button
+                ease
+                border
+                color="white"
+                fill="either-gray-blue"
+                type="submit"
+                class="font-thin py-2 px-4">Submit</Button
+            >
         </form>
     </section>
 {/if}

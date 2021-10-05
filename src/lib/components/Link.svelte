@@ -6,7 +6,7 @@
         hollow?: boolean
         filled?: boolean
         shadow?: boolean
-        fill?: boolean|PrimaryColor
+        fill?: boolean | PrimaryColor
         blob?: boolean
         pill?: boolean
         raise?: boolean
@@ -58,7 +58,7 @@
     export let line: LineActionConfig = false
     export let color: PrimaryColor = undefined
     export let border: boolean = undefined
-    export let fill: boolean|PrimaryColor = undefined
+    export let fill: boolean | PrimaryColor = undefined
 
     export let title: string = undefined
 

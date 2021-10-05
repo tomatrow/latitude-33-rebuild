@@ -16,8 +16,7 @@
         use:classes={[
             float &&
                 "sm:top-0 sm:left-0 sm:ml-5 lg:ml-0 sm:absolute sm:-translate-y-1/2 lg:translate-y-0 lg:static sm:pb-4 lg:pb-0",
-            full &&
-                "lg:max-w-none  lg:object-cover lg:w-full lg:h-full lg:max-h-full"
+            full && "lg:max-w-none  lg:object-cover lg:w-full lg:h-full lg:max-h-full"
         ]}
         {...image}
     />

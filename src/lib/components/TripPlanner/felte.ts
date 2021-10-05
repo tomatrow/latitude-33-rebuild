@@ -11,5 +11,5 @@ export const DateInput = refine(string(), "DateInput", value => {
         return false
     }
 })
-    
+
 export const nonEmptyString = size(string(), 1, Infinity)

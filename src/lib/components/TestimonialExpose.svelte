@@ -12,11 +12,11 @@
 <section
     class="{clazz} bg-either-gray-blue justify-items-center py-18 grid grid-cols-1 lg:grid-cols-2 gap-18 px-5 text-white"
 >
-    <div
-        class="py-9 lg:justify-self-end md:px-14 md:py-24 px-6 max-w-xl border border-white"
-    >
+    <div class="py-9 lg:justify-self-end md:px-14 md:py-24 px-6 max-w-xl border border-white">
         <h5 class="font-display font-thin text-xl">{socialProofSummary.title}</h5>
-        <div class="font-display font-extralight" style="font-size: 3.375rem">{socialProofSummary.rating}</div>
+        <div class="font-display font-extralight" style="font-size: 3.375rem">
+            {socialProofSummary.rating}
+        </div>
         <p class="mb-4">{socialProofSummary.blurb}</p>
         <div class="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row">
             {#each socialProofSummary.links as { link }}
@@ -29,7 +29,10 @@
     </div>
 
     <div class="lg:justify-self-start max-w-lg">
-        <Heading><span class="font-display leading-9 text-3.5xl">{testimonialProof.title}</span></Heading>
+        <Heading
+            ><span class="font-display leading-9 text-3.5xl">{testimonialProof.title}</span
+            ></Heading
+        >
         <p>{testimonialProof.blurb}</p>
         <div
             class="border-the-girl-is-looking-at-the-sky  mt-11 relative p-6 pt-12 border bg-white"

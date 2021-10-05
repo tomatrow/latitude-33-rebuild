@@ -21,7 +21,10 @@
                 {#each images as image, imageIndex}
                     <!-- svelte-ignore  a11y-missing-attribute -->
                     <img
-                        class="transition-opacity duration-400 w-full h-16 object-cover darken-10 {index === imageIndex ? 'opacity-100' : 'opacity-50'}"
+                        class="transition-opacity duration-400 w-full h-16 object-cover darken-10 {index ===
+                        imageIndex
+                            ? 'opacity-100'
+                            : 'opacity-50'}"
                         {...image}
                         on:click={() => (index = imageIndex)}
                     />

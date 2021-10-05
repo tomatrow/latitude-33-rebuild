@@ -27,7 +27,9 @@
             <div class="space-y-4 text-left">
                 <Heading small>
                     {title}
-                    <span slot="subheading" class="text-tinted-rear-window">{position}, {location}</span>
+                    <span slot="subheading" class="text-tinted-rear-window"
+                        >{position}, {location}</span
+                    >
                 </Heading>
             </div>
             <Button on:click={toggle} aria-label="open job description">

@@ -2,7 +2,7 @@
     import { Link } from "$lib/components"
     import Heading, { increment } from "$lib/components/typography/Heading.svelte"
     import ContentCard from "$lib/components/ContentCard/index.svelte"
-    
+
     increment()
 
     export let title: string
@@ -15,7 +15,11 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full px-6">
         {#each items as { title, blurb, image, link }}
-            <ContentCard heading={title} {image} link={link?.href ? { href: link.href, title: "View More" }: null }>
+            <ContentCard
+                heading={title}
+                {image}
+                link={link?.href ? { href: link.href, title: "View More" } : null}
+            >
                 {#if blurb}
                     <span class="font-thin text-tiny text-dark-charcoal">{blurb}</span>
                 {/if}

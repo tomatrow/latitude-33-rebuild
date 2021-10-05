@@ -13,7 +13,8 @@ export function getTripUrl(trip: Trip, successHref: string) {
     }
 }
 
-   export const getMaxPassengers = fleet => fleet.edges.reduce(
+export const getMaxPassengers = fleet =>
+    fleet.edges.reduce(
         (acc: number, { node }) => Math.max(acc, node.aircraftFields.stats.maxPassengers),
         1
     )

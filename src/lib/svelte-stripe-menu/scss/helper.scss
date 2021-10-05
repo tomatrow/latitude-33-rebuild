@@ -4,18 +4,18 @@
  */
 
 .vsm-no-transition {
-  .vsm-dropdown-container,
-  .vsm-background-alt,
-  .vsm-background,
-  .vsm-arrow,
-  .vsm-dropdown-section {
-    transition: none;
-  }
-  &_dropdown .vsm-dropdown {
-    transition: none;
-  }
+    .vsm-dropdown-container,
+    .vsm-background-alt,
+    .vsm-background,
+    .vsm-arrow,
+    .vsm-dropdown-section {
+        transition: none;
+    }
+    &_dropdown .vsm-dropdown {
+        transition: none;
+    }
 }
 
 .vsm-has-dropdown:not(a) {
-  cursor: default;
+    cursor: default;
 }

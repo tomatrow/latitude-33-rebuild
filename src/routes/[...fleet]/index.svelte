@@ -7,7 +7,7 @@
         createFlexiblePsudoFragment,
         BannerPsudoFragment
     } from "$lib/components/FlexibleContent.svelte"
-    
+
     export const AircraftFragment = `
         fragment AircraftFragment on Aircraft {
             id

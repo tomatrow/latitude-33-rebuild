@@ -5,16 +5,16 @@
     import Link from "./Link.svelte"
     import Anchor from "$lib/components/Anchor.svelte"
     import Heading, { increment } from "$lib/components/typography/Heading.svelte"
-    
+
     increment()
-    
+
     export let title: string
     export let subheading = ""
     export let contentHtml = ""
     export let backgroundImage: AcfImage
     export let footer: any = undefined
     export let anchorId: string = undefined
-    
+
     let clazz = ""
     export { clazz as class }
 </script>

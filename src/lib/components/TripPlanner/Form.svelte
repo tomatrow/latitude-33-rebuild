@@ -4,31 +4,30 @@
     }
     const textStyle = {
         ...baseStyle,
-        rootProps: { class: "flex flex-col w-full" },
+        rootProps: { class: "flex flex-col w-full" }
     }
     const nonTextStyle = {
         ...baseStyle,
-        rootProps: { class: "flex flex-col items-start" },
+        rootProps: { class: "flex flex-col items-start" }
     }
-    
+
     export const key = Symbol("Form Key")
 </script>
 
 <script lang="ts">
     import { createForm } from "felte"
     import { createValidator } from "@felte/validator-superstruct"
-    import { object,  size, number } from "superstruct"
+    import { object, size, number } from "superstruct"
     import reporter from "@felte/reporter-cvapi"
     import { Button, Field } from "$lib/components"
     import AirportSelects from "./AirportSelects.svelte"
     import { goto } from "$app/navigation"
     import type { AcfLink } from "$lib/index.type"
     import type { Trip } from "./index.type"
-    
+
     import { format } from "date-fns"
     import { DateInput, nonEmptyString } from "./felte"
     import { getTripUrl, getMaxPassengers } from "./utility"
-    
 
     let clazz = ""
     export { clazz as class }
@@ -37,7 +36,7 @@
     export let successPageLink: AcfLink
 
     const maxPassengers = getMaxPassengers(fleet)
-    
+
     const { form, data } = createForm<Trip>({
         extend: [createValidator(() => "Enter a value"), reporter],
         validateStruct: object({
@@ -66,7 +65,7 @@
     <slot name="title">
         <h3 class="md:col-start-2 col-span-full text-center md:text-left text-3xl">Trip Planner</h3>
     </slot>
-    
+
     <Field {...textStyle} required type="text" placeholder="Name" name="name">
         <span class="font-light">Name:</span>
     </Field>
@@ -88,7 +87,6 @@
         value={1}
         placeholder="Passengers"
         max={maxPassengers}
-
     >
         <span class="font-light">Passengers:</span>
     </Field>
@@ -104,13 +102,18 @@
         <span class="font-light">Departure Date:</span>
     </Field>
 
-    <AirportSelects {airports}
-            bind:departureAirportId={$data.departureAirportId}
-            bind:arrivalAirportId={$data.arrivalAirportId}
-        selectProps={{ selectClass:"bg-opacity-20 overflow-ellipsis overflow-hidden py-2 px-4 w-full max-w-full sm:w-auto bg-white text-white appearance-none",
-        rootClass:"flex w-full flex-col",
-        labelClass:"font-light" }} />
-        
+    <AirportSelects
+        {airports}
+        bind:departureAirportId={$data.departureAirportId}
+        bind:arrivalAirportId={$data.arrivalAirportId}
+        selectProps={{
+            selectClass:
+                "bg-opacity-20 overflow-ellipsis overflow-hidden py-2 px-4 w-full max-w-full sm:w-auto bg-white text-white appearance-none",
+            rootClass: "flex w-full flex-col",
+            labelClass: "font-light"
+        }}
+    />
+
     <slot />
 
     <Button

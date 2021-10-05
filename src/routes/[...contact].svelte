@@ -43,11 +43,11 @@
     import { getTripUrl, getMaxPassengers } from "$lib/components/TripPlanner/utility"
     import { goto } from "$app/navigation"
     import Heading from "$lib/components/typography/Heading.svelte"
-    
+
     export let tripFleet: any
     export let tripAirports: any
     export let page: any
-    
+
     const maxPassengers = getMaxPassengers(tripFleet)
 
     const { form, data } = createForm({
@@ -70,7 +70,7 @@
             }
         }
     })
-    
+
     $: console.log({ data: $data })
 
     const { title, template } = page
@@ -92,10 +92,9 @@
         on:submit|preventDefault
     >
         <Field {...fieldDefaults.text} name="name">{fields.form.nameLabel}</Field>
-        <Field {...fieldDefaults.text} type="email" name="email">{fields.form.emailLabel}</Field
-        >
+        <Field {...fieldDefaults.text} type="email" name="email">{fields.form.emailLabel}</Field>
         <Field {...fieldDefaults.text} type="tel" name="phone">{fields.form.phoneLabel}</Field>
-        
+
         <Heading small>Trip Details</Heading>
 
         <Field
@@ -110,7 +109,7 @@
         >
             Passengers
         </Field>
-    
+
         <Field
             required
             type="date"
@@ -118,17 +117,20 @@
             placeholder="YYYY-MM-DD"
             {...fieldDefaults.date}
             value={format(new Date(), "yyyy-MM-dd")}
-            
         >
             Departure Date
         </Field>
-        
-        <AirportSelects airports={smoothEdges(tripAirports)}
+
+        <AirportSelects
+            airports={smoothEdges(tripAirports)}
             bind:departureAirportId={$data.departureAirportId}
             bind:arrivalAirportId={$data.arrivalAirportId}
-            selectProps={{ selectClass: fieldDefaults.select.class,
-            rootClass: fieldDefaults.select.rootProps.class,
-            labelClass: "" }} />
+            selectProps={{
+                selectClass: fieldDefaults.select.class,
+                rootClass: fieldDefaults.select.rootProps.class,
+                labelClass: ""
+            }}
+        />
 
         <Button
             ease

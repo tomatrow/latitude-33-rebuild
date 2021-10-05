@@ -94,10 +94,10 @@
     function idify(key: string) {
         return _.kebabCase(key)
     }
-    
+
     function handleBooking() {
         openModal(BookingModal, {
-            tripFleet, 
+            tripFleet,
             tripAirports,
             aircraft
         })
@@ -138,7 +138,8 @@
                 class="feature-link flex items-center justify-between my-3 py-4 px-6 bg-white shadow"
                 href={`#${idify(title)}`}
             >
-                <span class="uppercase font-display feature-link-title ease-in-out transition duration-200"
+                <span
+                    class="uppercase font-display feature-link-title ease-in-out transition duration-200"
                     >{title}</span
                 >
                 <ChevronRight class="ml-auto w-6 h-6" />
@@ -178,13 +179,14 @@
     {/if}
 </div>
 
-{#each features as {image, contentHtml, title, icon}, index (idify(title))}
+{#each features as { image, contentHtml, title, icon }, index (idify(title))}
     <Anchor id={idify(title)} />
     <!-- todo: remove fill that shows off the gallery -->
     <ContentRow gallery={_.fill(Array(index + 1), image)} {contentHtml}>
         <div class="flex gap-4 items-center" slot="heading">
             <!-- svelte-ignore a11y-missing-attribute -->
-            <img {...icon} class="h-8 brightness-[100] invert" /> {title} 
+            <img {...icon} class="h-8 brightness-[100] invert" />
+            {title}
         </div>
     </ContentRow>
 {/each}

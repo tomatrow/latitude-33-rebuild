@@ -9,15 +9,15 @@
 
 <style lang="postcss">
     @screen sm {
-        .grid-center-4 > :nth-child(2n+1) { 
+        .grid-center-4 > :nth-child(2n + 1) {
             border-left-style: none;
-        } 
+        }
     }
     @screen md {
         .grid-center-4 > * {
-            &:nth-child(2n + 1) { 
+            &:nth-child(2n + 1) {
                 border-left-style: solid;
-            } 
+            }
 
             &:nth-child(3n + 1) {
                 border-left-style: none;
@@ -28,7 +28,7 @@
         .grid-center-4 > * {
             &:nth-child(4n) {
                 border-left-style: solid;
-            }            
+            }
             &:nth-child(4n + 1) {
                 border-left-style: none;
             }

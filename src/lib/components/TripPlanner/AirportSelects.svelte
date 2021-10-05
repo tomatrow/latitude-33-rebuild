@@ -1,6 +1,6 @@
 <script lang="ts">
     import AirportSelect from "./AirportSelect.svelte"
-    
+
     export let airports
     let departureAirportId
     let arrivalAirportId
@@ -18,7 +18,7 @@
     }
 
     $: availableAirports = separate(departureAirportId, arrivalAirportId, airports)
-    
+
     export let selectProps = {}
 </script>
 

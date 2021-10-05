@@ -18,9 +18,13 @@
     }
 </script>
 
-<ContentCard class="min-h-[500px]" image={end.airportFields.featuredImage} link={{ href: "tel:{phone.number}", title: `${phone.labelHtml}` }}>
+<ContentCard
+    class="min-h-[500px]"
+    image={end.airportFields.featuredImage}
+    link={{ href: "tel:{phone.number}", title: `${phone.labelHtml}` }}
+>
     <svelte:fragment slot="heading">
-        {formatAirport(start)} — <br /> 
+        {formatAirport(start)} — <br />
         {formatAirport(end)}
     </svelte:fragment>
     <div class="flex flex-col text-tiny font-display uppercase tracking-2px gap-[10px]">
@@ -28,7 +32,8 @@
         <span class="font-extralight">
             {date} <br />
             {craft.title} — <br />
-            {passengersPrefix} {craft.aircraftFields.stats.maxPassengers}
+            {passengersPrefix}
+            {craft.aircraftFields.stats.maxPassengers}
         </span>
     </div>
     <svelte:fragment slot="link">

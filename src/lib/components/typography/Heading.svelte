@@ -28,7 +28,12 @@
     const level = large ? 3 : small ? 1 : tiny ? 0 : 2
 </script>
 
-<div class="uppercase tracking-2px flex {reverse ? 'flex-col-reverse' : 'flex-col'} gap-[10px] {clazz} {text[level]}" {style}>
+<div
+    class="uppercase tracking-2px flex {reverse
+        ? 'flex-col-reverse'
+        : 'flex-col'} gap-[10px] {clazz} {text[level]}"
+    {style}
+>
     <Heading class="font-display font-extralight">
         <slot />
     </Heading>

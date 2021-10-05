@@ -1,9 +1,9 @@
 <script lang="ts">
     import TestimonialCard from "./_TestimonialCard.svelte"
     import Heading, { increment } from "$lib/components/typography/Heading.svelte"
-    
+
     increment()
-    
+
     export let title: string
     export let testimonies: any[] = []
 </script>

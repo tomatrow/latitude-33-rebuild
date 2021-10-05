@@ -26,11 +26,11 @@
         hide()
         disable()
     }
-    
+
     function show() {
         active = true
     }
-    
+
     function hide() {
         active = false
     }
@@ -42,30 +42,65 @@
     function enable() {
         enabled = true
     }
-    
+
     const params: FadeParams = { delay: 0, duration: 100 }
 </script>
 
-<svelte:window on:sveltekit:navigation-start={handleNavigation} on:sveltekit:navigation-end={enable} />
+<svelte:window
+    on:sveltekit:navigation-start={handleNavigation}
+    on:sveltekit:navigation-end={enable}
+/>
 
-<header style="height: {height}" class="px-6 bg-sadly-not-white absolute md:fixed top-0 right-0 left-0 z-40 flex items-center justify-center gap-3">
+<header
+    style="height: {height}"
+    class="px-6 bg-sadly-not-white absolute md:fixed top-0 right-0 left-0 z-40 flex items-center justify-center gap-3"
+>
     <a href="/" sveltekit:prefetch>
-        <img alt="latitude 33 logo" class="w-36 mr-32 invert brightness-[100]" src="/icons/latitude33-logo-blue.png" />
+        <img
+            alt="latitude 33 logo"
+            class="w-36 mr-32 invert brightness-[100]"
+            src="/icons/latitude33-logo-blue.png"
+        />
     </a>
     <nav class="hidden full-nav:flex justify-around w-full">
-        {#each $session.menus.primary.menuItems as {label, url, childItems}}
+        {#each $session.menus.primary.menuItems as { label, url, childItems }}
             <Hover let:hovering class="relative overflow-visible">
-                <Link sveltekit:prefetch line={{ color: Colors["ripe-blueberry-indentation"] }} class="uppercase text-ripe-blueberry-indentation hover:text-ripe-blueberry-indentation" href={url}>{label}</Link>
+                <Link
+                    sveltekit:prefetch
+                    line={{ color: Colors["ripe-blueberry-indentation"] }}
+                    class="uppercase text-ripe-blueberry-indentation hover:text-ripe-blueberry-indentation"
+                    href={url}>{label}</Link
+                >
                 {#if hovering && enabled}
-                    <div transition:fade={params} class="absolute top-[100%] left-0 w-auto bg-sadly-not-white">
-                        {#each childItems as {label, url, childItems}}
+                    <div
+                        transition:fade={params}
+                        class="absolute top-[100%] left-0 w-auto bg-sadly-not-white"
+                    >
+                        {#each childItems as { label, url, childItems }}
                             <Hover let:hovering class="flex flex-col relative">
-                                <Link sveltekit:prefetch ease class="uppercase font-light text-dark-charcoal whitespace-nowrap px-1 py-2 {hovering ? 'bg-white' : ''}" href={url}>{label}</Link>
+                                <Link
+                                    sveltekit:prefetch
+                                    ease
+                                    class="uppercase font-light text-dark-charcoal whitespace-nowrap px-1 py-2 {hovering
+                                        ? 'bg-white'
+                                        : ''}"
+                                    href={url}>{label}</Link
+                                >
                                 {#if hovering}
-                                    <div transition:fade={params} class="absolute bg-sadly-not-white top-0 right-[100%] flex flex-col">
-                                        {#each childItems as {label, url}}
+                                    <div
+                                        transition:fade={params}
+                                        class="absolute bg-sadly-not-white top-0 right-[100%] flex flex-col"
+                                    >
+                                        {#each childItems as { label, url }}
                                             <Hover class="contents" let:hovering>
-                                                <Link sveltekit:prefetch ease class="uppercase px-1 py-2 font-light text-dark-charcoal whitespace-nowrap {hovering ? 'bg-white' : ''}" href={url}>{label}</Link>
+                                                <Link
+                                                    sveltekit:prefetch
+                                                    ease
+                                                    class="uppercase px-1 py-2 font-light text-dark-charcoal whitespace-nowrap {hovering
+                                                        ? 'bg-white'
+                                                        : ''}"
+                                                    href={url}>{label}</Link
+                                                >
                                             </Hover>
                                         {/each}
                                     </div>
@@ -94,14 +129,14 @@
 </header>
 
 {#if active}
-    <nav transition:fade
+    <nav
+        transition:fade
         class="absolute overflow-y-scroll inset-0 z-50 divide-a-taste-of-blueberries divide-y-2 bg-sadly-not-white flex flex-col p-5"
     >
         <div class="vsm-mob-close fixed top-4 right-4" on:click={hide} />
         {#each $session.menus.primary.menuItems as { label, target, url, childItems }}
             <div class="p-6" class:space-y-4={childItems.length}>
-                <Link sveltekit:prefetch class="font-thin text-lg" {target} href={url}
-                    >{label}</Link
+                <Link sveltekit:prefetch class="font-thin text-lg" {target} href={url}>{label}</Link
                 >
                 <div class="grid gap-2 grind-cols-1 sm:grid-cols-2 pl-2">
                     {#each childItems as { label, target, url }}

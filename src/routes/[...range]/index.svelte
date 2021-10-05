@@ -238,8 +238,7 @@
 </section>
 
 <Bar
-        class="bg-sarcastic-orange p-4 md:p-0"
-
+    class="bg-sarcastic-orange p-4 md:p-0"
     successPageLink={page.template.rangeMapPageFields.tripPlannerPage}
     airports={smoothEdges(airports)}
     {fleet}

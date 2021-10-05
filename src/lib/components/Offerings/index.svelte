@@ -76,6 +76,14 @@
 </script>
 
 <Anchor id={anchorId} />
-{#each offerings as {image, subheading, title, contentHtml, link}, index}
-    <ContentRow {scheme} heading={title} {subheading} {contentHtml} gallery={[image]} links={link ? [link] :[]} line={0 < index && index < offerings.length - 1} />
+{#each offerings as { image, subheading, title, contentHtml, link }, index}
+    <ContentRow
+        {scheme}
+        heading={title}
+        {subheading}
+        {contentHtml}
+        gallery={[image]}
+        links={link ? [link] : []}
+        line={0 < index && index < offerings.length - 1}
+    />
 {/each}

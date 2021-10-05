@@ -4,7 +4,7 @@
     let clazz = ""
     export { clazz as class }
     export let image: AcfImage
-    export let subheading: string  = undefined
+    export let subheading: string = undefined
     export let title: string
     export let contentHtml: string = undefined
 </script>

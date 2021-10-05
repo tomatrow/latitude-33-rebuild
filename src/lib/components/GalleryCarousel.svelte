@@ -62,7 +62,8 @@
                         aria-label="left"
                         color="sarcastic-orange"
                         class="-translate-y-1/2 top-1/2 left-8 h-9 absolute z-10 flex items-center justify-center w-9"
-                        on:click={controls.previous}><ChevronLeft class="w-6 h-6 text-white" /></Button
+                        on:click={controls.previous}
+                        ><ChevronLeft class="w-6 h-6 text-white" /></Button
                     >
                     <Button
                         pill
