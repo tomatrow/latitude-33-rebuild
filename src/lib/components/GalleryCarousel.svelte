@@ -45,7 +45,7 @@
 
     let clazz = ""
     export { clazz as class }
-    export let show
+    export let show: (index: number) => Promise<unknown> = undefined
 </script>
 
 <Gallery bind:show images={gallery}>
