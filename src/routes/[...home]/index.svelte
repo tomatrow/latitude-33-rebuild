@@ -56,11 +56,10 @@
 </script>
 
 <script lang="ts">
-    import { Meta, FlexibleContent, CtaBar } from "$lib/components"
+    import { Meta, FlexibleContent } from "$lib/components"
     import { smoothEdges } from "$lib/scripts/utility"
 
     import Hero from "./_Hero.svelte"
-    import Grid from "./_Grid.svelte"
     import { Bar } from "$lib/components/TripPlanner"
 
     export let page: any
@@ -71,11 +70,10 @@
 <Meta title={page.title} seo={page.seo} />
 
 <Hero {...page.template.frontPage.hero} />
-<Grid items={page.template.frontPage.grid} />
+<FlexibleContent content={page.template.genericPageFields.flexibleContent} />
 <Bar
     class="bg-sarcastic-orange p-4 md:p-0   "
     successPageLink={page.template.frontPage.tripPlanner.successPageLink}
     airports={smoothEdges(tripAirports)}
     fleet={tripFleet}
 />
-<FlexibleContent content={page.template.genericPageFields.flexibleContent} />
