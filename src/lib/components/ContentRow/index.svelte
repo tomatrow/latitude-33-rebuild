@@ -53,9 +53,11 @@
     import Link from "$lib/components/Link.svelte"
     import GalleryCarousel from "$lib/components/GalleryCarousel.svelte"
     import Content from "./Content.svelte"
+    import Anchor from "$lib/components/Anchor.svelte"
 
     increment()
-
+    
+    export let id: string = undefined
     export let heading: string = undefined
     export let subheading: string = undefined
     export let contentHtml: string = undefined
@@ -79,13 +81,14 @@
 </script>
 
 <section class="relative px-5 py-4 sm:px-[60px] sm:py-[30px]">
+    <Anchor {id} />
     <div
         class="z-[-1] absolute left-0 top-0 bottom-0 w-full md:w-[70%] {descheme({
             bg: 'midground'
         })}"
     />
     <div class="flex flex-col-reverse md:flex-row gap-4">
-        <div class="mt-[20px] space-y-[10px]">
+        <div class="mt-[20px] space-y-[10px] w-full">
             <Heading {subheading}>
                 <slot name="heading">
                     {heading}
@@ -119,7 +122,7 @@
             <!-- svelte-ignore a11y-missing-attribute -->
             <img class={galleryClasses} {...gallery[0]} />
         {:else if gallery.length > 1}
-            <GalleryCarousel class="h-44 {galleryClasses}" {gallery} />
+            <GalleryCarousel class="h-56 {galleryClasses}" {gallery} />
         {/if}
     </div>
     {#if line}

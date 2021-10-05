@@ -128,6 +128,17 @@
             }))
         }
     }
+    
+    // todo: remove this
+    function transformBanner({ anchorId, title, contentHtml, backgroundImage, footer}: Content) {
+        return {
+            anchorId,
+            title,
+            contentHtml,
+            backgroundImage,
+            links: footer?.link ? [footer.link] : []
+        }
+    }
 </script>
 
 {#each tag(content) as { fields, type }, index}
@@ -137,7 +148,7 @@
     {:else if type === ContentType.OFFERINGS}
         <Offerings {...fields} />
     {:else if type === ContentType.BANNER}
-        <Banner {...fields} />
+        <Banner {...transformBanner(fields)} />
     {:else if type === ContentType.CHECKERS}
         <Offerings {...deChecker(fields)} />
     {:else if type === ContentType.CALL}

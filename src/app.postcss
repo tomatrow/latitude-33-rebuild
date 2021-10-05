@@ -75,7 +75,7 @@ body {
 /* https://www.tiny.cloud/docs/general-configuration-guide/boilerplate-content-css/ */
 
 .injected-content {
-    @apply tracking-px font-extralight text-sm;
+    @apply tracking-px font-extralight;
 
     h1,
     h2,
@@ -149,13 +149,16 @@ body {
 
     ul,
     ol {
-        @apply space-y-1 md:space-y-4 pl-10 my-8;
+        @apply space-y-1 md:space-y-2 pl-10 my-8 text-lg;
     }
     ul {
         @apply list-disc;
     }
     ol {
         @apply list-decimal;
+    }
+    li {
+        @apply font-thin mt-2;
     }
 
     strong {

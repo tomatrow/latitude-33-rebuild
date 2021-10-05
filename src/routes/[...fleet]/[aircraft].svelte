@@ -35,7 +35,8 @@
         Anchor,
         CtaBar,
         GalleryCarousel,
-        Button
+        Button,
+        Banner
     } from "$lib/components"
     import { ChevronRight } from "$lib/svgs"
     import { cssVars } from "$lib/actions/styles"
@@ -43,7 +44,7 @@
     import { slideDiag } from "$lib/transitions"
     import { openModal } from "$lib/components/ModalProvider.svelte"
     import BookingModal from "./_BookingModal.svelte"
-    import ContentRow from "$lib/components/ContentRow/index.svelte"
+    import ContentRow, { schemes } from "$lib/components/ContentRow/index.svelte"
     import Heading from "$lib/components/typography/Heading.svelte"
 
     export let aircraft: any
@@ -105,14 +106,13 @@
 
 <Meta title={aircraft.title} seo={aircraft.seo} />
 
-<div
+<!-- <div
     class="stats sm:bg-a-stormy-morning sm:pt-8 sm:pb-24 sm:pl-5 bg-white sm:bg-center sm:bg-fixed sm:bg-cover sm:bg-no-repeat"
     use:cssVars={{
         bg: featuredImage ? `url(${featuredImage.src})` : ""
     }}
 >
     {#if featuredImage}
-        <!-- svelte-ignore a11y-missing-attribute -->
         <img class="sm:hidden w-full" {...featuredImage} />
     {/if}
 
@@ -127,7 +127,6 @@
         <Stat label="Baggage Capacity"
             >{aircraft.aircraftFields.stats.baggageCapacity} FT<sup>3</sup></Stat
         >
-        <!-- todo: use real stat -->
         <Stat label="WiFi">Yes</Stat>
 
         {#each features as { title }}
@@ -176,12 +175,52 @@
             />
         </div>
     {/if}
-</div>
+</div> -->
+
+<Banner title={aircraft.title} backgroundImage={featuredImage}>
+    <div class="flex flex-col items-start gap-[30px]">
+        <Button
+            class="flex-shrink-0 py-2 px-4 font-extralight uppercase inline-block"
+            ease
+            fill="black"
+            border
+            color="white"
+            on:click={handleBooking}
+        >
+            Charter Now
+        </Button>
+        {#if aircraft.aircraftFields.gallery}
+            <Link
+                class="flex-shrink-0 py-2 px-4 font-extralight uppercase inline-block"
+                ease
+                fill="black"
+                border
+                color="white"
+                href="#gallery"
+            >
+                Gallery
+            </Link>
+        {/if}
+    </div>
+</Banner>
+
+<ContentRow  id="gallery" heading="Overview" scheme={schemes.grey} gallery={aircraft.aircraftFields.gallery}>
+    <div class="injected-content">
+        <div>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        <ul class="list-disc pl-5">
+            <li>Max Range: {aircraft.aircraftFields.stats.maxRange} NM</li>
+            <li>Max Cruise Speed: {aircraft.aircraftFields.stats.maxCruiseSpeed} MPH</li>
+            <li>Max Passengers: {aircraft.aircraftFields.stats.maxPassengers}</li>
+            <li>Baggage Capacity: {aircraft.aircraftFields.stats.baggageCapacity} FT<sup>3</sup></li>
+            <li>WiFi: Yes</li>
+        </ul>
+    </div>
+</ContentRow>
 
 {#each features as { image, contentHtml, title, icon }, index (idify(title))}
     <Anchor id={idify(title)} />
     <!-- todo: remove fill that shows off the gallery -->
-    <ContentRow gallery={_.fill(Array(index + 1), image)} {contentHtml}>
+    <ContentRow line={index < features.length - 1}  gallery={_.fill(Array(index + 1), image)} {contentHtml}>
         <div class="flex gap-4 items-center" slot="heading">
             <!-- svelte-ignore a11y-missing-attribute -->
             <img {...icon} class="h-8 brightness-[100] invert" />

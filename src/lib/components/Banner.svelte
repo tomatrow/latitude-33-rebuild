@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { AcfImage } from "$lib/index.type"
+    import type { AcfImage, AcfLink } from "$lib/index.type"
     import Link from "./Link.svelte"
     import Anchor from "$lib/components/Anchor.svelte"
     import Heading, { increment } from "$lib/components/typography/Heading.svelte"
@@ -12,7 +12,7 @@
     export let subheading = ""
     // export let contentHtml = ""
     export let backgroundImage: AcfImage
-    export let footer: any = undefined
+    export let links: AcfLink[] = []
     export let anchorId: string = undefined
 
     let clazz = ""
@@ -34,15 +34,19 @@
             <slot>
                 <!-- <Content {contentHtml} /> -->
             </slot>
-            {#if footer?.link}
-                <Link
-                    class="flex-shrink-0 py-2 px-4 font-extralight uppercase inline-block"
-                    ease
-                    fill="black"
-                    border
-                    color="white"
-                    {...footer.link}
-                />
+            {#if links.length > 0}
+                <div class="flex flex-col items-start gap-[30px]">
+                    {#each links as link}
+                        <Link
+                            class="flex-shrink-0 py-2 px-4 font-extralight uppercase inline-block"
+                            ease
+                            fill="black"
+                            border
+                            color="white"
+                            {...link}
+                        />
+                    {/each}
+                </div>
             {/if}
         </div>
     </div>
