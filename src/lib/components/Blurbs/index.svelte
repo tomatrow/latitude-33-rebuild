@@ -1,9 +1,9 @@
 <script lang="ts">
     import Anchor from "$lib/components/Anchor.svelte"
     import Colors from "$lib/data/colors.json"
-    import { cssVars } from "$lib/actions/styles"
     import Heading from "./Heading.svelte"
     import Link from "$lib/components/Link.svelte"
+    import DividedGrid from "./DividedGrid.svelte"
 
     export let anchorId: string = undefined
     export let blurbs: any[]
@@ -13,15 +13,10 @@
 
 <section class="{clazz} bg-a-stormy-morning">
     <Anchor id={anchorId} />
-    <div
-        class="grid grid-custom gap-y-6 py-[10px] mx-auto px-[20px] md:divide-x"
-        use:cssVars={{
-            injectedLinkColor: Colors["calm-summer-horizon"]
-        }}
-    >
+    <DividedGrid class="gap-y-6 py-[10px] mx-auto px-[20px]" --injected-link-color={Colors["calm-summer-horizon"]}>
         {#each blurbs as { icon, title, link, contentHtml }}
             <div class="px-[20px] py-[10px] space-y-[10px]">
-                <div class="h-20 flex items-end text-white">
+                <div class="h-20 overflow-ellipsis overflow-hidden flex items-end text-white">
                     {#if link}
                         <Link {...link}>
                             <Heading {title} {icon} />
@@ -36,21 +31,6 @@
                 </div>
             </div>
         {/each}
-    </div>
+    </DividedGrid>
 </section>
 
-<style lang="postcss">
-    @screen md {
-        .grid-custom > :nth-child(2n + 1) {
-            border-left-style: none;
-        }
-    }
-    @screen lg {
-        .grid-custom > :nth-child(2n + 1) {
-            border-left-style: solid;
-        }
-        .grid-custom > :nth-child(3n + 1) {
-            border-left: none;
-        }
-    }
-</style>

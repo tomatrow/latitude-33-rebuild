@@ -15,6 +15,38 @@ body {
 }
 
 @layer components {
+    .grid-center-4 {
+        @apply grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8;
+        & > * {
+            @apply col-span-2;
+            /* 2 columns */
+            &:nth-child(2n+1):last-child {
+                @apply sm:col-span-full md:col-span-2;
+            }
+            
+            /* 3 columns */
+            &:nth-child(3n+1):nth-last-child(1) {
+                @apply md:col-start-2 md:col-span-4 lg:col-span-2 lg:col-start-auto;
+            }
+            &:nth-child(3n+1):nth-last-child(2), &:nth-child(3n+2):nth-last-child(1) {
+                @apply md:col-span-3 lg:col-span-2;
+            }
+            
+            /* 4 columns */
+            &:nth-child(4n+1):nth-last-child(2) {
+                @apply lg:col-start-1 lg:col-span-4;
+            }
+            &:nth-child(4n+2):nth-last-child(1) {
+                @apply lg:col-span-4;
+            }
+            &:nth-child(4n+1):nth-last-child(1) {
+                @apply lg:col-start-3 lg:col-span-4;
+            }
+            &:nth-child(4n-3):nth-last-child(3) {
+                @apply lg:col-start-2;
+            }            
+        }
+    }
     .grid-custom {
         @apply grid-cols-2 md:grid-cols-4 lg:grid-cols-6;
         & > * {

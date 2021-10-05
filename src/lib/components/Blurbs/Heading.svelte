@@ -8,10 +8,11 @@
 
 <div class="gap-2 flex items-center justify-center">
     {#if icon}
+        <!-- svelte-ignore a11y-missing-attribute -->
         <img class="brightness-[100] h-12" {...icon} />
     {/if}
-    <Heading class="text-center self-end text-white" tiny>
+    <Heading class="text-left self-end text-white" tiny>
         {title}
-        <div class="border-b w-[70%] mx-auto" />
+        <div class="border-b w-[70%]" />
     </Heading>
 </div>
