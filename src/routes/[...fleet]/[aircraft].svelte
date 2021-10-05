@@ -106,77 +106,6 @@
 
 <Meta title={aircraft.title} seo={aircraft.seo} />
 
-<!-- <div
-    class="stats sm:bg-a-stormy-morning sm:pt-8 sm:pb-24 sm:pl-5 bg-white sm:bg-center sm:bg-fixed sm:bg-cover sm:bg-no-repeat"
-    use:cssVars={{
-        bg: featuredImage ? `url(${featuredImage.src})` : ""
-    }}
->
-    {#if featuredImage}
-        <img class="sm:hidden w-full" {...featuredImage} />
-    {/if}
-
-    <section
-        class="bg-opacity-70 sm:px-9 transition-all duration-200 relative sm:p-0 py-6 sm:py-16 px-5 sm:max-w-sm bg-white"
-    >
-        <Heading>{aircraft.title}</Heading>
-
-        <Stat label="Max Range">{aircraft.aircraftFields.stats.maxRange} NM</Stat>
-        <Stat label="Max Cruise Speed">{aircraft.aircraftFields.stats.maxCruiseSpeed} MPH</Stat>
-        <Stat label="Max Passengers">{aircraft.aircraftFields.stats.maxPassengers}</Stat>
-        <Stat label="Baggage Capacity"
-            >{aircraft.aircraftFields.stats.baggageCapacity} FT<sup>3</sup></Stat
-        >
-        <Stat label="WiFi">Yes</Stat>
-
-        {#each features as { title }}
-            <Link
-                raise
-                ease
-                class="feature-link flex items-center justify-between my-3 py-4 px-6 bg-white shadow"
-                href={`#${idify(title)}`}
-            >
-                <span
-                    class="uppercase font-display feature-link-title ease-in-out transition duration-200"
-                    >{title}</span
-                >
-                <ChevronRight class="ml-auto w-6 h-6" />
-            </Link>
-        {/each}
-        {#if aircraft.aircraftFields.gallery}
-            <Button
-                raise
-                ease
-                color="a-stormy-morning"
-                filled
-                class="uppercase hidden sm:flex my-3 py-4 px-6 w-full  text-white"
-                on:click={() => showGallery(0)}
-                >Show Gallery <ChevronRight class="ml-auto w-6 h-6" /></Button
-            >
-        {/if}
-        <Button
-            raise
-            ease
-            color="a-stormy-morning"
-            filled
-            class="uppercase flex my-3 py-4 px-6 text-white w-full"
-            on:click={handleBooking}
-        >
-            Book Your Flight Today
-            <ChevronRight class="ml-auto w-6 h-6" />
-        </Button>
-    </section>
-    {#if aircraft.aircraftFields.gallery}
-        <div transition:slideDiag class="h-96 sm:hidden mx-auto py-4 px-4">
-            <GalleryCarousel
-                bind:show={showGallery}
-                class="h-full"
-                gallery={aircraft.aircraftFields.gallery}
-            />
-        </div>
-    {/if}
-</div> -->
-
 <Banner title={aircraft.title} backgroundImage={featuredImage}>
     <div class="flex flex-col items-start gap-[30px]">
         <Button
@@ -231,7 +160,7 @@
 
 <!-- todo: make editable  -->
 <CtaBar heading="FLY WITH LATITUDE 33" link={{ title: "Book this Aircraft", href: "/contact" }}>
-    <p class="mb-4 text-center">
+    <p class="mb-4 text-center injected-content tracking-px">
         Latitude 33 Aviation impeccably manages one of the newest and largest fleets of over 30
         light, midsize, super-midsize, and heavy jets in North America.
         <br />

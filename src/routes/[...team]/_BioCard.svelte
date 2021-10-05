@@ -3,6 +3,7 @@
     import { slide } from "svelte/transition"
     import { Accordion } from "renderless-svelte"
     import { Button } from "$lib/components"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let name: string
     export let bio: string
@@ -17,14 +18,10 @@
     </div>
     <Accordion>
         <div class="px-2" slot="header" let:isOpen let:toggle>
-            <div class="mt-14 h-12">
-                <h5 class="font-display text-center font-light text-lg">{name}</h5>
-                <h6
-                    class="font-display text-tinted-rear-window tracking-px text-center font-light text-sm"
-                >
-                    {position}
-                </h6>
-            </div>
+            <Heading class="mt-14 h-36 text-center" tiny>
+                {name}
+                <span slot=subheading class="text-sm">{position}</span>
+            </Heading>
             <Button
                 ease
                 border

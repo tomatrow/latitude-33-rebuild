@@ -53,8 +53,6 @@
             console.error(error)
         }
 
-        console.log({ trip })
-
         const _load = loadPage(
             "Planner",
             graphql`
@@ -118,6 +116,7 @@
     import { smoothEdges } from "$lib/scripts/utility"
     import { METERS_PER_NAUTICAL_MILE } from "$lib/data/constants"
     import AircraftInfo from "../[...fleet]/_AircraftInfo.svelte"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let page: any
     export let fleet: any
@@ -191,12 +190,7 @@
     <DealsGrid {deals} {...labels} />
 {/if}
 
-<strong class="font-display text-tinted-rear-window block mt-8 text-center text-base"
-    >Here's what we found:</strong
->
-<h2 class="font-display text-a-stormy-morning mt-8 mb-12 text-center font-light text-5xl">
-    Featured Aircraft with capacity for at least {trip?.passengers ?? 1} passengers
-</h2>
+<Heading reverse small class="text-center" subheading="Here's what we found:">Featured Aircraft with capacity for at least {trip?.passengers ?? 1} passengers</Heading>
 
 <CollectionGrid {items} let:item>
     <AircraftInfo {...item} />

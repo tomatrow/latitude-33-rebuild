@@ -12,8 +12,7 @@
 </script>
 
 <section class="flex items-center flex-col py-8 sm:py-12 px-5 sm:px-6">
-    <span class="font-display text-tinted-rear-window text-base">{subheading}</span>
-    <Heading large class="text-a-stormy-morning my-[10px]">{title}</Heading>
+    <Heading reverse {subheading} large class="text-center my-8 text-a-stormy-morning my-[10px]">{title}</Heading>
 
     <div class="grid grid-custom gap-4 w-full">
         {#each smoothEdges(deals) as { dealFields }}

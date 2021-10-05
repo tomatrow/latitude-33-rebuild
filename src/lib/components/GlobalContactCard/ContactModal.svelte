@@ -7,7 +7,7 @@
     import { Cross } from "$lib/svgs"
     import { stripPhone, splitChoices } from "$lib/scripts/utility"
     import { icons } from "$lib/data/social"
-    import Button from "$lib/components/Button.svelte"
+    import Button, { themes } from "$lib/components/Button.svelte"
     import Link from "$lib/components/Link.svelte"
     import Field from "$lib/components/Field.svelte"
     import Arrow from "$lib/components/Arrow.svelte"
@@ -72,8 +72,8 @@
         }}
     />
 
-    <h4 class="font-display my-4 text-lg">{sidebar.title}</h4>
-    <p class="airy-copy text-sm">
+    <h4 class="font-display my-4 text-lg uppercase tracking-2px font-thin">{sidebar.title}</h4>
+    <p class="text-sm font-light tracking-px">
         {sidebar.blurb}
     </p>
 
@@ -81,30 +81,36 @@
         <div class="m-auto text-2xl">{submissionMessage}</div>
     {:else}
         <form use:felteForm id="contact_page_form" class="space-y-2" on:submit|preventDefault>
-            <Field {...text} name="name">{form.nameLabel}</Field>
-            <Field {...text} type="email" name="email">{form.emailLabel}</Field>
-            <Field {...text} type="tel" name="phone">{form.phoneLabel}</Field>
+            <Field {...text} name="name">
+                <span class="uppercase font-thin tracking-px">{form.nameLabel}</span>
+            </Field>
+            <Field {...text} type="email" name="email">
+                <span class="uppercase font-thin tracking-px">{form.emailLabel}</span>
+            </Field>
+            <Field {...text} type="tel" name="phone">
+                <span class="uppercase font-thin tracking-px">{form.phoneLabel}</span>
+            </Field>
             <Field {...select} type="select" name="service_requested">
-                {form.servicesLabel}
+                <span class="uppercase font-thin tracking-px">{form.servicesLabel}</span>
                 <svelte:fragment slot="options">
                     {#each splitChoices(form.serviceChoices) as value}
                         <option {value}>{value}</option>
                     {/each}
                 </svelte:fragment>
             </Field>
-            <Button border class="py-2 px-4" type="submit">Submit</Button>
+            <Button {...themes.light()} type="submit">Submit</Button>
         </form>
     {/if}
 
     <Link
         href={sidebar.bookingLink.href}
-        class="font-display flex items-center my-2 font-light text-lg"
+        class="font-display flex items-center my-2 font-light text-lg uppercase"
     >
         {sidebar.bookingLink.title}
         <Arrow class="ml-2 w-4 h-4" />
     </Link>
 
-    <h4 class="font-display font-light text-lg" style="margin-top: 2rem">
+    <h4 class="font-display font-light text-lg uppercase font-thin" style="margin-top: 2rem">
         {sidebar.address.title}
     </h4>
     <div class="airy-copy whitespace-pre-line text-sm">
@@ -120,7 +126,7 @@
     >
 
     {#if sidebar.socialMedia.visibility === "show"}
-        <h4 class="font-display font-light text-lg" style="margin-top: 3rem">
+        <h4 class="font-display font-light text-lg uppercase" style="margin-top: 3rem">
             {sidebar.socialMedia.heading}
         </h4>
         <div class="space-x-2 flex">

@@ -1,3 +1,7 @@
+<script lang="ts" context="module">
+    export { themes } from "./Link.svelte"
+</script>
+
 <script lang="ts">
     import { line as lineAction } from "../actions/line"
     import type { LineActionConfig } from "../actions/line"

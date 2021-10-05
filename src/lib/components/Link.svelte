@@ -1,6 +1,31 @@
 <script context="module" lang="ts">
     import Colors from "$lib/data/colors.json"
     import type { PrimaryColor } from "$lib/index.type"
+    
+    const baseTheme = {
+        class: "py-2 px-4 font-extralight uppercase",
+        ease: true,
+        border: true
+    }
+
+    export const themes = {
+        dark(classes?: string) {
+            return {
+                fill: "white" as PrimaryColor,
+                color: "a-stormy-morning" as PrimaryColor,
+                ...baseTheme,
+                class: baseTheme.class + (classes ? ' ' + classes : '')
+            }
+        },
+        light(classes?: string) {
+            return {
+                fill: "black" as PrimaryColor,
+                color: "white" as PrimaryColor,
+                ...baseTheme,
+                class: baseTheme.class + (classes ? ' ' + classes  : '')
+            }
+        }
+    }
 
     export interface ClassesConfig {
         hollow?: boolean
@@ -14,6 +39,7 @@
         border?: boolean
         color?: PrimaryColor
     }
+
     export function createClasses({
         hollow,
         filled,
@@ -31,7 +57,7 @@
             raise && "hover:-translate-y-1.5 hover:shadow-md transform",
             shadow && "hover:shadow-inner-10xl",
             fill && `hover:bg-${color}`,
-            Colors[fill] && `hover:text-${fill} hover:border-${fill} hover:bg-${color}`,
+            Colors[fill] && `hover:text-${filled ? color : fill} hover:border-${filled ? color : fill} hover:bg-${filled ? fill : color}`,
             blob && "rounded",
             pill && "rounded-full",
             hollow && "border-white border",
@@ -47,6 +73,7 @@
 <script lang="ts">
     import { line as lineAction } from "../actions/line"
     import type { LineActionConfig } from "../actions/line"
+    import { page } from "$app/stores"
 
     export let hollow: boolean = undefined
     export let filled: boolean = undefined
@@ -61,6 +88,7 @@
     export let fill: boolean | PrimaryColor = undefined
 
     export let title: string = undefined
+    export let active: boolean|string = undefined 
 
     export let href: string
     export { clazz as class }
@@ -79,9 +107,27 @@
         color,
         fill
     })
+   
+    function pathFor(href: string) {
+        let path: string
+
+        if (href?.startsWith("/"))
+            path = href 
+        else if (href?.startsWith("http"))
+            path = (new URL(href)).pathname
+
+        return path?.endsWith('/') ? path.slice(0, -1) : path
+    }
+
+    let activeClasses = ""
+    $: if (active && pathFor(href) === $page.path) {
+        activeClasses = typeof active === "string" ? active : "opacity-70"
+    } else {
+        activeClasses = ""
+    }
 </script>
 
-<a {href} class="{clazz} {classes}" use:lineAction={line} on:click {...$$restProps}>
+<a {href} class="{clazz} {classes} {activeClasses}" use:lineAction={line} on:click {...$$restProps}>
     {#if $$slots.default}
         <slot />
     {:else}

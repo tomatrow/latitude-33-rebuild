@@ -11,7 +11,7 @@
             {
                 label: "General Inquiries",
                 email: "contact@L33Jets.com"
-            }
+            }   
         ],
         physicalAddress: `2100 Palomar Airport Road, Suite 211
         Carlsbad, CA 92011`,
@@ -36,8 +36,9 @@
     import { cssVars } from "../actions/styles"
     import Link from "./Link.svelte"
     import Field from "./Field.svelte"
-    import Button from "./Button.svelte"
+    import Button, { themes } from "./Button.svelte"
     import { icons } from "$lib/data/social"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     const { brandName, brandTagLine, phone, emails, physicalAddress, corporateInfo } = footerFields
 </script>
@@ -66,18 +67,14 @@
         </div>
 
         <div class="font-display space-y-3 flex flex-col text-xl">
-            <h6>
-                {brandTagLine}
-                <br />
-                {brandName}
-            </h6>
+            <Heading tiny subheading={brandTagLine}>{brandName}</Heading>
             <Link class="sm:space-x-2 flex flex-col sm:flex-row" href="tel:{phone}">
-                <span>Phone:</span>
+                <span class="uppercase tracking-px">Phone:</span>
                 <span>{phone}</span>
             </Link>
             {#each emails as { email, label }}
                 <div class="sm:space-x-2 flex flex-col sm:flex-row">
-                    <span class="">{label}:</span>
+                    <span class="uppercase tracking-px">{label}:</span>
                     <Link class="space-x-2 flex items-center" href="mailto:{email}">{email}</Link>
                 </div>
             {/each}
@@ -87,7 +84,7 @@
 
         <div class="grid grid-rows-6 grid-cols-2">
             {#each $session.menus.secondary.menuItems as { label, url, target }}
-                <Link {target} sveltekit:prefetch href={url} class="font-display text-xl"
+                <Link {target} active sveltekit:prefetch href={url} class="font-display text-xl uppercase tracking-px"
                     >{label}</Link
                 >
             {/each}
@@ -98,18 +95,18 @@
             class="gap-y-2 flex items-stretch flex-col mx-auto w-full max-w-md"
             on:submit|preventDefault
         >
-            <Field {...text} name="name">Name</Field>
-            <Field {...text} type="email" name="email">Email</Field>
-            <Field {...text} type="tel" name="phone">Phone</Field>
+            <Field {...text} name="name"><span class="uppercase tracking-px">Name</span></Field>
+            <Field {...text} type="email" name="email"><span class="uppercase tracking-px">Email</span></Field>
+            <Field {...text} type="tel" name="phone"><span class="uppercase tracking-px">Phone</span></Field>
             <Field {...select} type="select" name="service_requested">
-                Services
+                <span class="uppercase tracking-px">Services</span>
                 <svelte:fragment slot="options">
                     {#each ["Charter", "Management", "Sales", "Other"] as value}
                         <option {value}>{value}</option>
                     {/each}
                 </svelte:fragment>
             </Field>
-            <Button shadow ease border class="self-center sm:self-start py-2 px-4" type="submit"
+            <Button {...themes.light("self-center sm:self-start")} type="submit"
                 >Submit</Button
             >
         </form>
@@ -117,11 +114,6 @@
     <nav
         class="space-y-8 md:space-y-0 flex items-center flex-col md:flex-row md:justify-between mt-32 px-5"
     >
-        <div class="space-x-5 flex">
-            {#each $session.menus.secondarySmall.menuItems as { label, url, target }}
-                <Link {target} sveltekit:prefetch href={url} class="text-sm">{label}</Link>
-            {/each}
-        </div>
         <div class="space-x-5 flex">
             {#each $session.social as { service, url }}
                 <Link

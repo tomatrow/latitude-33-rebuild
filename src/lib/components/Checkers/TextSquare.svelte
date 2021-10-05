@@ -1,5 +1,6 @@
 <script lang="ts">
     import { classes } from "$lib/actions/styles"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let expand: boolean
     export let title: string
@@ -31,19 +32,9 @@
         use:classes={expand ? "lg:py-18" : "lg:py-4"}
     >
         <div class="space-y-3 font-display sm:col-span-full mt-auto sm:text-center">
-            <h3 class="{textColor} font-display lg:mt-auto sm:text-center font-semibold text-2xl">
-                {title}
-            </h3>
-            {#if subheading}
-                <h5
-                    class="text-sm"
-                    use:classes={invert
-                        ? "text-white sm:text-a-stormy-morning lg:text-white"
-                        : "text-a-stormy-morning sm:text-white lg:text-a-stormy-morning"}
-                >
-                    {subheading}
-                </h5>
-            {/if}
+            <Heading invert tiny class={invert
+                ? "text-white sm:text-a-stormy-morning lg:text-white"
+                : "text-a-stormy-morning sm:text-white lg:text-a-stormy-morning"} {subheading}>{title}</Heading>
         </div>
         {#if icon}
             <!-- svelte-ignore a11y-missing-attribute -->

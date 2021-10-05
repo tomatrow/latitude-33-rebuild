@@ -43,6 +43,7 @@
     import { getTripUrl, getMaxPassengers } from "$lib/components/TripPlanner/utility"
     import { goto } from "$app/navigation"
     import Heading from "$lib/components/typography/Heading.svelte"
+    import { themes } from "$lib/components/Button.svelte"
 
     export let tripFleet: any
     export let tripAirports: any
@@ -128,51 +129,47 @@
             selectProps={{
                 selectClass: fieldDefaults.select.class,
                 rootClass: fieldDefaults.select.rootProps.class,
-                labelClass: ""
+                labelClass: "uppercase tracking-2px"
             }}
         />
 
         <Button
-            ease
-            blob
-            shadow
-            color="a-stormy-morning"
             filled
-            class="py-2 px-4 text"
+            {...themes.dark()}
             type="submit">Submit</Button
         >
     </form>
     <div class="flex items-center justify-center">
         <section class="bg-a-stormy-morning w-96  space-y-2 flex flex-col p-6 text-white">
-            <h4 class="font-display text-lg">{fields.sidebar.title}</h4>
-            <p class="airy-copy">
+            <h4 class="font-display text-lg uppercase tracking-2px font-thin">{fields.sidebar.title}</h4>
+            <p class="font-light tracking-px">
                 {fields.sidebar.blurb}
             </p>
 
             <Link
                 href={fields.sidebar.bookingLink.href}
-                class="arrow-link font-display flex items-center text-lg"
+                class="arrow-link font-display flex items-center text-lg uppercase font-light"
             >
                 {fields.sidebar.bookingLink.title}
                 <IconArrowRight class="arrow-right transition duration-200 w-4 h-4" />
             </Link>
 
-            <h4 class="font-display text-lg" style="margin-top: 3rem">
+            <h4 class="font-display text-lg font-thin uppercase tracking-2px" style="margin-top: 3rem">
                 {fields.sidebar.address.title}
             </h4>
-            <div class="airy-copy whitespace-pre-line">
+            <div class="font-light whitespace-pre-line">
                 {fields.sidebar.address.content}
             </div>
 
             {#each [fields.sidebar.email1, fields.sidebar.email2] as email}
-                <Link class="flex items-center text-lg" href="mailto:{email}">{email}</Link>
+                <Link class="flex items-center font-light" href="mailto:{email}">{email}</Link>
             {/each}
-            <Link class="flex items-center text-lg" href="tel:{stripPhone(fields.sidebar.phone)}"
+            <Link class="flex items-center  font-light" href="tel:{stripPhone(fields.sidebar.phone)}"
                 >{fields.sidebar.phone}</Link
             >
 
             {#if fields.sidebar.socialMedia.visibility === "show"}
-                <h4 class="font-display text-lg" style="margin-top: 3rem">
+                <h4 class="font-display text-lg tracking-2px font-thin uppercase" style="margin-top: 3rem">
                     {fields.sidebar.socialMedia.heading}
                 </h4>
                 <div class="space-x-2 flex">

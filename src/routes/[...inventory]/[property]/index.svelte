@@ -142,13 +142,9 @@
 
 <Meta title={property.title} seo={property.seo} />
 
-<Banner title={info.name} contentHtml={info.descriptionHtml} backgroundImage={info.featuredImage}>
-    <Link class="inline-block mr-4 py-2 px-4" href="#details" {...linkProps}
-        >{bannerSection.detailsLinkLabel}</Link
-    >
-    <Link class="inline-block py-2 px-4" href="#gallery" {...linkProps}
-        >{bannerSection.galleryLinkLabel}</Link
-    >
+<Banner title={info.name}  backgroundImage={info.featuredImage} 
+links={[{ href: "#details", title: bannerSection.detailsLinkLabel }, 
+    { href: "#gallery", title: bannerSection.galleryLinkLabel }]}>
 </Banner>
 
 <Overview {stats} {...overviewSection} />

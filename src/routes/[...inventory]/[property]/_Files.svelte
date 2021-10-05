@@ -2,6 +2,8 @@
     import { Link } from "$lib/components"
     import type { AcfImage } from "$lib/index.type"
     import Pill from "./_Pill.svelte"
+    import Heading from "$lib/components/typography/Heading.svelte"
+    import { themes } from "$lib/components/Link.svelte"
 
     export let files: any[]
     export let title: string
@@ -14,13 +16,12 @@
     <!-- svelte-ignore a11y-missing-attribute -->
     <img class="w-full h-full object-cover" {...backgroundImage} />
     <div class="bg-sarcastic-orange space-y-6 py-18 px-5">
-        <p class="font-display text-white font-bold text-sm">{subheading}</p>
-        <h4 class="font-display text-3.5xl text-white font-bold">{title}</h4>
+        <Heading class="text-white" reverse {subheading}>{title}</Heading>
         {#each files as { label, file }}
-            <Pill reverse class="py-4.5 text-sarcastic-orange flex-col-reverse px-4 bg-white">
-                <span slot="label">{label}</span>
-                <Link target="__blank" href={file.href}>{downloadLabel}</Link>
-            </Pill>
+            <div class="flex flex-col gap-4 py-4 items-center text-sarcastic-orange bg-white">
+                <span>{label}</span>
+                <Link filled {...themes.dark()} target="__blank" href={file.href}>{downloadLabel}</Link>
+            </div>
         {/each}
     </div>
 </section>

@@ -3,6 +3,7 @@
     import Button from "$lib/components/Button.svelte"
     import Link from "$lib/components/Link.svelte"
     import Anchor from "$lib/components/Anchor.svelte"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let heading: string = undefined
     export let buttonLabel: string = undefined
@@ -22,7 +23,7 @@
 <section class="font-display bg-sarcastic-orange gap-y-4 flex flex-col py-10 px-12 text-white">
     <Anchor id={anchorId} />
     {#if heading}
-        <h5 class="tracking-px font-extralight text-center mx-auto text-xl">{heading}</h5>
+        <Heading class="text-center mx-auto">{heading}</Heading>
     {/if}
     {#if contentHtml}
         <div class="injected-content injected-content__large">

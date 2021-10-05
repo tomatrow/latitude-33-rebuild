@@ -68,7 +68,8 @@
 <script lang="ts">
     import { YouTube } from "$lib/svgs"
     import { openModal } from "$lib/components/ModalProvider.svelte"
-    import { Meta, Link, PostInfo, Anchor, EmbeddedVideoModal } from "$lib/components"
+    import { Meta, PostInfo, Anchor, EmbeddedVideoModal } from "$lib/components"
+    import Link, { themes } from "$lib/components/Link.svelte"
     import Colors from "$lib/data/colors.json"
     import { cssVars, classes } from "$lib/actions/styles"
     import Heading from "$lib/components/typography/Heading.svelte"
@@ -100,12 +101,8 @@
         {@html post.excerpt}
     </div>
     <Link
-        ease
-        border
         filled
-        shadow
-        color="pre-coffee-sky-blue"
-        class="block py-4 px-6 font-thin text-sm"
+        {...themes.dark("block text-sm")}
         href="#post">{acfOptionsPosts.postOptions.jumpLabel}</Link
     >
     <PostInfo {...post} />

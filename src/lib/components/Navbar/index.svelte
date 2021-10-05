@@ -7,7 +7,7 @@
     import Hover from "./Hover.svelte"
     import { fade } from "svelte/transition"
     import type { FadeParams } from "svelte/transition"
-    import Button from "$lib/components/Button.svelte"
+    import Button, { themes } from "$lib/components/Button.svelte"
     import { Menu, Cross } from "$lib/svgs"
 
     export let height = "6.25rem"
@@ -57,41 +57,40 @@
             src="/icons/latitude33-logo-blue.png"
         />
     </a>
-    <nav class="hidden full-nav:flex justify-around w-full">
+    <nav class="hidden full-nav:flex justify-around w-full items-center">
         {#each $session.menus.primary.menuItems as { label, url, childItems }}
-            <Hover let:hovering class="relative overflow-visible">
+            <Hover let:hovering class="relative overflow-visible flex justify-center items-center">
                 <Link
+                    active
                     sveltekit:prefetch
                     line={{ color: Colors["ripe-blueberry-indentation"] }}
-                    class="uppercase text-ripe-blueberry-indentation hover:text-ripe-blueberry-indentation"
+                    class="text-sm uppercase px-[20px] py-[10px] tracking-px text-ripe-blueberry-indentation"
                     href={url}>{label}</Link
                 >
                 {#if hovering && enabled}
-                    <div
-                        transition:fade={params}
-                        class="absolute top-[100%] left-0 w-auto bg-sadly-not-white"
+                    <div class="absolute top-[100%] left-0 w-auto bg-sadly-not-white"
                     >
                         {#each childItems as { label, url, childItems }}
                             <Hover let:hovering class="flex flex-col relative">
                                 <Link
+                                    active
                                     sveltekit:prefetch
                                     ease
-                                    class="uppercase font-light text-dark-charcoal whitespace-nowrap px-1 py-2 {hovering
+                                    class="uppercase tracking-px px-[20px] py-[10px] font-light text-dark-charcoal whitespace-nowrap text-sm {hovering
                                         ? 'bg-white'
                                         : ''}"
                                     href={url}>{label}</Link
                                 >
                                 {#if hovering}
-                                    <div
-                                        transition:fade={params}
-                                        class="absolute bg-sadly-not-white top-0 right-[100%] flex flex-col"
+                                    <div class="absolute bg-sadly-not-white top-0 left-[100%] flex flex-col"
                                     >
                                         {#each childItems as { label, url }}
                                             <Hover class="contents" let:hovering>
                                                 <Link
+                                                    active
                                                     sveltekit:prefetch
                                                     ease
-                                                    class="uppercase px-1 py-2 font-light text-dark-charcoal whitespace-nowrap {hovering
+                                                    class="uppercase text-sm tracking-px px-[20px] py-[10px] font-light text-dark-charcoal whitespace-nowrap {hovering
                                                         ? 'bg-white'
                                                         : ''}"
                                                     href={url}>{label}</Link
@@ -108,12 +107,9 @@
         {/each}
     </nav>
     <Link
-        ease
-        shadow
         filled
         sveltekit:prefetch
-        color="ripe-blueberry-indentation"
-        class="full-nav:block hidden p-2 text-center text-sm flex-shrink-0"
+        {...themes.dark("full-nav:block hidden text-sm flex-shrink-0")}
         href="/contact">Request a Quote</Link
     >
     <Button

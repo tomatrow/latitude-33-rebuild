@@ -49,7 +49,8 @@
 
 <script lang="ts">
     import { session } from "$app/stores"
-    import { Meta, Link } from "$lib/components"
+    import { Meta } from "$lib/components"
+    import Link, { themes } from "$lib/components/Link.svelte"
     import Body from "./_Body.svelte"
     import TaxonomyNav from "./_TaxonomyNav.svelte"
 
@@ -64,12 +65,8 @@
     {#if $session.postsPage}
         <Link
             sveltekit:prefetch
-            shadow
-            ease
             filled
-            border
-            color="either-gray-blue"
-            class="py-2 px-4 font-thin uppercase"
+            {...themes.dark()}
             href={$session.postsPage.href}
             >{acfOptionsTaxonomies.postsTaxonomyFields.allPostsLabel}</Link
         >

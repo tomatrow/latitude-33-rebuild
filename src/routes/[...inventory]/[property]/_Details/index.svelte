@@ -4,6 +4,7 @@
     import DetailsAccordionGroup from "./DetailsAccordionGroup.svelte"
     import { Anchor, GalleryCarousel } from "$lib/components"
     import type { AcfImage } from "$lib/index.type"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     export let title: string
     export let subheading: string
@@ -23,13 +24,12 @@
         {engines}
         {specsTitle}
         {engineSpecLabels}
-        class="bg-sarcastic-orange rounded-xl mx-auto p-3 w-full sm:max-w-md text-white"
+        class="bg-sarcastic-orange mx-auto p-3 w-full sm:max-w-md text-white"
         --injected-link-color={Colors["a-stormy-morning"]}
     >
-        <header class="font-display space-y-2 relative" slot="header">
+        <header slot="header">
             <Anchor id="details" --offset="2rem" />
-            <p class="font-extrabold text-sm">{subheading}</p>
-            <h2 class="text-4.5xl font-bold">{title}</h2>
+            <Heading reverse {subheading}>{title}</Heading>
         </header>
         <slot name="accordionFooter" slot="footer" />
     </DetailsAccordionGroup>
@@ -39,7 +39,7 @@
         <GalleryCarousel class="h-96 w-full max-w-xl" {gallery} />
         {#if secondaryImage}
             <!-- svelte-ignore a11y-missing-attribute  -->
-            <img class="rounded-xl" {...secondaryImage} />
+            <img {...secondaryImage} />
         {/if}
     </div>
 </section>

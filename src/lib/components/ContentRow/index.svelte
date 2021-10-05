@@ -50,7 +50,7 @@
     import type { AcfImage, AcfLink } from "$lib/index.type"
     import Heading, { increment } from "$lib/components/typography/Heading.svelte"
     import Colors from "$lib/data/colors.json"
-    import Link from "$lib/components/Link.svelte"
+    import Link, { themes } from "$lib/components/Link.svelte"
     import GalleryCarousel from "$lib/components/GalleryCarousel.svelte"
     import Content from "./Content.svelte"
     import Anchor from "$lib/components/Anchor.svelte"
@@ -106,22 +106,18 @@
                 {#if links.length > 0}
                     {#each links as link}
                         <Link
-                            border
-                            ease
-                            class="text-sm font-extralight bg-{scheme.mobile
-                                .button} hover:bg-white text-white hover:text-{scheme.mobile
-                                .button} px-4 py-2 inline-block"
-                            color={scheme.mobile.button}
+                            filled
+                            {...themes.dark("text-sm inline-block")}
                             {...link}
                         />
                     {/each}
                 {/if}
             </div>
         </div>
-        {#if gallery.length === 1}
+        {#if gallery?.length === 1}
             <!-- svelte-ignore a11y-missing-attribute -->
             <img class={galleryClasses} {...gallery[0]} />
-        {:else if gallery.length > 1}
+        {:else if gallery?.length > 1}
             <GalleryCarousel class="h-56 {galleryClasses}" {gallery} />
         {/if}
     </div>

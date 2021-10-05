@@ -3,7 +3,7 @@
     import Heading, { increment } from "$lib/components/typography/Heading.svelte"
     import { cssVars } from "$lib/actions/styles"
     import Colors from "$lib/data/colors.json"
-    import Link from "$lib/components/Link.svelte"
+    import Link, { themes } from "$lib/components/Link.svelte"
     import { prefetch } from "$app/navigation"
 
     export let heading: string = undefined
@@ -51,10 +51,8 @@
             {#if link}
                 <div class="mt-[10px]">
                     <Link
-                        border
-                        ease
-                        class="uppercase text-sm font-extralight bg-either-gray-blue hover:bg-white text-white hover:text-either-gray-blue px-4 py-2 font-display"
-                        color="either-gray-blue"
+                        filled
+                        {...themes.dark("text-sm inline-block")}
                         {...link}
                     >
                         <slot name="link">

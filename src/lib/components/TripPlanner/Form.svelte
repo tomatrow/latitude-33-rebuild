@@ -24,6 +24,8 @@
     import { goto } from "$app/navigation"
     import type { AcfLink } from "$lib/index.type"
     import type { Trip } from "./index.type"
+    import { themes } from "$lib/components/Button.svelte"
+    import Heading from "$lib/components/typography/Heading.svelte"
 
     import { format } from "date-fns"
     import { DateInput, nonEmptyString } from "./felte"
@@ -63,20 +65,20 @@
 
 <form use:form {id} class="text-white gap-4 flex items-start flex-col {clazz}">
     <slot name="title">
-        <h3 class="md:col-start-2 col-span-full text-center md:text-left text-3xl">Trip Planner</h3>
+        <Heading class="md:col-start-2 col-span-full text-center md:text-left">Trip Planner</Heading>
     </slot>
 
     <Field {...textStyle} required type="text" placeholder="Name" name="name">
-        <span class="font-light">Name:</span>
+        <span class="font-light uppercase tracking-px">Name:</span>
     </Field>
     <Field {...textStyle} required type="email" placeholder="Contact Email" name="email">
-        <span class="font-light">Contact Email:</span>
+        <span class="font-light uppercase tracking-px">Contact Email:</span>
     </Field>
     <Field {...textStyle} required type="tel" placeholder="Contact Phone" name="phone">
-        <span class="font-light">Contact Phone:</span>
+        <span class="font-light uppercase tracking-px">Contact Phone:</span>
     </Field>
 
-    <h4 class="font-light text-lg">Trip Details</h4>
+    <Heading small>Trip Details</Heading>
 
     <Field
         {...nonTextStyle}
@@ -88,7 +90,7 @@
         placeholder="Passengers"
         max={maxPassengers}
     >
-        <span class="font-light">Passengers:</span>
+        <span class="font-light uppercase tracking-px">Passengers:</span>
     </Field>
 
     <Field
@@ -99,7 +101,7 @@
         value={format(new Date(), "yyyy-MM-dd")}
         {...nonTextStyle}
     >
-        <span class="font-light">Departure Date:</span>
+        <span class="font-light uppercase tracking-px">Departure Date:</span>
     </Field>
 
     <AirportSelects
@@ -110,17 +112,14 @@
             selectClass:
                 "bg-opacity-20 overflow-ellipsis overflow-hidden py-2 px-4 w-full max-w-full sm:w-auto bg-white text-white appearance-none",
             rootClass: "flex w-full flex-col",
-            labelClass: "font-light"
+            labelClass: "font-light tracking-px uppercase"
         }}
     />
 
     <slot />
 
     <Button
-        shadow
-        border
-        ease
-        class="col-span-full justify-self-center py-2 px-4 font-light"
+        {...themes.light("col-span-full justify-self-center")}
         type="submit"
         title="Submit"
     />

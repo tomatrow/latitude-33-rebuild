@@ -1,6 +1,6 @@
 <script lang="ts">
     import { noop } from "svelte/internal"
-    import { Button } from "$lib/components"
+    import Button, { themes } from "$lib/components/Button.svelte"
     import Heading from "$lib/components/typography/Heading.svelte"
 
     let clazz = ""
@@ -14,14 +14,6 @@
 </script>
 
 <form class="{clazz} space-y-4 flex items-center flex-col" on:submit={noop}>
-    <!-- <h5 class="font-display text-either-gray-blue text-center font-bold text-xl">
-        {subheading}
-    </h5>
-    <h4
-        class="font-display text-2.5xl leading-9 sm:leading-12 md:text-3.5xl font-extralight max-w-2xl text-center"
-    >
-        {heading}
-    </h4> -->
     <Heading small reverse class="text-center">
         {heading}
         <span slot="subheading" class="text-either-gray-blue">{subheading}</span>
@@ -35,12 +27,7 @@
             type="email"
         />
         <Button
-            shadow
-            ease
-            filled
-            color="pre-coffee-sky-blue"
-            border
-            class="uppercase py-4 px-6 font-extralight text-sm"
+            {...themes.dark("text-sm")}
             type="submit"
             title={submitLabel}
         />
@@ -56,7 +43,7 @@
 <style lang="postcss" global>
     .injected-content.email-form {
         a {
-            @apply text-pre-coffee-sky-blue;
+            @apply text-a-stormy-morning;
         }
     }
 </style>

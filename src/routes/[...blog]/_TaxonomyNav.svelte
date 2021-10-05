@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Link } from "$lib/components"
+    import Link, { themes } from "$lib/components/Link.svelte"
     import { smoothEdges } from "$lib/scripts/utility"
 
     let clazz = ""
@@ -11,12 +11,7 @@
     {#each smoothEdges(taxonomies) as { name, href }}
         <Link
             sveltekit:prefetch
-            shadow
-            ease
-            border
-            filled
-            color="pre-coffee-sky-blue"
-            class="uppercase p-2 font-thin"
+            {...themes.dark()}
             {href}>{name}</Link
         >
     {/each}

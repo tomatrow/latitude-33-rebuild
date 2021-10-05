@@ -18,6 +18,9 @@
         <Link
             href={postFields.class.href}
             filled
+            ease
+            border
+            fill="white"
             color={postFields.class.postClassFields.color}
             class="py-2 px-3 uppercase font-extralight"
         >

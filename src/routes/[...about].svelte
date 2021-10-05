@@ -48,6 +48,9 @@
 
 <div class="relative">
     <Banner {...banner}>
+        <div class="injected-content w-full py-6 lg:pr-6 lg:w-1/3 xl:w-1/2">
+            {@html banner.contentHtml}
+        </div>
         <div class="lg:absolute lg:inset-0 flex items-center justify-end pointer-events-none">
             <div class="w-full lg:w-5/12 xl:w-1/2">
                 <div class="aspect-w-16 aspect-h-9 my-4 mr-4 ml-auto w-full bg-black">
