@@ -116,7 +116,10 @@
         class="full-nav:block hidden p-2 text-center text-sm flex-shrink-0"
         href="/contact">Request a Quote</Link
     >
-    <Button on:click={show} class="min-w-[2rem] ml-auto w-8 h-8 hover:opacity-60 full-nav:hidden duration-200">
+    <Button
+        on:click={show}
+        class="min-w-[2rem] ml-auto w-8 h-8 hover:opacity-60 full-nav:hidden duration-200"
+    >
         <Menu />
     </Button>
 </header>

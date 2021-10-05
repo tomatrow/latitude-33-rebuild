@@ -74,12 +74,16 @@
             )
             .join(" ")
     }
-    
+
     const galleryClasses = "md:max-w-[31%] w-full self-start flex-shrink-0 ml-auto"
 </script>
 
 <section class="relative px-5 py-4 sm:px-[60px] sm:py-[30px]">
-    <div class="z-[-1] absolute left-0 top-0 bottom-0 w-full md:w-[70%] {descheme({ bg: 'midground' })}" />
+    <div
+        class="z-[-1] absolute left-0 top-0 bottom-0 w-full md:w-[70%] {descheme({
+            bg: 'midground'
+        })}"
+    />
     <div class="flex flex-col-reverse md:flex-row gap-4">
         <div class="mt-[20px] space-y-[10px]">
             <Heading {subheading}>
@@ -89,7 +93,12 @@
             </Heading>
             <div class="w-full sm:w-[60%] space-y-4">
                 <slot>
-                    <Content class="content-row-injection" {contentHtml} --mobile={Colors[scheme.mobile.link]} --desktop={Colors[scheme.desktop?.link] ?? Colors[scheme.mobile.link]} />
+                    <Content
+                        class="content-row-injection"
+                        {contentHtml}
+                        --mobile={Colors[scheme.mobile.link]}
+                        --desktop={Colors[scheme.desktop?.link] ?? Colors[scheme.mobile.link]}
+                    />
                 </slot>
                 {#if links.length > 0}
                     {#each links as link}
@@ -110,10 +119,7 @@
             <!-- svelte-ignore a11y-missing-attribute -->
             <img class={galleryClasses} {...gallery[0]} />
         {:else if gallery.length > 1}
-            <GalleryCarousel
-                class="h-44 {galleryClasses}"
-                {gallery}
-            />
+            <GalleryCarousel class="h-44 {galleryClasses}" {gallery} />
         {/if}
     </div>
     {#if line}

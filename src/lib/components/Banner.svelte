@@ -17,15 +17,16 @@
 
     let clazz = ""
     export { clazz as class }
-    
+
     const bgClasses = "z-[-1] absolute inset-0 w-full h-full"
 </script>
 
-<section
-    class="text-white relative {clazz}"
->
+<section class="text-white relative {clazz}">
     <Anchor id={anchorId} />
-    <div class="px-5 md:px-[3.75rem] flex items-center justify-start w-full min-h-[500px]" style="background-image: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32))">
+    <div
+        class="px-5 md:px-[3.75rem] flex items-center justify-start w-full min-h-[500px]"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32))"
+    >
         <div class="space-y-6 w-full">
             <Heading large {subheading}>
                 {title}
@@ -46,16 +47,20 @@
         </div>
     </div>
     {#if $$slots.sources}
-        <Video 
+        <Video
             autoplay
             loop
             muted
             playsinline
             class="object-cover {bgClasses}"
-            poster={backgroundImage}>
+            poster={backgroundImage}
+        >
             <slot name="sources" />
         </Video>
     {:else if backgroundImage}
-        <div class="bg-fixed bg-cover bg-center {bgClasses}" style="background-image: url({backgroundImage?.src})" />
+        <div
+            class="bg-fixed bg-cover bg-center {bgClasses}"
+            style="background-image: url({backgroundImage?.src})"
+        />
     {/if}
 </section>

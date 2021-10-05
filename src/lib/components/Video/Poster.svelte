@@ -8,8 +8,5 @@
 
 {#if image}
     <!-- svelte-ignore a11y-missing-attribute -->
-    <img
-        class={clazz}
-        {...image}
-    />
+    <img class={clazz} {...image} />
 {/if}

@@ -91,7 +91,7 @@
             }
         `
     }
-    
+
     type ContentBase = Partial<typeof ContentType> & Record<string, any>
     interface Content extends ContentBase {
         anchorId?: string
@@ -106,18 +106,18 @@
     import CtaBar from "./CtaBar.svelte"
 
     export let content: Content[] = []
-    
+
     $: rows = content.map(rowType)
-    
+
     function mutable(value: any) {
         return JSON.parse(JSON.stringify(value))
     }
-    
+
     function tag(_content: typeof content) {
         return _content.map(fields => ({ fields: mutable(fields), type: rowType(fields) }))
     }
-    
-    // todo: remove the need for this 
+
+    // todo: remove the need for this
     function deChecker({ anchorId, checkers }: Content) {
         return {
             anchorId,
@@ -137,7 +137,7 @@
     {:else if type === ContentType.OFFERINGS}
         <Offerings {...fields} />
     {:else if type === ContentType.BANNER}
-        <Banner  {...fields} />
+        <Banner {...fields} />
     {:else if type === ContentType.CHECKERS}
         <Offerings {...deChecker(fields)} />
     {:else if type === ContentType.CALL}
