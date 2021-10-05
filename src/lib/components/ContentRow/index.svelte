@@ -49,7 +49,6 @@
 <script lang="ts">
     import type { AcfImage, AcfLink } from "$lib/index.type"
     import Heading, { increment } from "$lib/components/typography/Heading.svelte"
-    import { cssVars } from "$lib/actions/styles"
     import Colors from "$lib/data/colors.json"
     import Link from "$lib/components/Link.svelte"
     import GalleryCarousel from "$lib/components/GalleryCarousel.svelte"
@@ -75,10 +74,12 @@
             )
             .join(" ")
     }
+    
+    const galleryClasses = "md:max-w-[31%] w-full self-start flex-shrink-0 ml-auto"
 </script>
 
 <section class="relative px-5 py-4 sm:px-[60px] sm:py-[30px]">
-    <div class="z-[-1] absolute left-0 top-0 bottom-0 sm:w-[70%] {descheme({ bg: 'midground' })}" />
+    <div class="z-[-1] absolute left-0 top-0 bottom-0 w-full md:w-[70%] {descheme({ bg: 'midground' })}" />
     <div class="flex flex-col-reverse md:flex-row gap-4">
         <div class="mt-[20px] space-y-[10px]">
             <Heading {subheading}>
@@ -107,10 +108,10 @@
         </div>
         {#if gallery.length === 1}
             <!-- svelte-ignore a11y-missing-attribute -->
-            <img class="md:max-w-[31%] w-full self-start flex-shrink-0" {...gallery[0]} />
+            <img class={galleryClasses} {...gallery[0]} />
         {:else if gallery.length > 1}
             <GalleryCarousel
-                class="md:max-w-[31%] h-44 w-full self-start flex-shrink-0"
+                class="h-44 {galleryClasses}"
                 {gallery}
             />
         {/if}
