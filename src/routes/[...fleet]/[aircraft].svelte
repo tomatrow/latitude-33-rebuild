@@ -31,7 +31,6 @@
     import {
         Link,
         Meta,
-        CheckerItem,
         TestimonialExpose,
         Anchor,
         CtaBar,
