@@ -34,12 +34,6 @@
                     ... on ${base}_Genericpagefields_FlexibleContent_OfferingList {
                         ${ContentType.OFFERINGS}: fieldGroupName
                         anchorId
-                        style {
-                            backgroundColor
-                            hasCorner
-                            largeCornerImage
-                            layout
-                        }
                         offerings {
                             title
                             subheading
@@ -97,6 +91,11 @@
             }
         `
     }
+    
+    type ContentBase = Partial<typeof ContentType> & Record<string, any>
+    interface Content extends ContentBase {
+        anchorId?: string
+    }
 </script>
 
 <script lang="ts">
@@ -106,59 +105,43 @@
     import Checkers from "./Checkers/CheckerList.svelte"
     import CtaBar from "./CtaBar.svelte"
 
-    export let content = []
-    export let topFlush: boolean = true
-    export let bottomFlush: boolean = true
-    const rows = content.map(rowType)
-
-    function spacing(index: number) {
-        const isOffering = (value: string) => ContentType.OFFERINGS === value
-
-        const curr = rows[index]
-
-        if (!isOffering(curr)) return {}
-
-        function sameColorOfferings(leftIndex: number, rightIndex: number) {
-            if (!(isOffering(rows[leftIndex]) && isOffering(rows[rightIndex]))) return false
-
-            return (
-                content[leftIndex].style.backgroundColor ===
-                content[rightIndex].style.backgroundColor
-            )
-        }
-
-        function top() {
-            if (content[index].style.hasCorner) return true
-            else if (index === 0) return topFlush
-            else if (sameColorOfferings(index - 1, index)) return true
-            else return true
-        }
-
-        function bottom() {
-            if (index === rows.length - 1) return bottomFlush
-            else if (sameColorOfferings(index, index + 1)) return true
-            else return true
-        }
-
+    export let content: Content[] = []
+    
+    $: rows = content.map(rowType)
+    
+    function mutable(value: any) {
+        return JSON.parse(JSON.stringify(value))
+    }
+    
+    function tag(_content: typeof content) {
+        return _content.map(fields => ({ fields: mutable(fields), type: rowType(fields) }))
+    }
+    
+    // todo: remove the need for this 
+    function deChecker({ anchorId, checkers }: Content) {
         return {
-            top: top(),
-            bottom: bottom()
+            anchorId,
+            offerings: checkers.map(({ title, image, contentHtml }) => ({
+                title,
+                image,
+                contentHtml
+            }))
         }
     }
 </script>
 
-{#each content as fields, index}
+{#each tag(content) as { fields, type }, index}
     <slot name="before" {index} {rows} />
-    {#if rows[index] === ContentType.BLURBS}
-        <Blurbs isFlush={spacing(index)} {...fields} />
-    {:else if rows[index] === ContentType.OFFERINGS}
-        <Offerings isFlush={spacing(index)} {...fields} />
-    {:else if rows[index] === ContentType.BANNER}
-        <Banner isFlush={spacing(index)} {...fields} />
-    {:else if rows[index] === ContentType.CHECKERS}
-        <Checkers isFlush={spacing(index)} {...fields} />
-    {:else if rows[index] === ContentType.CALL}
-        <CtaBar isFlush={spacing(index)} {...fields} />
+    {#if type === ContentType.BLURBS}
+        <Blurbs {...fields} />
+    {:else if type === ContentType.OFFERINGS}
+        <Offerings {...fields} />
+    {:else if type === ContentType.BANNER}
+        <Banner  {...fields} />
+    {:else if type === ContentType.CHECKERS}
+        <Offerings {...deChecker(fields)} />
+    {:else if type === ContentType.CALL}
+        <CtaBar {...fields} />
     {/if}
     <slot name="after" {index} {rows} />
 {/each}
