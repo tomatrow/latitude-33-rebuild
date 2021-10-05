@@ -8,17 +8,12 @@
     import { fade } from "svelte/transition"
     import type { FadeParams } from "svelte/transition"
     import Button from "$lib/components/Button.svelte"
+    import { Menu, Cross } from "$lib/svgs"
 
     export let height = "6.25rem"
     let active: boolean
     let closeDropdown: () => void
     let enabled = true
-
-    // const menu = $session.menus.primary.menuItems.map((item, index) => ({
-    //     title: item.label,
-    //     dropdown: item.childItems.length > 0 ? String(index) : null,
-    //     ...item
-    // }))
 
     $: browser && document.body.classList[active ? "add" : "remove"]("lock-scroll")
     function handleNavigation() {
@@ -121,10 +116,8 @@
         class="full-nav:block hidden p-2 text-center text-sm flex-shrink-0"
         href="/contact">Request a Quote</Link
     >
-    <Button on:click={show} class="full-nav:hidden vsm-mob__hamburger">
-        <div class="vsm-mob-line" />
-        <div class="vsm-mob-line" />
-        <div class="vsm-mob-line" />
+    <Button on:click={show} class="min-w-[2rem] ml-auto w-8 h-8 hover:opacity-60 full-nav:hidden duration-200">
+        <Menu />
     </Button>
 </header>
 
@@ -133,7 +126,9 @@
         transition:fade
         class="absolute overflow-y-scroll inset-0 z-50 divide-a-taste-of-blueberries divide-y-2 bg-sadly-not-white flex flex-col p-5"
     >
-        <div class="vsm-mob-close fixed top-4 right-4" on:click={hide} />
+        <Button class="fixed top-4 right-4 w-10 h-10 hover:opacity-60 duration-200" on:click={hide}>
+            <Cross />
+        </Button>
         {#each $session.menus.primary.menuItems as { label, target, url, childItems }}
             <div class="p-6" class:space-y-4={childItems.length}>
                 <Link sveltekit:prefetch class="font-thin text-lg" {target} href={url}>{label}</Link
