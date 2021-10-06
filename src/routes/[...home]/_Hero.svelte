@@ -10,7 +10,7 @@
 <Banner
     {title}
     subheading={brandName}
-    footer={{ link: pageLink }}
+    links={pageLink ? [pageLink] :[]}
     backgroundImage={{
         src: "/videos/hero-poster.webp",
         alt: "family embarking of plane trip"

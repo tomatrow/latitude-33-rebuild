@@ -1,5 +1,7 @@
 <script lang="ts">
     import Form from "./Form.svelte"
+    import type { ACfLink } from "$lib/index.type"
+    
     let clazz = ""
     export { clazz as class }
     export let airports: any[]
@@ -8,12 +10,12 @@
 </script>
 
 <div
-    class="{clazz} grid grid-cols-1 place-content-center md:grid-cols-2 gap-8 md:gap-0 items-center justify-center"
+    class="{clazz} flex flex-col md:flex-row gap-8 md:gap-0"
 >
-    <div class="flex flex-col gap-y-8 relative md:h-full trip-text-card w-full h-full">
+    <div class="flex flex-col gap-y-8 relative md:h-auto md:w-[70%] trip-text-card w-full h-full">
         <!-- svelte-ignore a11y-missing-attribute -->
         <img
-            class="  md:hidden  rounded-2xl h-full object-top   object-cover   border-opacity-80 mx-auto   w-full border border-white"
+            class="md:hidden h-full object-top object-cover border-opacity-80 mx-auto w-full border border-white"
             src="/images/Pilatus-PC-12-NG-Exterior-2-1-1024x683.jpeg"
         />
         <div class="font-display flex items-center justify-center  h-full px-8  w-full text-white">
@@ -38,7 +40,7 @@
         {fleet}
         {successPageLink}
         id="trip-planner-form"
-        class="mx-auto my-4 md:my-12"
+        class="mx-auto my-4 md:my-12 md:w-[30%] flex-shrink-0 md:p-2"
     />
 </div>
 
